@@ -126,10 +126,45 @@ body.light .heading h2,body.light .champ-info h3{color:#182027}
 .ability-card{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04)}
 .ability-card img{width:48px;height:48px;object-fit:cover;border-radius:8px;flex:none}
 .ability-card b{display:block;margin-bottom:5px}
-.ability-card p{margin:0;line-height:1.55;font-size:.92rem;opacity:.9}
+.ability-card p{margin:0;line-height:1.55;font-size:.92rem;opacity:.9;white-space:pre-line}
 .champ-modal-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
 .champ-modal-head img{width:72px;height:72px;border-radius:12px;object-fit:cover}
 .modal-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+
+.champ-aliases{margin:10px 0 6px;color:#9ddff0;font-size:13px}
+.champ-aliases .tag{margin-left:4px;background:#0f1a22;border-color:#2a4a58}
+
+.champ-quote{
+  margin:14px 0;padding:12px 16px;
+  background:linear-gradient(90deg,rgba(200,170,110,.08),rgba(0,217,255,.04));
+  border-left:3px solid #c8aa6e;border-radius:0 8px 8px 0;
+  color:#e0d8c8;font-style:italic;font-size:14px;line-height:1.7;
+}
+
+.counter-section{margin:10px 0 16px;padding:12px;background:#0d151c;border:1px solid #1e2b35;border-radius:10px}
+.counter-section p{margin:6px 0;font-size:13px}
+.counter-label{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:800;margin-right:6px}
+.counter-label.weak{background:rgba(231,76,60,.15);color:#e74c3c;border:1px solid rgba(231,76,60,.4)}
+.counter-label.strong{background:rgba(46,204,113,.12);color:#2ecc71;border:1px solid rgba(46,204,113,.35)}
+.counter-weak{background:rgba(231,76,60,.12);border-color:rgba(231,76,60,.35);color:#e88}
+.counter-strong{background:rgba(46,204,113,.1);border-color:rgba(46,204,113,.3);color:#7e9}
+
+.rune-direction{
+  margin:10px 0 16px;
+  padding:14px 16px;
+  background:linear-gradient(180deg,#0d151c,#0a1016);
+  border:1px solid #1e2b35;
+  border-radius:12px;
+}
+.rune-desc{color:#9da9b2;font-size:13px;line-height:1.7;margin:0 0 12px}
+.rune-tree{margin:10px 0;padding:10px 12px;background:#0b131b;border:1px solid #1a242d;border-radius:8px}
+.rune-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:6px 0}
+.rune-label{font-size:11px;font-weight:800;color:#76838d;letter-spacing:1px;text-transform:uppercase;min-width:40px}
+.rune-keystone{color:#f0eadb;font-weight:700;font-size:14px;text-shadow:0 0 10px rgba(200,170,110,.3)}
+.rune-tree strong{color:#00d9ff;font-size:13px}
+.rune-tree .tag{background:#0f1a22;border-color:#2a4a58;color:#9ddff0;font-size:11px}
+.rune-note{margin:10px 0 4px;color:#c0c8cf;font-size:12px;line-height:1.6}
+.rune-source{margin:6px 0 0;color:#5a6772;font-size:11px}
 
 @media(max-width:1000px){
   .card-grid{grid-template-columns:repeat(3,1fr)}
