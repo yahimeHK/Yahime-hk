@@ -85,26 +85,19 @@ Object.entries(roleGroups).forEach(([role, names]) => names.forEach(name => {
 const classMap = { Fighter: '戰士', Mage: '法師', Assassin: '刺客', Marksman: '射手', Support: '輔助', Tank: '坦克' };
 let champions = [];
 let ddragonData = {};
-let runeData = [];
-let itemData = {};
 
 const splash = n => `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${n}_0.jpg`;
 const icon = n => `https://ddragon.leagueoflegends.com/cdn/${DDragonVersion}/img/champion/${n}.png`;
 const spellIcon = n => `https://ddragon.leagueoflegends.com/cdn/${DDragonVersion}/img/spell/${n}.png`;
 
-function slugify(n) {
-    return String(n || '').toLowerCase().replace(/&/g, '').replace(/[.'’]/g, '').replace(/[^a-z0-9]+/g, '');
-}
-
+function slugify(n) { return String(n || '').toLowerCase().replace(/&/g, '').replace(/[.'’]/g, '').replace(/[^a-z0-9]+/g, ''); }
 const slugOverrides = { 'Nunu & Willump': 'nunu', 'Dr. Mundo': 'drmundo' };
 function guideUrl(c) { return LiveGuideBase + (slugOverrides[c.keyName] || slugify(c.keyName || c.name)); }
 function counterUrl(c) {
     const role = (c.roles && c.roles[0]) || '中路';
     return CounterBase + (slugOverrides[c.keyName] || slugify(c.keyName || c.name)) + '/' + (roleSlug[role] || 'middle');
 }
-function classify(info) { return (info.tags || []).map(t => classMap[t] || t).join('／') || '未分類'; }
 function difficulty(info) { const d = Number(info.info?.difficulty || 5); return d <= 3 ? '簡單' : d <= 6 ? '中等' : '困難'; }
-
 function playstyle(c) {
     const tags = c.tags || [];
     if (tags.includes('Assassin')) return '刺客爆發／側翼切入';
@@ -114,7 +107,6 @@ function playstyle(c) {
     if (tags.includes('Mage')) return '技能消耗／控場／爆發';
     return '戰士近戰／持續作戰';
 }
-
 function itemRuneNote(c) {
     const tags = c.tags || [];
     if (tags.includes('Marksman')) return { rune: '以 Precision 系為核心，按對線選擇攻速、持續輸出或爆發型符文。', items: '鞋子＋核心攻擊裝，再按敵方前排、護甲與爆發調整。' };
@@ -125,7 +117,6 @@ function itemRuneNote(c) {
     return { rune: '以 Precision／Resolve 等耐久或持續作戰方向為主，按對線調整。', items: '戰士核心裝＋鞋子，再按敵方護甲、魔抗與控制調整。' };
 }
 
-/* 裝備頁：玩法方向盤 */
 function renderBuilds() {
     const presets = [
         ['符文', '📜', '符文不是固定答案：以目前角色定位與對線任務選擇主系，再用副系補足弱點。'],
@@ -197,13 +188,9 @@ function renderChampions() {
 }
 
 function abilityHTML(c) {
-    const pass = c.passive
-        ? `<div class="ability-card"><img src="${spellIcon(c.passive.image.full)}" onerror="this.style.display='none'"><div><b>被動｜${escapeHTML(c.passive.name)}</b><p>${escapeHTML(c.passive.description)}</p></div></div>`
-        : '';
+    const pass = c.passive ? `<div class="ability-card"><img src="${spellIcon(c.passive.image.full)}" onerror="this.style.display='none'"><div><b>被動｜${escapeHTML(c.passive.name)}</b><p>${escapeHTML(c.passive.description)}</p></div></div>` : '';
     const letters = ['Q', 'W', 'E', 'R'];
-    const spells = (c.spells || []).slice(0, 4).map((s, i) =>
-        `<div class="ability-card"><img src="${spellIcon(s.image.full)}" onerror="this.style.display='none'"><div><b>${letters[i]}｜${escapeHTML(s.name)}</b><p>${escapeHTML(s.description).replace(/\n/g, ' ')}</p></div></div>`
-    ).join('');
+    const spells = (c.spells || []).slice(0, 4).map((s, i) => `<div class="ability-card"><img src="${spellIcon(s.image.full)}" onerror="this.style.display='none'"><div><b>${letters[i]}｜${escapeHTML(s.name)}</b><p>${escapeHTML(s.description).replace(/\n/g, ' ')}</p></div></div>`).join('');
     return pass + spells;
 }
 
@@ -216,19 +203,9 @@ function openChampion(name) {
     const build = itemRuneNote(c);
     const body = $('modalBody');
     if (!body) return;
-    body.innerHTML =
-        `<div class="champ-modal-head"><img src="${icon(c.img)}" alt="${escapeHTML(c.name)}"><div><span class="tag">${c.roles.join('／')}</span><span class="tag">${escapeHTML(c.classes.join('／'))}</span><span class="tag">${c.difficulty}</span><h2>⚔ ${escapeHTML(c.name)}</h2><p>${escapeHTML(c.title || '')}</p></div></div>` +
-        `<h3>⚡ 被動 / Q / W / E / R</h3><div class="ability-grid">${abilityHTML(c)}</div>` +
-        `<h3>🎯 玩法</h3><p>${escapeHTML(c.style)}。${escapeHTML(c.blurb || '')}</p>` +
-        `<h3>📜 符文方向</h3><p>${escapeHTML(build.rune)}</p>` +
-        `<h3>🛒 裝備方向</h3><p>${escapeHTML(build.items)}</p>` +
-        `<div class="modal-links"><a class="small-btn" href="${guide}" target="_blank" rel="noopener">查看 26.19 Build／符文／技能順序</a><a class="small-btn" href="${counter}" target="_blank" rel="noopener">查看 26.19 Counter／對線</a></div>` +
-        `<h3>🧠 官方對手提示</h3><ul>${tips || '<li>此英雄目前資料未提供額外對手提示。</li>'}</ul>`;
+    body.innerHTML = `<div class="champ-modal-head"><img src="${icon(c.img)}" alt="${escapeHTML(c.name)}"><div><span class="tag">${c.roles.join('／')}</span><span class="tag">${escapeHTML(c.classes.join('／'))}</span><span class="tag">${c.difficulty}</span><h2>⚔ ${escapeHTML(c.name)}</h2><p>${escapeHTML(c.title || '')}</p></div></div><h3>⚡ 被動 / Q / W / E / R</h3><div class="ability-grid">${abilityHTML(c)}</div><h3>🎯 玩法</h3><p>${escapeHTML(c.style)}。${escapeHTML(c.blurb || '')}</p><h3>📜 符文方向</h3><p>${escapeHTML(build.rune)}</p><h3>🛒 裝備方向</h3><p>${escapeHTML(build.items)}</p><div class="modal-links"><a class="small-btn" href="${guide}" target="_blank" rel="noopener">查看 26.19 Build／符文／技能順序</a><a class="small-btn" href="${counter}" target="_blank" rel="noopener">查看 26.19 Counter／對線</a></div><h3>🧠 官方對手提示</h3><ul>${tips || '<li>此英雄目前資料未提供額外對手提示。</li>'}</ul>`;
     const modal = $('modal');
-    if (modal) {
-        modal.classList.add('show');
-        modal.setAttribute('aria-hidden', 'false');
-    }
+    if (modal) { modal.classList.add('show'); modal.setAttribute('aria-hidden', 'false'); }
 }
 
 function renderCounter() {
@@ -256,9 +233,7 @@ function renderComments() {
     const el = $('commentList');
     if (!el) return;
     const data = JSON.parse(localStorage.getItem('lolV4Comments') || '[]');
-    el.innerHTML = data.length
-        ? data.map(c => `<article class="comment"><header><strong>${escapeHTML(c.name)}</strong><span>${escapeHTML(c.time)}</span></header><p>${escapeHTML(c.text)}</p></article>`).join('')
-        : '<div class="empty">暫時未有留言，第一個留言由你開始！</div>';
+    el.innerHTML = data.length ? data.map(c => `<article class="comment"><header><strong>${escapeHTML(c.name)}</strong><span>${escapeHTML(c.time)}</span></header><p>${escapeHTML(c.text)}</p></article>`).join('') : '<div class="empty">暫時未有留言，第一個留言由你開始！</div>';
 }
 
 async function loadGameData() {
@@ -281,22 +256,14 @@ async function loadGameData() {
         const c = ddragonData[s.img] || ddragonData[s.name];
         if (!c) {
             return {
-                name: s.name,
-                keyName: s.name,
-                img: s.img,
+                name: s.name, keyName: s.name, img: s.img,
                 roles: championRoleMap[s.name] || ['中路'],
-                classes: ['未分類'],
-                difficulty: '中等',
-                style: '離線模式：英雄簡介暫未載入',
-                spells: [],
-                passive: null
+                classes: ['未分類'], difficulty: '中等',
+                style: '離線模式：英雄簡介暫未載入', spells: [], passive: null
             };
         }
         return {
-            ...c,
-            name: c.name || s.name,
-            keyName: s.name,
-            img: s.img,
+            ...c, name: c.name || s.name, keyName: s.name, img: s.img,
             roles: championRoleMap[s.name] || ['中路'],
             classes: (c.tags || []).map(t => classMap[t] || t),
             difficulty: difficulty(c),
@@ -311,8 +278,7 @@ async function loadGameData() {
         select.innerHTML = '';
         champions.forEach(c => {
             const o = document.createElement('option');
-            o.value = c.name;
-            o.textContent = c.name;
+            o.value = c.name; o.textContent = c.name;
             select.appendChild(o);
         });
         renderCounter();
@@ -366,10 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = $('closeModal');
     if (closeModal) closeModal.onclick = () => {
         const modal = $('modal');
-        if (modal) {
-            modal.classList.remove('show');
-            modal.setAttribute('aria-hidden', 'true');
-        }
+        if (modal) { modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); }
     };
 
     const modal = $('modal');
