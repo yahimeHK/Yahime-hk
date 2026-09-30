@@ -1,0 +1,323 @@
+---
+
+### 📄 2. `style.css` (2026 官網黑金與科技發光美學)
+請用以下樣式完整替換您的 `style.css`：
+
+```css
+/* ==========================================================================
+   1. 2026 官網全域風格與頂部大 Banner 樣式
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Segoe UI', Microsoft JhengHei, sans-serif;
+    background-color: #030609; /* 更深邃的黑夜，呼應官網黑底 */
+    color: #f0e6d2; /* 官網專屬淡米白字 */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 🌐 頂部官網旗艦大 Banner */
+.lol-hero-banner {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    background: url('https://unsplash.com') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 3px solid #1e2830;
+    transition: all 0.5s ease;
+}
+.banner-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(3,6,9,0.3) 0%, rgba(3,6,9,0.9) 100%);
+}
+.banner-content {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    padding: 0 20px;
+}
+.worlds-tag {
+    color: #00d9ff;
+    font-weight: bold;
+    letter-spacing: 4px;
+    font-size: 14px;
+    text-shadow: 0 0 10px rgba(0,217,255,0.5);
+    margin-bottom: 5px;
+}
+.main-title {
+    font-size: 48px;
+    margin: 10px 0;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+}
+.banner-subtitle {
+    color: #cdbe91;
+    font-size: 16px;
+    margin-bottom: 25px;
+}
+
+/* 網頁主容器 */
+.container {
+    max-width: 950px;
+    width: calc(100% - 40px);
+    background-color: #0b1116; /* 官網深海藍黑 */
+    padding: 30px;
+    margin: -40px 0 60px 0; /* 讓容器往上疊加到 Banner 上，產生層次感 */
+    border-radius: 8px;
+    border: 1px solid #1e2830;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    position: relative;
+    z-index: 10;
+    transition: all 0.5s ease;
+}
+
+h1, h2, h3 {
+    color: #c8aa6e; /* LOL 金色 */
+    border-bottom: 1px solid #1e2830;
+    padding-bottom: 10px;
+    letter-spacing: 1px;
+}
+.intro-text {
+    color: #a0a5b0;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ==========================================================================
+   2. 官網快捷導覽選單與海克斯按鈕
+   ========================================================================== */
+.nav-menu {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    background-color: #121921;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #1e2830;
+}
+.nav-btn {
+    background: transparent;
+    border: 1px solid #c8aa6e;
+    color: #c8aa6e;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    flex: 1;
+    text-align: center;
+    min-width: 120px;
+}
+.nav-btn:hover {
+    background-color: #c8aa6e;
+    color: #030609;
+}
+.hextech-btn {
+    background: linear-gradient(135deg, #113c54 0%, #005a82 100%);
+    border: 1px solid #005a82;
+    color: #cdbe91;
+    padding: 12px 26px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 90, 130, 0.4);
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+.hextech-btn:hover {
+    background: linear-gradient(135deg, #005a82 0%, #00d9ff 100%);
+    border-color: #00d9ff;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.7);
+}
+
+/* 區塊標題排版 */
+.format-section {
+    margin-top: 35px;
+    padding: 20px;
+    background-color: #0e161d;
+    border-radius: 6px;
+    border: 1px solid #1a242d;
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e2830;
+    padding-bottom: 5px;
+    flex-wrap: wrap;
+}
+.section-header h3 { border: none; padding: 0; margin: 5px 0;}
+.format-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.tag-jpg { background-color: #7a5c1d; color: #ffe6a3; }
+.tag-png { background-color: #1c5270; color: #a3e2ff; }
+.tag-svg { background-color: #4c286a; color: #f2a3ff; }
+
+/* ==========================================================================
+   3. 旗艦級多圖響應式網格 (14 JPG / 13 PNG 排版)
+   ========================================================================== */
+/* JPG 相簿網格 */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+}
+.gallery-item {
+    background-color: #121921;
+    border-radius: 4px;
+    padding: 8px;
+    border: 1px solid #1e2830;
+    transition: all 0.3s ease;
+}
+.lol-bg-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 2px;
+    border: 1px solid #3c4856; 
+}
+.gallery-item:hover {
+    border-color: #c8aa6e;
+    background-color: #16222d;
+}
+.image-caption {
+    font-size: 12px;
+    color: #cdbe91;
+    margin-top: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* PNG 英雄多欄響應式網格 */
+.png-gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+    margin: 15px 0;
+}
+.png-display-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle, #141f29 0%, #070b0e 100%);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #1e2830;
+    transition: all 0.3s ease;
+    min-height: 140px;
+}
+.lol-png-hero {
+    width: 100%;
+    height: 95px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+    transition: all 0.3s ease;
+}
+.fallback-circle {
+    width: 50px; height: 50px; border-radius: 50%; display: none;
+}
+.png-display-area:hover {
+    border-color: #c8aa6e;
+}
+.png-display-area:hover .lol-png-hero {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 0 10px rgba(200, 170, 110, 0.6));
+}
+
+/* SVG 展示區 */
+.svg-display-area {
+    display: flex;
+    justify-content: center;
+    background-color: #070b0e;
+    padding: 25px;
+    border-radius: 4px;
+    margin: 15px 0;
+    border: 1px solid #1e2830;
+}
+.lol-svg-logo { width: 80px; height: 80px; fill: #c8aa6e; transition: all 0.3s ease; }
+
+/* 下層分頁清單 */
+.sub-page {
+    background-color: #0e161d;
+}
+.gameplay-list {
+    list-style-type: none; padding-left: 0;
+}
+.gameplay-list li {
+    position: relative; padding-left: 20px; margin-bottom: 10px; line-height: 1.6; color: #a0a5b0; font-size: 14px;
+}
+.gameplay-list li::before {
+    content: "◆"; position: absolute; left: 0; color: #c8aa6e; font-size: 11px;
+}
+
+/* ==========================================================================
+   4. 🔵 2026 官網海克斯科技激活炫藍效果 (.hextech-active)
+   ========================================================================== */
+/* Banner 注入霓虹特效 */
+.lol-hero-banner.hextech-active {
+    border-bottom-color: #00d9ff;
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
+}
+/* 主外框注入強烈發光效果 */
+.container.hextech-active {
+    border-color: #00d9ff;
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
+}
+
+/* 14張 JPG 大圖同步注入發光與呼吸動畫 */
+.container.hextech-active .lol-bg-img {
+    border-color: #00d9ff;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
+    animation: pulseJpg 2.5s infinite ease-in-out;
+}
+
+/* 13款 PNG 英雄同步啟用官網經典浮空與幽藍背暈 */
+.container.hextech-active .lol-png-hero {
+    filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.85));
+    animation: floatHero 3.5s infinite ease-in-out;
+}
+
+/* 透過倍數延遲，讓27張圖片產生完美的波浪流動感 */
+.container.hextech-active .gallery-item:nth-child(2n) .lol-bg-img,
+.container.hextech-active .png-display-area:nth-child(2n) .lol-png-hero { animation-delay: 0.4s; }
+.container.hextech-active .gallery-item:nth-child(3n) .lol-bg-img,
+.container.hextech-active .png-display-area:nth-child(3n) .lol-png-hero { animation-delay: 0.8s; }
+
+.container.hextech-active .lol-svg-logo {
+    fill: #00d9ff;
+    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.7));
+}
+
+@keyframes pulseJpg {
+    0% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 217, 255, 0.3); }
+    50% { transform: scale(1.015); box-shadow: 0 0 22px rgba(0, 217, 255, 0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 217, 255, 0.3); }
+}
+@keyframes floatHero {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}

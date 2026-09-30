@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《英雄聯盟》官方網站 - 2026 傳奇與電競核心實驗室</title>
+    <!-- 引入外部 CSS 樣式表 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 🌐 2026 官網頂部超炫大 Banner 區 -->
+    <header class="lol-hero-banner">
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+            <div class="worlds-tag">WORLDS 2026</div>
+            <h1 class="main-title">KNOW MY NAME</h1>
+            <p class="banner-subtitle">真傷樂團 (True Damage) 世界賽主題曲回歸 • 傳奇致敬 Faker</p>
+            <button class="hextech-btn" onclick="triggerHextech()">⚡ 激發海克斯官網矩阵</button>
+        </div>
+    </header>
+
+    <div class="container" id="mainContainer">
+        
+        <!-- 🌟 2026 官網響應式快捷導覽列 -->
+        <div class="nav-menu">
+            <a href="#gameIntro" class="nav-btn">遊戲介紹</a>
+            <a href="#heroIntro" class="nav-btn">英雄介紹</a>
+            <a href="#gamePlay" class="nav-btn">遊戲玩法</a>
+            <a href="#patchNotes" class="nav-btn">最新 26.19 版本公告</a>
+        </div>
+
+        <!-- 🖼 1. JPG 區塊：Riot 頂級視覺與桌布網格 -->
+        <div class="format-section">
+            <div class="section-header">
+                <h3>1. JPG 格式展示（2026 官網主視覺素材庫 - 共 14 張）</h3>
+                <span class="format-tag tag-jpg">JPG 核心：全彩高清背景</span>
+            </div>
+            <p class="intro-text">適用於官網背景與精美原畫桌布。具備極致色彩與環境細節，但不支援透明背景。</p>
+            
+            <div class="gallery-grid">
+                <!-- 原有 4 張 -->
+                <div class="gallery-item"><img src="images/bg1.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 1" class="lol-bg-img"><div class="image-caption">2026 世界大賽戰隊原畫</div></div>
+                <div class="gallery-item"><img src="images/bg2.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 2" class="lol-bg-img"><div class="image-caption">幽冥煞星 (Dark Star 2026)</div></div>
+                <div class="gallery-item"><img src="images/bg3.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 3" class="lol-bg-img"><div class="image-caption">召喚峽谷經典決戰美術圖</div></div>
+                <div class="gallery-item"><img src="images/bg4.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 4" class="lol-bg-img"><div class="image-caption">千年巫女：尤娜拉特寫</div></div>
+                
+                <!-- 新增 10 張 -->
+                <div class="gallery-item"><img src="images/bg5.jpg" onerror="this.src='https://contentstack.io'" alt="桌布 5" class="lol-bg-img"><div class="image-caption">激鬥峽谷 2026 全新主視覺</div></div>
+                <div class="gallery-item"><img src="images/bg6.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 6" class="lol-bg-img"><div class="image-caption">真傷樂團賽博霓虹霓虹城</div></div>
+                <div class="gallery-item"><img src="images/bg7.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 7" class="lol-bg-img"><div class="image-caption">海克斯核心高科技實驗室</div></div>
+                <div class="gallery-item"><img src="images/bg8.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 8" class="lol-bg-img"><div class="image-caption">闇影島破敗迷霧重臨</div></div>
+                <div class="gallery-item"><img src="images/bg9.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 9" class="lol-bg-img"><div class="image-caption">星光戰士 2026 限定星雲</div></div>
+                <div class="gallery-item"><img src="images/bg10.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 10" class="lol-bg-img"><div class="image-caption">巨石峰星靈神聖極光</div></div>
+                <div class="gallery-item"><img src="images/bg11.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 11" class="lol-bg-img"><div class="image-caption">御劍飛仙限定仙靈殿堂</div></div>
+                <div class="gallery-item"><img src="images/bg12.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 12" class="lol-bg-img"><div class="image-caption">奧德賽星際探索戰艦</div></div>
+                <div class="gallery-item"><img src="images/bg13.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 13" class="lol-bg-img"><div class="image-caption">戰爭學院演武竞技場</div></div>
+                <div class="gallery-item"><img src="images/bg14.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 14" class="lol-bg-img"><div class="image-caption">雙城之戰：皮爾托福遠景</div></div>
+            </div>
+        </div>
+
+        <!-- ⚔ 2. PNG 區塊：熱門英雄名冊 -->
+        <div class="format-section">
+            <div class="section-header">
+                <h3>2. PNG 格式展示（2026 明星英雄立繪庫 - 共 13 款）</h3>
+                <span class="format-tag tag-png">PNG 核心：透明去背角色</span>
+            </div>
+            <p class="intro-text">適用於官方英雄列表。支援透明背景，啟動海克斯能量後會渲染出華麗的藍色魔法光暈與微幅浮空特效。</p>
+            
+            <div class="png-gallery-container">
+                <!-- 原有 3 款 -->
+                <div class="png-display-area"><img src="images/jinx.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="吉茵珂絲" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ff007f, #7f00ff);"></div><div class="image-caption">吉茵珂絲 (Jinx)</div></div>
+                <div class="png-display-area"><img src="images/yasuo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="犽宿" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00d9ff, #005a82);"></div><div class="image-caption">犽宿 (Yasuo)</div></div>
+                <div class="png-display-area"><img src="images/ahri.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="阿璃" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ffaa00, #ff0055);"></div><div class="image-caption">阿璃 (Ahri)</div></div>
+                
+                <!-- 新增 10 款 -->
+                <div class="png-display-area"><img src="images/lux.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="拉克絲" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#fff700, #ffaa00);"></div><div class="image-caption">拉克絲 (Lux)</div></div>
+                <div class="png-display-area"><img src="images/zed.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="劫" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ff0000, #550000);"></div><div class="image-caption">劫 (Zed)</div></div>
+                <div class="png-display-area"><img src="images/lee.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="李星" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00ffaa, #005533);"></div><div class="image-caption">李星 (Lee Sin)</div></div>
+                <div class="png-display-area"><img src="images/teemo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="提摩" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#aaff00, #557f00);"></div><div class="image-caption">提摩 (Teemo)</div></div>
+                <div class="png-display-area"><img src="images/garen.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="蓋倫" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00aaff, #0033aa);"></div><div class="image-caption">蓋倫 (Garen)</div></div>
+                <div class="png-display-area"><img src="images/vayne.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="汎" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#7f00ff, #33007f);"></div><div class="image-caption">汎 (Vayne)</div></div>
+                <div class="png-display-area"><img src="images/thresh.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="瑟雷西" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00ffcc, #004433);"></div><div class="image-caption">瑟雷西 (Thresh)</div></div>
+                <div class="png-display-area"><img src="images/vi.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="菲艾" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ff0055, #990022);"></div><div class="image-caption">菲艾 (Vi)</div></div>
+                <div class="png-display-area"><img src="images/caitlyn.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="凱特琳" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#cc00ff, #440055);"></div><div class="image-caption">凱特琳 (Caitlyn)</div></div>
