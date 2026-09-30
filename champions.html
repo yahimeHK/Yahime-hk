@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOL 攻略站 - 英雄資料庫</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">SUMMONER'S <span>GUIDE</span><b>V5.1</b></div>
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="champions.html" style="color: #00d9ff; font-weight: 800;">英雄攻略</a>
+            <a href="items.html">裝備攻略</a>
+            <a href="guides.html">戰術商城</a>
+        </nav>
+        <button class="icon-btn" id="themeBtn">☀️</button>
+    </header>
+
+    <main class="container" style="width: min(1200px, 90%); margin: 30px auto;">
+        <div class="heading">
+            <small>CHAMPION LIST</small>
+            <h2>英雄資料庫</h2>
+            <p>可以使用名稱、位置、類型及難度進行篩選。點擊卡片可開啟由 AI 協作生成的實戰玩法與符文方向！</p>
+        </div>
+
+        <div class="toolbar">
+            <input type="text" id="champSearch" placeholder="搜尋英雄名稱、玩法標籤...">
+            <select id="champRole">
+                <option value="all">全部位置</option>
+                <option value="上路">上路</option>
+                <option value="打野">打野</option>
+                <option value="中路">中路</option>
+                <option value="下路">下路</option>
+                <option value="輔助">輔助</option>
+            </select>
+            <select id="champClass">
+                <option value="all">全部類型</option>
+                <option value="戰士">戰士</option>
+                <option value="法師">法師</option>
+                <option value="刺客">刺客</option>
+                <option value="射手">射手</option>
+                <option value="坦克">坦克</option>
+                <option value="輔助">輔助</option>
+            </select>
+            <select id="champDifficulty">
+                <option value="all">全部難度</option>
+                <option value="簡單">簡單</option>
+                <option value="中等">中等</option>
+                <option value="困難">困難</option>
+            </select>
+            <button class="small-btn" id="clearFilters">清除篩選</button>
+        </div>
+
+        <div class="result-line">符合條件的英雄：<span id="resultCount">0</span> 隻</div>
+
+        <div class="card-grid" id="champGrid"></div>
+        <div id="emptyChamp" class="empty" style="display:none;">沒有符合條件的英雄。</div>
+    </main>
+
+    <div class="modal" id="modal" aria-hidden="true">
+        <div class="modal-box">
+            <button class="close" id="closeModal">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <footer>
+        <div>&copy; 2026 LOL 攻略站. 內容由 AI 協作生成及 Riot Data Dragon 提供</div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

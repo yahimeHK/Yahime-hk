@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOL 攻略站 - 戰術商城（AI 協作計算）</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">SUMMONER'S <span>GUIDE</span><b>V5.1</b></div>
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="champions.html">英雄攻略</a>
+            <a href="items.html">裝備攻略</a>
+            <a href="guides.html" style="color: #00d9ff; font-weight: 800;">戰術商城</a>
+        </nav>
+        <button class="icon-btn" id="themeBtn">☀️</button>
+    </header>
+
+    <main class="container" style="width: min(1200px, 90%); margin: 30px auto;">
+        <div class="heading">
+            <small>AI TACTICAL STORE</small>
+            <h2>AI 特製實戰攻略包訂購區</h2>
+            <p>請選擇你想要修練的戰術貨物、輸入購買數量，系統將透過 JavaScript 即時為您試算總額並發放數位序號。</p>
+        </div>
+
+        <div class="comment-form" style="margin-top: 30px; padding: 24px; background: #101922; border: 1px solid #253540; border-radius: 12px;">
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <label for="shop-product" style="color: #c8aa6e; font-weight: 700;">🛒 選擇你的戰術貨物：</label>
+                <select id="shop-product">
+                    <option value="500" data-name="巴龍 Buff 團戰全攻略包">巴龍 Buff 團戰全攻略包 (500 RP)</option>
+                    <option value="350" data-name="菁英級走位與對線技巧講義">菁英級走位與對線技巧講義 (350 RP)</option>
+                    <option value="200" data-name="野區開局與高效 Gank 路線圖">野區開局與高效 Gank 路線圖 (200 RP)</option>
+                </select>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
+                <label for="shop-quantity" style="color: #c8aa6e; font-weight: 700;">🔢 輸入訂購數量：</label>
+                <input type="number" id="shop-quantity" min="1" max="99" value="1">
+            </div>
+
+            <div style="margin-top: 20px;">
+                <button type="button" class="gold-btn" id="checkout-btn" style="width: 100%;">⚡ 立即試算總金額 ⚡</button>
+            </div>
+
+            <div id="shop-response" style="margin-top: 20px; display: none; padding: 16px; border-radius: 8px;"></div>
+        </div>
+
+        <div class="heading" style="margin-top: 50px;">
+            <small>GUIDE ARTICLES</small>
+            <h2>AI 推薦文摘</h2>
+        </div>
+        <div class="article-grid" id="articleGrid" style="margin-top: 20px;"></div>
+    </main>
+
+    <div class="toast" id="toast"></div>
+    <footer>
+        <div>&copy; 2026 LOL 攻略站. 內嵌 JavaScript 購物總額試算引擎</div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const shopProduct = document.getElementById('shop-product');
+            const shopQuantity = document.getElementById('shop-quantity');
+            const shopResponse = document.getElementById('shop-response');
+
+            if (!checkoutBtn || !shopProduct || !shopQuantity || !shopResponse) return;
+
+            checkoutBtn.addEventListener('click', () => {
+                const price = parseInt(shopProduct.value, 10);
+                const quantity = parseInt(shopQuantity.value, 10);
+                const selectedOption = shopProduct.options[shopProduct.selectedIndex];
+                const productName = selectedOption.getAttribute('data-name');
+
+                if (isNaN(quantity) || quantity < 1) {
+                    shopResponse.style.display = 'block';
+                    shopResponse.style.background = 'rgba(231, 76, 60, 0.15)';
+                    shopResponse.style.border = '1px solid #e74c3c';
+                    shopResponse.style.color = '#e74c3c';
+                    shopResponse.innerHTML = '❌ 錯誤：請輸入正確的購買數量（至少 1 本）！';
+                    return;
+                }
+
+                const totalCost = price * quantity;
+                let bonusMessage = '';
+                if (totalCost >= 1000) {
+                    bonusMessage = "<br><span style='color: #00d9ff;'>🎁 滿額大禮包觸發：偵測到訂購額滿 1000 RP，解鎖由 AI 加贈的『峽谷心理戰小冊』一本！</span>";
+                } else {
+                    bonusMessage = "<br><span style='color: #8e9aa4;'>💡 再購買 " + (1000 - totalCost) + " RP 即可免費獲得 AI 滿額實戰贈品喔！</span>";
+                }
+
+                shopResponse.style.display = 'block';
+                shopResponse.style.background = 'rgba(200, 170, 110, 0.12)';
+                shopResponse.style.border = '1px solid #c8aa6e';
+                shopResponse.style.color = '#e9e4d5';
+
+                shopResponse.innerHTML =
+                    '<h3 style="margin: 0 0 8px; color: #c8aa6e;">🎉 訂單試算成功！</h3>' +
+                    '<p style="margin: 4px 0;">您選擇的貨物：<b>' + productName + '</b></p>' +
+                    '<p style="margin: 4px 0;">訂購數量：<b>' + quantity + '</b> 件</p>' +
+                    '<p style="margin: 12px 0 4px; font-size: 1.2rem;">💰 應付總額：<span style="color: #00d9ff; font-weight: 900;">' + totalCost + ' RP</span></p>' +
+                    bonusMessage;
+            });
+        });
+    </script>
+</body>
+</html>

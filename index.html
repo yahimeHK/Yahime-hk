@@ -1,106 +1,90 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="League of Legends 非官方攻略資料庫：170 個英雄、玩法、符文、裝備、Counter、攻略文章與留言功能。">
-<title>LOL 攻略站 V4｜英雄、Counter、符文、裝備、玩法</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOL 攻略站 V5.1 - 完整資料庫</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="topbar">
-  <a class="brand" href="#home">⚔ <span>LOL</span> 攻略站 <b>V4</b></a>
-  <nav><a href="#champions">英雄</a><a href="#matchup">Counter</a><a href="#builds">符文裝備</a><a href="#styles">玩法</a><a href="#articles">攻略</a><a href="#comments">留言</a></nav>
-  <button id="themeBtn" class="icon-btn" aria-label="切換主題">☀️</button>
-</header>
+    <header class="topbar">
+        <div class="brand">SUMMONER'S <span>GUIDE</span><b>V5.1</b></div>
+        <nav>
+            <a href="index.html" style="color: #00d9ff; font-weight: 800;">首頁</a>
+            <a href="champions.html">英雄攻略</a>
+            <a href="items.html">裝備攻略</a>
+            <a href="guides.html">戰術商城</a>
+        </nav>
+        <button class="icon-btn" id="themeBtn">☀️</button>
+    </header>
 
-<section id="home" class="hero dynamic-hero">
-  <div class="hero-media" aria-hidden="true">
-    <div class="hero-image"></div>
-    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/home-bg.jpg" aria-hidden="true"><source src="assets/home-bg.mp4" type="video/mp4"></video>
-    <div class="hero-vignette"></div>
-    <div class="hero-glow hero-glow-a"></div>
-    <div class="hero-glow hero-glow-b"></div>
-    <div class="hero-particles"></div>
-  </div>
+    <main class="hero">
+        <div class="hero-media">
+            <video class="hero-video" autoplay loop muted playsinline>
+                <source src="assets/home-bg.mp4" type="video/mp4">
+            </video>
+            <div class="hero-vignette"></div>
+            <div class="hero-glow hero-glow-a"></div>
+            <div class="hero-glow hero-glow-b"></div>
+            <div class="hero-particles"></div>
+        </div>
 
-  <div class="hero-content">
-    <div class="hero-kicker">
-      <span class="kicker-line"></span>
-      <span>SUMMONER'S GUIDE · V4 · LOL攻略資料庫</span>
-      <span class="kicker-line"></span>
+        <div class="hero-content">
+            <div class="hero-kicker"><div class="kicker-line"></div>SUMMONER'S GUIDE · V5.1</div>
+            <h1 class="hero-title">
+                <span>完整 LOL 攻略資料庫</span>
+                <em>由對線到團戰 一站掌握</em>
+            </h1>
+            <p class="hero-description">
+                本站由 AI 協作生成。整合 Riot Data Dragon 16.19.1 最新官方數據，收錄 170 位英雄定位、技能、符文、裝備到 Counter，快速整理每一場對局所需資訊。真正斷網狀態下皆能完美開啟。
+            </p>
+            <div class="actions hero-actions">
+                <a href="champions.html" class="gold-btn hero-main-btn">瀏覽英雄資料庫 🎲</a>
+                <button class="ghost-btn hero-random-btn" id="randomHero">隨機英雄</button>
+            </div>
+            <div class="hero-pills">
+                <span>170 英雄項目</span>
+                <span>5 主要位置</span>
+                <span>6 英雄類型</span>
+                <span>8+ 玩法方向</span>
+            </div>
+        </div>
+        <div class="hero-scroll">SCROLL FOR MORE<i></i></div>
+    </main>
+
+    <div class="notice">
+        📌 <b>資料說明：</b> 本版本所有主頁背景素材均已放置於 assets/ 目錄中，開啟 index.html 時不需要外部網路連線，避開了 YouTube 或外部 CDN 的依賴。
     </div>
 
-    <h1 class="hero-title">
-      <span>完整 LOL 攻略資料庫</span>
-      <em>170 英雄 × 5 位置 × 多種玩法</em>
-    </h1>
+    <section class="section stats-section">
+        <div class="heading">
+            <small>CHAMPION DATABASE</small>
+            <h2>賽季核心數據</h2>
+        </div>
+        <div class="stats" style="margin-top: 20px;">
+            <div><b>170</b><span>英雄總數</span></div>
+            <div><b>26.19</b><span>最新版本 (Patch)</span></div>
+            <div><b>100%</b><span>離線運行支援</span></div>
+            <div><b>AI</b><span>協作內容生成</span></div>
+        </div>
+    </section>
 
-    <p class="hero-description">
-      由英雄定位、技能、符文、裝備到 Counter，快速整理每一場對局所需資訊。
-    </p>
-
-    <div class="actions hero-actions">
-      <a class="gold-btn hero-main-btn" href="#champions">瀏覽英雄資料庫</a>
-      <button id="randomHero" class="ghost-btn hero-random-btn">🎲 隨機英雄</button>
+    <div class="home-bottom-visual">
+        <div class="bottom-visual-image"></div>
+        <div class="bottom-visual-grid"></div>
+        <div class="bottom-visual-content">
+            <small>MATCHUP LAB</small>
+            <h2>核心對線 <em>Counter 實驗室</em></h2>
+            <p>輸入你的對手英雄，網站會從資料庫的定位與玩法標籤中，透過大數據與 AI 自動整理出一組「對線思考方向」，為你在載入畫面時建立最清晰的下一場對局思路。</p>
+            <a href="guides.html" class="gold-btn">前往戰術商城與分析 ⚔</a>
+        </div>
     </div>
 
-    <div class="hero-pills">
-      <span>170 英雄</span>
-      <span>5 位置</span>
-      <span>6 類型</span>
-      <span>Counter</span>
-      <span>符文＋裝備</span>
-    </div>
-  </div>
+    <footer>
+        <div>&copy; 2026 LOL 攻略站. 非官方粉絲／學習示範網站 · 資料僅供遊戲研究參考</div>
+        <div>設計具創意，內容豐富 (AI 協作版本)</div>
+    </footer>
 
-  <div class="hero-scroll" aria-hidden="true">
-    <span>SCROLL TO EXPLORE</span>
-    <i></i>
-  </div>
-</section>
-
-<section class="home-bottom-visual" aria-label="首頁底部大型主視覺">
-  <div class="bottom-visual-image" aria-hidden="true"></div>
-  <div class="bottom-visual-grid" aria-hidden="true"></div>
-  <div class="bottom-visual-content">
-    <small>MASTER THE RIFT · SUMMONER'S GUIDE</small>
-    <h2>由對線到團戰<br><em>一站掌握你的攻略</em></h2>
-    <p>搜尋英雄定位、技能、符文、裝備與 Counter，快速建立下一場對局的思路。</p>
-    <a class="gold-btn" href="#champions">查看英雄資料庫</a>
-  </div>
-</section>
-
-<div class="notice">📌 <strong>資料說明：</strong>本 V4 以「170 個英雄項目」作為網站資料庫規模；Riot 官方英雄頁目前以「超過 170 位」描述英雄總數，因此新英雄推出後仍需要更新網站資料。</div>
-
-<main>
-<section class="section stats-section"><div class="stats"><div><b>170</b><span>英雄項目</span></div><div><b>5</b><span>主要位置</span></div><div><b>6</b><span>英雄類型</span></div><div><b>8+</b><span>玩法方向</span></div></div></section>
-
-<section class="section" id="champions">
- <div class="heading"><small>CHAMPION DATABASE</small><h2>英雄資料庫</h2><p>可以用名稱、位置、類型、難度及玩法搜尋。</p></div>
- <div class="toolbar"><input id="champSearch" placeholder="🔎 搜尋英雄，例如 Yasuo / Garen / Ahri" autocomplete="off"><select id="champRole"><option value="all">全部位置</option><option>上路</option><option>打野</option><option>中路</option><option>下路</option><option>輔助</option></select><select id="champClass"><option value="all">全部類型</option><option>戰士</option><option>法師</option><option>刺客</option><option>射手</option><option>坦克</option><option>輔助</option></select><select id="champDifficulty"><option value="all">全部難度</option><option>簡單</option><option>中等</option><option>困難</option></select><button id="clearFilters" class="small-btn">清除</button></div>
- <div class="result-line">符合條件：<strong id="resultCount">170</strong> 隻</div><div id="champGrid" class="card-grid"></div><p id="emptyChamp" class="empty">沒有符合條件的英雄。</p>
-</section>
-
-<section class="section dark" id="matchup">
- <div class="heading"><small>MATCHUP LAB</small><h2>Counter 對線實驗室</h2><p>輸入你的英雄，網站會從資料庫的定位與玩法標籤整理一組「對線思考方向」。這是教學用方向，不代表固定勝率。</p></div>
- <div class="counter-box"><select id="counterChamp"></select><button id="counterBtn" class="gold-btn">分析對線</button></div>
- <div id="counterResult" class="counter-result"><div class="empty">選擇英雄後按「分析對線」。</div></div>
-</section>
-
-<section class="section" id="builds">
- <div class="heading"><small>BUILD LAB</small><h2>符文＋裝備資料庫</h2><p>以玩法方向整理常見選擇；實戰仍要按敵我陣容調整。</p></div>
- <div class="build-tabs"><button class="tab active" data-build="all">全部</button><button class="tab" data-build="爆發">爆發</button><button class="tab" data-build="持續輸出">持續輸出</button><button class="tab" data-build="坦克">坦克</button><button class="tab" data-build="輔助">輔助</button></div>
- <div id="buildGrid" class="build-grid"></div>
-</section>
-
-<section class="section dark" id="styles"><div class="heading"><small>PLAYSTYLES</small><h2>各式各樣玩法</h2><p>同一隻英雄可以因為陣容、地圖資源與出裝而有不同玩法。</p></div><div id="styleGrid" class="style-grid"></div></section>
-
-<section class="section" id="articles"><div class="heading"><small>GUIDE ARTICLES</small><h2>攻略文章系統</h2><div class="article-filters"><button class="article-filter active" data-cat="all">全部</button><button class="article-filter" data-cat="新手">新手</button><button class="article-filter" data-cat="對線">對線</button><button class="article-filter" data-cat="打野">打野</button><button class="article-filter" data-cat="團戰">團戰</button></div></div><div id="articleGrid" class="article-grid"></div></section>
-
-<section class="section dark" id="comments"><div class="heading"><small>COMMUNITY</small><h2>留言區</h2><p>示範版留言會保存在你的瀏覽器，不會上傳到伺服器。</p></div><form id="commentForm" class="comment-form"><input id="commentName" maxlength="20" placeholder="你的暱稱" required><textarea id="commentText" maxlength="300" placeholder="分享你的玩法／問題……" required></textarea><button class="gold-btn" type="submit">發表留言</button></form><div id="commentList" class="comment-list"></div></section>
-</main>
-<footer><strong>⚔ LOL 攻略站 V4</strong><span>非官方粉絲／學習示範網站 · 資料僅供遊戲研究參考</span></footer>
-
-<div id="modal" class="modal" aria-hidden="true"><div class="modal-box"><button id="closeModal" class="close" aria-label="關閉">×</button><div id="modalBody"></div></div></div><div id="toast" class="toast"></div>
-<script src="script.js"></script>
-</body></html>
+    <script src="script.js"></script>
+</body>
+</html>
