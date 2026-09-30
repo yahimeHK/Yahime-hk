@@ -1,85 +1,106 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>《英雄聯盟》官方網站 - 2026 傳奇與電競核心實驗室</title>
-    <!-- 引入外部 CSS 樣式表 -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="League of Legends 非官方攻略資料庫：170 個英雄、玩法、符文、裝備、Counter、攻略文章與留言功能。">
+<title>LOL 攻略站 V4｜英雄、Counter、符文、裝備、玩法</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<header class="topbar">
+  <a class="brand" href="#home">⚔ <span>LOL</span> 攻略站 <b>V4</b></a>
+  <nav><a href="#champions">英雄</a><a href="#matchup">Counter</a><a href="#builds">符文裝備</a><a href="#styles">玩法</a><a href="#articles">攻略</a><a href="#comments">留言</a></nav>
+  <button id="themeBtn" class="icon-btn" aria-label="切換主題">☀️</button>
+</header>
 
-    <!-- 🌐 2026 官網頂部超炫大 Banner 區 -->
-    <header class="lol-hero-banner">
-        <div class="banner-overlay"></div>
-        <div class="banner-content">
-            <div class="worlds-tag">WORLDS 2026</div>
-            <h1 class="main-title">KNOW MY NAME</h1>
-            <p class="banner-subtitle">真傷樂團 (True Damage) 世界賽主題曲回歸 • 傳奇致敬 Faker</p>
-            <button class="hextech-btn" onclick="triggerHextech()">⚡ 激發海克斯官網矩阵</button>
-        </div>
-    </header>
+<section id="home" class="hero dynamic-hero">
+  <div class="hero-media" aria-hidden="true">
+    <div class="hero-image"></div>
+    <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/home-bg.jpg" aria-hidden="true"><source src="assets/home-bg.mp4" type="video/mp4"></video>
+    <div class="hero-vignette"></div>
+    <div class="hero-glow hero-glow-a"></div>
+    <div class="hero-glow hero-glow-b"></div>
+    <div class="hero-particles"></div>
+  </div>
 
-    <div class="container" id="mainContainer">
-        
-        <!-- 🌟 2026 官網響應式快捷導覽列 -->
-        <div class="nav-menu">
-            <a href="#gameIntro" class="nav-btn">遊戲介紹</a>
-            <a href="#heroIntro" class="nav-btn">英雄介紹</a>
-            <a href="#gamePlay" class="nav-btn">遊戲玩法</a>
-            <a href="#patchNotes" class="nav-btn">最新 26.19 版本公告</a>
-        </div>
+  <div class="hero-content">
+    <div class="hero-kicker">
+      <span class="kicker-line"></span>
+      <span>SUMMONER'S GUIDE · V4 · LOL攻略資料庫</span>
+      <span class="kicker-line"></span>
+    </div>
 
-        <!-- 🖼 1. JPG 區塊：Riot 頂級視覺與桌布網格 -->
-        <div class="format-section">
-            <div class="section-header">
-                <h3>1. JPG 格式展示（2026 官網主視覺素材庫 - 共 14 張）</h3>
-                <span class="format-tag tag-jpg">JPG 核心：全彩高清背景</span>
-            </div>
-            <p class="intro-text">適用於官網背景與精美原畫桌布。具備極致色彩與環境細節，但不支援透明背景。</p>
-            
-            <div class="gallery-grid">
-                <!-- 原有 4 張 -->
-                <div class="gallery-item"><img src="images/bg1.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 1" class="lol-bg-img"><div class="image-caption">2026 世界大賽戰隊原畫</div></div>
-                <div class="gallery-item"><img src="images/bg2.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 2" class="lol-bg-img"><div class="image-caption">幽冥煞星 (Dark Star 2026)</div></div>
-                <div class="gallery-item"><img src="images/bg3.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 3" class="lol-bg-img"><div class="image-caption">召喚峽谷經典決戰美術圖</div></div>
-                <div class="gallery-item"><img src="images/bg4.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 4" class="lol-bg-img"><div class="image-caption">千年巫女：尤娜拉特寫</div></div>
-                
-                <!-- 新增 10 張 -->
-                <div class="gallery-item"><img src="images/bg5.jpg" onerror="this.src='https://contentstack.io'" alt="桌布 5" class="lol-bg-img"><div class="image-caption">激鬥峽谷 2026 全新主視覺</div></div>
-                <div class="gallery-item"><img src="images/bg6.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 6" class="lol-bg-img"><div class="image-caption">真傷樂團賽博霓虹霓虹城</div></div>
-                <div class="gallery-item"><img src="images/bg7.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 7" class="lol-bg-img"><div class="image-caption">海克斯核心高科技實驗室</div></div>
-                <div class="gallery-item"><img src="images/bg8.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 8" class="lol-bg-img"><div class="image-caption">闇影島破敗迷霧重臨</div></div>
-                <div class="gallery-item"><img src="images/bg9.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 9" class="lol-bg-img"><div class="image-caption">星光戰士 2026 限定星雲</div></div>
-                <div class="gallery-item"><img src="images/bg10.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 10" class="lol-bg-img"><div class="image-caption">巨石峰星靈神聖極光</div></div>
-                <div class="gallery-item"><img src="images/bg11.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 11" class="lol-bg-img"><div class="image-caption">御劍飛仙限定仙靈殿堂</div></div>
-                <div class="gallery-item"><img src="images/bg12.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 12" class="lol-bg-img"><div class="image-caption">奧德賽星際探索戰艦</div></div>
-                <div class="gallery-item"><img src="images/bg13.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 13" class="lol-bg-img"><div class="image-caption">戰爭學院演武竞技場</div></div>
-                <div class="gallery-item"><img src="images/bg14.jpg" onerror="this.src='https://unsplash.com'" alt="桌布 14" class="lol-bg-img"><div class="image-caption">雙城之戰：皮爾托福遠景</div></div>
-            </div>
-        </div>
+    <h1 class="hero-title">
+      <span>完整 LOL 攻略資料庫</span>
+      <em>170 英雄 × 5 位置 × 多種玩法</em>
+    </h1>
 
-        <!-- ⚔ 2. PNG 區塊：熱門英雄名冊 -->
-        <div class="format-section">
-            <div class="section-header">
-                <h3>2. PNG 格式展示（2026 明星英雄立繪庫 - 共 13 款）</h3>
-                <span class="format-tag tag-png">PNG 核心：透明去背角色</span>
-            </div>
-            <p class="intro-text">適用於官方英雄列表。支援透明背景，啟動海克斯能量後會渲染出華麗的藍色魔法光暈與微幅浮空特效。</p>
-            
-            <div class="png-gallery-container">
-                <!-- 原有 3 款 -->
-                <div class="png-display-area"><img src="images/jinx.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="吉茵珂絲" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ff007f, #7f00ff);"></div><div class="image-caption">吉茵珂絲 (Jinx)</div></div>
-                <div class="png-display-area"><img src="images/yasuo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="犽宿" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00d9ff, #005a82);"></div><div class="image-caption">犽宿 (Yasuo)</div></div>
-                <div class="png-display-area"><img src="images/ahri.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="阿璃" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ffaa00, #ff0055);"></div><div class="image-caption">阿璃 (Ahri)</div></div>
-                
-                <!-- 新增 10 款 -->
-                <div class="png-display-area"><img src="images/lux.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="拉克絲" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#fff700, #ffaa00);"></div><div class="image-caption">拉克絲 (Lux)</div></div>
-                <div class="png-display-area"><img src="images/zed.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="劫" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ff0000, #550000);"></div><div class="image-caption">劫 (Zed)</div></div>
-                <div class="png-display-area"><img src="images/lee.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="李星" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00ffaa, #005533);"></div><div class="image-caption">李星 (Lee Sin)</div></div>
-                <div class="png-display-area"><img src="images/teemo.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="提摩" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#aaff00, #557f00);"></div><div class="image-caption">提摩 (Teemo)</div></div>
-                <div class="png-display-area"><img src="images/garen.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="蓋倫" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00aaff, #0033aa);"></div><div class="image-caption">蓋倫 (Garen)</div></div>
-                <div class="png-display-area"><img src="images/vayne.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="汎" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#7f00ff, #33007f);"></div><div class="image-caption">汎 (Vayne)</div></div>
-                <div class="png-display-area"><img src="images/thresh.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="瑟雷西" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#00ffcc, #004433);"></div><div class="image-caption">瑟雷西 (Thresh)</div></div>
-                <div class="png-display-area"><img src="images/vi.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="菲艾" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#ff0055, #990022);"></div><div class="image-caption">菲艾 (Vi)</div></div>
-                <div class="png-display-area"><img src="images/caitlyn.png" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" alt="凱特琳" class="lol-png-hero"><div class="fallback-circle" style="background:linear-gradient(#cc00ff, #440055);"></div><div class="image-caption">凱特琳 (Caitlyn)</div></div>
+    <p class="hero-description">
+      由英雄定位、技能、符文、裝備到 Counter，快速整理每一場對局所需資訊。
+    </p>
+
+    <div class="actions hero-actions">
+      <a class="gold-btn hero-main-btn" href="#champions">瀏覽英雄資料庫</a>
+      <button id="randomHero" class="ghost-btn hero-random-btn">🎲 隨機英雄</button>
+    </div>
+
+    <div class="hero-pills">
+      <span>170 英雄</span>
+      <span>5 位置</span>
+      <span>6 類型</span>
+      <span>Counter</span>
+      <span>符文＋裝備</span>
+    </div>
+  </div>
+
+  <div class="hero-scroll" aria-hidden="true">
+    <span>SCROLL TO EXPLORE</span>
+    <i></i>
+  </div>
+</section>
+
+<section class="home-bottom-visual" aria-label="首頁底部大型主視覺">
+  <div class="bottom-visual-image" aria-hidden="true"></div>
+  <div class="bottom-visual-grid" aria-hidden="true"></div>
+  <div class="bottom-visual-content">
+    <small>MASTER THE RIFT · SUMMONER'S GUIDE</small>
+    <h2>由對線到團戰<br><em>一站掌握你的攻略</em></h2>
+    <p>搜尋英雄定位、技能、符文、裝備與 Counter，快速建立下一場對局的思路。</p>
+    <a class="gold-btn" href="#champions">查看英雄資料庫</a>
+  </div>
+</section>
+
+<div class="notice">📌 <strong>資料說明：</strong>本 V4 以「170 個英雄項目」作為網站資料庫規模；Riot 官方英雄頁目前以「超過 170 位」描述英雄總數，因此新英雄推出後仍需要更新網站資料。</div>
+
+<main>
+<section class="section stats-section"><div class="stats"><div><b>170</b><span>英雄項目</span></div><div><b>5</b><span>主要位置</span></div><div><b>6</b><span>英雄類型</span></div><div><b>8+</b><span>玩法方向</span></div></div></section>
+
+<section class="section" id="champions">
+ <div class="heading"><small>CHAMPION DATABASE</small><h2>英雄資料庫</h2><p>可以用名稱、位置、類型、難度及玩法搜尋。</p></div>
+ <div class="toolbar"><input id="champSearch" placeholder="🔎 搜尋英雄，例如 Yasuo / Garen / Ahri" autocomplete="off"><select id="champRole"><option value="all">全部位置</option><option>上路</option><option>打野</option><option>中路</option><option>下路</option><option>輔助</option></select><select id="champClass"><option value="all">全部類型</option><option>戰士</option><option>法師</option><option>刺客</option><option>射手</option><option>坦克</option><option>輔助</option></select><select id="champDifficulty"><option value="all">全部難度</option><option>簡單</option><option>中等</option><option>困難</option></select><button id="clearFilters" class="small-btn">清除</button></div>
+ <div class="result-line">符合條件：<strong id="resultCount">170</strong> 隻</div><div id="champGrid" class="card-grid"></div><p id="emptyChamp" class="empty">沒有符合條件的英雄。</p>
+</section>
+
+<section class="section dark" id="matchup">
+ <div class="heading"><small>MATCHUP LAB</small><h2>Counter 對線實驗室</h2><p>輸入你的英雄，網站會從資料庫的定位與玩法標籤整理一組「對線思考方向」。這是教學用方向，不代表固定勝率。</p></div>
+ <div class="counter-box"><select id="counterChamp"></select><button id="counterBtn" class="gold-btn">分析對線</button></div>
+ <div id="counterResult" class="counter-result"><div class="empty">選擇英雄後按「分析對線」。</div></div>
+</section>
+
+<section class="section" id="builds">
+ <div class="heading"><small>BUILD LAB</small><h2>符文＋裝備資料庫</h2><p>以玩法方向整理常見選擇；實戰仍要按敵我陣容調整。</p></div>
+ <div class="build-tabs"><button class="tab active" data-build="all">全部</button><button class="tab" data-build="爆發">爆發</button><button class="tab" data-build="持續輸出">持續輸出</button><button class="tab" data-build="坦克">坦克</button><button class="tab" data-build="輔助">輔助</button></div>
+ <div id="buildGrid" class="build-grid"></div>
+</section>
+
+<section class="section dark" id="styles"><div class="heading"><small>PLAYSTYLES</small><h2>各式各樣玩法</h2><p>同一隻英雄可以因為陣容、地圖資源與出裝而有不同玩法。</p></div><div id="styleGrid" class="style-grid"></div></section>
+
+<section class="section" id="articles"><div class="heading"><small>GUIDE ARTICLES</small><h2>攻略文章系統</h2><div class="article-filters"><button class="article-filter active" data-cat="all">全部</button><button class="article-filter" data-cat="新手">新手</button><button class="article-filter" data-cat="對線">對線</button><button class="article-filter" data-cat="打野">打野</button><button class="article-filter" data-cat="團戰">團戰</button></div></div><div id="articleGrid" class="article-grid"></div></section>
+
+<section class="section dark" id="comments"><div class="heading"><small>COMMUNITY</small><h2>留言區</h2><p>示範版留言會保存在你的瀏覽器，不會上傳到伺服器。</p></div><form id="commentForm" class="comment-form"><input id="commentName" maxlength="20" placeholder="你的暱稱" required><textarea id="commentText" maxlength="300" placeholder="分享你的玩法／問題……" required></textarea><button class="gold-btn" type="submit">發表留言</button></form><div id="commentList" class="comment-list"></div></section>
+</main>
+<footer><strong>⚔ LOL 攻略站 V4</strong><span>非官方粉絲／學習示範網站 · 資料僅供遊戲研究參考</span></footer>
+
+<div id="modal" class="modal" aria-hidden="true"><div class="modal-box"><button id="closeModal" class="close" aria-label="關閉">×</button><div id="modalBody"></div></div></div><div id="toast" class="toast"></div>
+<script src="script.js"></script>
+</body></html>

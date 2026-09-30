@@ -1,323 +1,227 @@
----
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#05080d;color:#e9e4d5;font-family:Inter,"Segoe UI","Microsoft JhengHei",sans-serif;line-height:1.6}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.topbar{position:sticky;top:0;z-index:50;height:64px;display:flex;align-items:center;gap:24px;padding:0 5%;background:rgba(5,8,13,.92);border-bottom:1px solid #24303a;backdrop-filter:blur(14px)}.brand{font-size:20px;font-weight:900;white-space:nowrap}.brand span{color:#c8aa6e}.brand b{font-size:12px;color:#00d9ff;margin-left:5px}.topbar nav{display:flex;gap:18px;margin-left:auto}.topbar nav a{color:#aab4be;font-size:14px}.topbar nav a:hover{color:#00d9ff}.icon-btn{background:#111a22;border:1px solid #30404c;color:#fff;border-radius:8px;padding:8px 11px;cursor:pointer}.hero{min-height:560px;position:relative;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid #26333e}.hero-bg{position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,7,11,.94),rgba(3,7,11,.48),rgba(3,7,11,.9)),url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg") center/cover}.hero-bg:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 45%,transparent 0,rgba(0,217,255,.05) 40%,rgba(0,0,0,.55) 100%)}.hero-content{position:relative;z-index:1;width:min(1100px,90%);padding:80px 0}.eyebrow{color:#00d9ff;font-size:12px;letter-spacing:3px;font-weight:800}.hero h1{font-size:clamp(40px,6vw,76px);line-height:1.05;margin:18px 0}.hero h1 em{color:#c8aa6e;font-style:normal}.hero p{max-width:700px;color:#bac3ca;font-size:18px}.actions{display:flex;gap:12px;margin:28px 0}.gold-btn,.ghost-btn,.small-btn,.tab,.article-filter{border:1px solid #c8aa6e;padding:11px 18px;border-radius:8px;cursor:pointer}.gold-btn{background:#c8aa6e;color:#071016;font-weight:900}.ghost-btn{background:rgba(7,15,21,.65);color:#e9e4d5;border-color:#00d9ff}.hero-pills{display:flex;gap:8px;flex-wrap:wrap}.hero-pills span,.tag,.badge{display:inline-flex;padding:4px 9px;border-radius:999px;background:#111d26;border:1px solid #30414d;color:#9ddff0;font-size:12px}.notice{width:min(1200px,90%);margin:22px auto;padding:14px 18px;background:#0d161e;border:1px solid #263743;border-radius:10px;color:#aeb9c1}.section{width:min(1200px,90%);margin:38px auto;padding:34px;background:#0b1117;border:1px solid #202d37;border-radius:16px;box-shadow:0 16px 45px rgba(0,0,0,.18)}.section.dark{background:#071016}.heading small{color:#00d9ff;letter-spacing:2px;font-weight:800}.heading h2{margin:4px 0;font-size:30px;color:#e9e4d5}.heading p{color:#9da9b2}.stats-section{padding:20px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stats div{text-align:center;padding:18px;background:#101922;border-radius:10px}.stats b{display:block;font-size:30px;color:#c8aa6e}.stats span{color:#94a0aa;font-size:13px}.toolbar,.counter-box{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.toolbar input,.toolbar select,.counter-box select,.comment-form input,.comment-form textarea{background:#080e14;color:#e8e4d9;border:1px solid #2b3a45;border-radius:8px;padding:12px}.toolbar input{flex:1;min-width:250px}.toolbar select,.counter-box select{min-width:145px}.small-btn{background:#121b23;color:#d6dce0;border-color:#344551}.result-line{color:#8e9aa4;margin-bottom:14px}.card-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.champ{overflow:hidden;background:#101821;border:1px solid #24333e;border-radius:12px;cursor:pointer;transition:.2s}.champ:hover{transform:translateY(-4px);border-color:#00d9ff;box-shadow:0 10px 28px rgba(0,217,255,.12)}.champ img{width:100%;height:150px;object-fit:cover;display:block}.champ-info{padding:13px}.champ-info h3{margin:8px 0 4px}.champ-info p{margin:0;color:#9ba8b1;font-size:13px}.tag{margin-right:5px}.empty{text-align:center;padding:28px;color:#76838d}.counter-result{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.counter-card,.build-card,.style-card,.article-card,.comment{background:#101922;border:1px solid #253540;border-radius:12px;padding:18px}.counter-card h3,.build-card h3,.style-card h3,.article-card h3{margin:6px 0}.counter-card p,.build-card p,.style-card p,.article-card p,.comment p{color:#9da9b2}.build-tabs,.article-filters{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.tab,.article-filter{background:#0f1921;color:#9da9b2;border-color:#2a3945}.tab.active,.article-filter.active{background:#c8aa6e;color:#071016;border-color:#c8aa6e}.build-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.build-card .icon{font-size:30px}.build-card ul{margin:8px 0 0;padding-left:20px;color:#aab4bc}.style-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.style-card{min-height:145px}.style-card b{font-size:18px}.article-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.article-card small{color:#00d9ff}.comment-form{display:grid;gap:10px;max-width:700px}.comment-form textarea{min-height:120px;resize:vertical}.comment-list{display:grid;gap:12px;margin-top:20px}.comment header{display:flex;justify-content:space-between;color:#c8aa6e}.comment header span{color:#66737d;font-size:12px}footer{display:flex;justify-content:space-between;width:min(1200px,90%);margin:40px auto;padding:25px 0;color:#6f7c86;border-top:1px solid #1d2a33;font-size:13px}.modal{position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;background:rgba(0,0,0,.75);backdrop-filter:blur(6px)}.modal.show{display:grid}.modal-box{position:relative;width:min(720px,100%);max-height:85vh;overflow:auto;background:#0b131b;border:1px solid #31505f;border-radius:16px;padding:30px;box-shadow:0 25px 80px #000}.close{position:absolute;right:14px;top:10px;border:0;background:none;color:#b9c2c8;font-size:30px;cursor:pointer}.modal-box h2{font-size:34px;margin:8px 0;color:#c8aa6e}.modal-box h3{color:#00d9ff;margin-bottom:3px}.toast{position:fixed;right:22px;bottom:22px;background:#d9c18b;color:#071016;font-weight:800;padding:12px 16px;border-radius:8px;transform:translateY(120px);opacity:0;transition:.25s;z-index:200}.toast.show{transform:translateY(0);opacity:1}body.light{background:#eef2f4;color:#182027}body.light .topbar,body.light .section,body.light .section.dark,body.light .counter-card,body.light .build-card,body.light .style-card,body.light .article-card,body.light .comment,body.light .modal-box,body.light .notice{background:#fff;color:#182027;border-color:#ccd6dc}body.light .toolbar input,body.light .toolbar select,body.light .counter-box select,body.light .comment-form input,body.light .comment-form textarea{background:#f5f7f8;color:#182027}body.light .hero-bg{filter:brightness(1.15)}body.light .heading h2,body.light .champ-info h3{color:#182027}@media(max-width:1000px){.card-grid{grid-template-columns:repeat(3,1fr)}.build-grid,.style-grid{grid-template-columns:repeat(2,1fr)}.counter-result{grid-template-columns:1fr}.topbar nav{display:none}}@media(max-width:700px){.stats{grid-template-columns:repeat(2,1fr)}.card-grid,.article-grid{grid-template-columns:repeat(2,1fr)}.section{padding:22px}.hero{min-height:500px}.hero p{font-size:15px}}@media(max-width:480px){.card-grid,.article-grid,.build-grid,.style-grid{grid-template-columns:1fr}.actions{flex-direction:column}.gold-btn,.ghost-btn{width:100%}footer{flex-direction:column;gap:8px}}
 
-### 📄 2. `style.css` (2026 官網黑金與科技發光美學)
-請用以下樣式完整替換您的 `style.css`：
+/* V5 ability cards */
+.ability-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 20px}
+.ability-card{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.04)}
+.ability-card img{width:48px;height:48px;object-fit:cover;border-radius:8px;flex:none}
+.ability-card b{display:block;margin-bottom:5px}
+.ability-card p{margin:0;line-height:1.55;font-size:.92rem;opacity:.9}
+.champ-modal-head{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.champ-modal-head img{width:72px;height:72px;border-radius:12px;object-fit:cover}
+.modal-links{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+@media(max-width:700px){.ability-grid{grid-template-columns:1fr}.champ-modal-head{align-items:flex-start}.champ-modal-head img{width:60px;height:60px}}
 
-```css
-/* ==========================================================================
-   1. 2026 官網全域風格與頂部大 Banner 樣式
-   ========================================================================== */
-html {
-    scroll-behavior: smooth;
+/* ===== 首頁主視覺：背景圖 / 背景影片 / 底部大圖 ===== */
+.hero-bg {
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(3,7,11,.94), rgba(3,7,11,.48), rgba(3,7,11,.9)),
+    url("assets/home-bg.jpg") center/cover no-repeat;
 }
-body {
-    font-family: 'Segoe UI', Microsoft JhengHei, sans-serif;
-    background-color: #030609; /* 更深邃的黑夜，呼應官網黑底 */
-    color: #f0e6d2; /* 官網專屬淡米白字 */
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.hero-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.42));
+  z-index: 1;
+  pointer-events: none;
 }
-
-/* 🌐 頂部官網旗艦大 Banner */
-.lol-hero-banner {
-    position: relative;
-    width: 100%;
-    height: 420px;
-    background: url('https://unsplash.com') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 3px solid #1e2830;
-    transition: all 0.5s ease;
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: .55;
+  filter: saturate(1.08) contrast(1.05);
 }
-.banner-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(3,6,9,0.3) 0%, rgba(3,6,9,0.9) 100%);
-}
-.banner-content {
-    position: relative;
-    text-align: center;
-    z-index: 2;
-    padding: 0 20px;
-}
-.worlds-tag {
-    color: #00d9ff;
-    font-weight: bold;
-    letter-spacing: 4px;
-    font-size: 14px;
-    text-shadow: 0 0 10px rgba(0,217,255,0.5);
-    margin-bottom: 5px;
-}
-.main-title {
-    font-size: 48px;
-    margin: 10px 0;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-}
-.banner-subtitle {
-    color: #cdbe91;
-    font-size: 16px;
-    margin-bottom: 25px;
+.hero-bg:after {
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* 網頁主容器 */
-.container {
-    max-width: 950px;
-    width: calc(100% - 40px);
-    background-color: #0b1116; /* 官網深海藍黑 */
+/* 如果未放影片，仍會顯示 home-bg.jpg */
+.hero-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* 首頁底部主視覺 */
+.home-bottom-visual {
+  position: relative;
+  width: min(1200px, 90%);
+  min-height: 360px;
+  margin: 38px auto;
+  overflow: hidden;
+  border: 1px solid #263743;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+  background: #071016;
+}
+.home-bottom-image {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(3,7,11,.92), rgba(3,7,11,.45), rgba(3,7,11,.25)),
+    url("assets/home-bottom.jpg") center/cover no-repeat;
+  transform: scale(1.01);
+  transition: transform .6s ease;
+}
+.home-bottom-visual:hover .home-bottom-image {
+  transform: scale(1.045);
+}
+.home-bottom-overlay {
+  position: relative;
+  z-index: 1;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+  max-width: 650px;
+}
+.home-bottom-overlay small {
+  color: #00d9ff;
+  letter-spacing: 2px;
+  font-weight: 800;
+}
+.home-bottom-overlay h2 {
+  margin: 8px 0;
+  font-size: clamp(30px, 4vw, 52px);
+  line-height: 1.08;
+  color: #f2ead9;
+}
+.home-bottom-overlay p {
+  color: #c0c9cf;
+  margin: 0 0 22px;
+}
+.home-bottom-overlay .gold-btn {
+  width: fit-content;
+}
+
+body.light .home-bottom-visual {
+  border-color: #ccd6dc;
+}
+body.light .home-bottom-overlay h2 {
+  color: #fff;
+}
+
+@media (max-width:700px) {
+  .home-bottom-visual {
+    min-height: 300px;
+  }
+  .home-bottom-overlay {
+    min-height: 300px;
     padding: 30px;
-    margin: -40px 0 60px 0; /* 讓容器往上疊加到 Banner 上，產生層次感 */
-    border-radius: 8px;
-    border: 1px solid #1e2830;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-    position: relative;
-    z-index: 10;
-    transition: all 0.5s ease;
+  }
 }
 
-h1, h2, h3 {
-    color: #c8aa6e; /* LOL 金色 */
-    border-bottom: 1px solid #1e2830;
-    padding-bottom: 10px;
-    letter-spacing: 1px;
-}
-.intro-text {
-    color: #a0a5b0;
-    line-height: 1.6;
-    font-size: 15px;
-}
+/* === 官方素材動態首頁覆蓋樣式 === */
+.hero{min-height:680px;display:grid;place-items:center;overflow:hidden;position:relative}
+.hero-media{position:absolute;inset:0;overflow:hidden;background:#03070b}
+.hero-image{position:absolute;inset:-2%;background:url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ahri_0.jpg") center/cover no-repeat;transform:scale(1.04);filter:saturate(1.08) contrast(1.05);opacity:.78}
+.hero-video{position:absolute;inset:-8%;width:116%;height:116%;border:0;opacity:.42;pointer-events:none;filter:saturate(1.08) contrast(1.08);transform:scale(1.05)}
+.hero-youtube{z-index:1}
+.hero-vignette{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(3,7,11,.93) 0%,rgba(3,7,11,.56) 48%,rgba(3,7,11,.86) 100%),linear-gradient(0deg,rgba(3,7,11,.92) 0%,transparent 38%,rgba(3,7,11,.4) 100%)}
+.hero-glow{position:absolute;z-index:3;width:38vw;height:38vw;border-radius:50%;filter:blur(70px);opacity:.18;pointer-events:none;animation:heroGlow 7s ease-in-out infinite alternate}
+.hero-glow-a{right:-10vw;top:12%;background:#00d9ff}.hero-glow-b{left:25%;bottom:-25vw;background:#c8aa6e;animation-delay:-3s}
+.hero-particles{position:absolute;inset:0;z-index:3;opacity:.35;background-image:radial-gradient(circle,rgba(255,255,255,.7) 1px,transparent 1.5px);background-size:90px 90px;animation:particleDrift 22s linear infinite}
+.hero-content{z-index:4}
+@keyframes heroGlow{from{transform:scale(.9) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(2%, -2%,0)}}
+@keyframes particleDrift{from{background-position:0 0}to{background-position:90px -90px}}
+.home-bottom-visual{position:relative;width:100%;min-height:360px;overflow:hidden;border-top:1px solid #26333e;border-bottom:1px solid #26333e;background:#03070b}
+.home-bottom-image{position:absolute;inset:0;background:url("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Garen_0.jpg") center/cover no-repeat;transform:scale(1.02);transition:transform .8s ease}
+.home-bottom-visual:hover .home-bottom-image{transform:scale(1.06)}
+.home-bottom-overlay{position:relative;z-index:2;min-height:360px;display:flex;flex-direction:column;justify-content:center;width:min(1200px,90%);margin:auto;padding:50px 0;background:linear-gradient(90deg,rgba(3,7,11,.9),rgba(3,7,11,.32),transparent)}
+.home-bottom-overlay:before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(3,7,11,.25),transparent)}
+@media(max-width:700px){.hero{min-height:560px}.hero-video{inset:-10% -35%;width:170%;height:120%;opacity:.32}.hero-content{padding:70px 0}.home-bottom-visual,.home-bottom-overlay{min-height:300px}.home-bottom-overlay{padding:35px 0}.hero-glow{opacity:.12}}
+@media(prefers-reduced-motion:reduce){.hero-glow,.hero-particles{animation:none}.home-bottom-image{transition:none}}
 
-/* ==========================================================================
-   2. 官網快捷導覽選單與海克斯按鈕
-   ========================================================================== */
-.nav-menu {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-    background-color: #121921;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #1e2830;
-}
-.nav-btn {
-    background: transparent;
-    border: 1px solid #c8aa6e;
-    color: #c8aa6e;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    flex: 1;
-    text-align: center;
-    min-width: 120px;
-}
-.nav-btn:hover {
-    background-color: #c8aa6e;
-    color: #030609;
-}
-.hextech-btn {
-    background: linear-gradient(135deg, #113c54 0%, #005a82 100%);
-    border: 1px solid #005a82;
-    color: #cdbe91;
-    padding: 12px 26px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 90, 130, 0.4);
-    transition: all 0.3s ease;
-    border-radius: 2px;
-}
-.hextech-btn:hover {
-    background: linear-gradient(135deg, #005a82 0%, #00d9ff 100%);
-    border-color: #00d9ff;
-    color: #fff;
-    box-shadow: 0 0 15px rgba(0, 217, 255, 0.7);
-}
 
-/* 區塊標題排版 */
-.format-section {
-    margin-top: 35px;
-    padding: 20px;
-    background-color: #0e161d;
-    border-radius: 6px;
-    border: 1px solid #1a242d;
+/* ===== V5.1 首頁版面修正與文字優化 ===== */
+.hero{
+  min-height:680px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding:0;
 }
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #1e2830;
-    padding-bottom: 5px;
-    flex-wrap: wrap;
+.hero-content{
+  width:min(1120px,90%);
+  margin:0 auto;
+  padding:110px 0 120px;
 }
-.section-header h3 { border: none; padding: 0; margin: 5px 0;}
-.format-tag {
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-weight: bold;
-    letter-spacing: 1px;
+.hero-kicker{
+  display:flex;align-items:center;gap:12px;
+  color:#d8d3c6;font-size:11px;font-weight:800;letter-spacing:2.2px;
+  margin-bottom:18px;
 }
-.tag-jpg { background-color: #7a5c1d; color: #ffe6a3; }
-.tag-png { background-color: #1c5270; color: #a3e2ff; }
-.tag-svg { background-color: #4c286a; color: #f2a3ff; }
+.kicker-line{width:42px;height:1px;background:#c8aa6e;opacity:.8}
+.hero-title{
+  max-width:980px;margin:0;font-size:clamp(42px,6vw,78px);
+  line-height:1.04;letter-spacing:-1.5px;
+}
+.hero-title span{display:block;color:#f0eadb}
+.hero-title em{display:block;color:#c8aa6e;font-style:normal}
+.hero-description{max-width:700px;margin:24px 0 0!important;color:#c0c8cf!important;font-size:17px!important;line-height:1.9}
+.hero-actions{margin:28px 0 18px}
+.hero-main-btn{display:inline-flex;align-items:center;justify-content:center}
+.hero-random-btn{display:inline-flex;align-items:center;justify-content:center}
+.hero-pills{gap:7px}
+.hero-pills span{background:rgba(9,20,28,.72);border-color:rgba(98,170,190,.35);backdrop-filter:blur(8px)}
+.hero-scroll{position:absolute;z-index:5;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;color:#83919b;font-size:9px;letter-spacing:2px}
+.hero-scroll i{width:1px;height:30px;background:linear-gradient(#c8aa6e,transparent)}
 
-/* ==========================================================================
-   3. 旗艦級多圖響應式網格 (14 JPG / 13 PNG 排版)
-   ========================================================================== */
-/* JPG 相簿網格 */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin: 15px 0;
+/* 修正底部主視覺：HTML 使用 bottom-visual-*，不再出現空白區 */
+.home-bottom-visual{
+  position:relative;width:100%;min-height:410px;margin:0;overflow:hidden;
+  border-top:1px solid #26333e;border-bottom:1px solid #26333e;
+  border-radius:0;background:#03070b;
 }
-.gallery-item {
-    background-color: #121921;
-    border-radius: 4px;
-    padding: 8px;
-    border: 1px solid #1e2830;
-    transition: all 0.3s ease;
+.bottom-visual-image{
+  position:absolute;inset:0;
+  background:url("assets/home-bottom.jpg") center/cover no-repeat;
+  transform:scale(1.02);transition:transform .8s ease;
 }
-.lol-bg-img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    border-radius: 2px;
-    border: 1px solid #3c4856; 
+.home-bottom-visual:hover .bottom-visual-image{transform:scale(1.055)}
+.bottom-visual-grid{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(3,7,11,.96) 0%,rgba(3,7,11,.72) 36%,rgba(3,7,11,.22) 72%,rgba(3,7,11,.52) 100%),
+    linear-gradient(0deg,rgba(3,7,11,.78),transparent 45%,rgba(3,7,11,.25));
 }
-.gallery-item:hover {
-    border-color: #c8aa6e;
-    background-color: #16222d;
+.bottom-visual-grid:after{
+  content:"";position:absolute;inset:0;opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+  background-size:56px 56px;
+  mask-image:linear-gradient(90deg,#000,transparent 75%);
 }
-.image-caption {
-    font-size: 12px;
-    color: #cdbe91;
-    margin-top: 6px;
-    text-align: center;
-    font-weight: bold;
+.bottom-visual-content{
+  position:relative;z-index:2;width:min(1120px,90%);min-height:410px;margin:0 auto;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  padding:55px 0;
 }
+.bottom-visual-content small{color:#00d9ff;letter-spacing:2.2px;font-weight:800;font-size:11px}
+.bottom-visual-content h2{margin:10px 0 14px;max-width:720px;font-size:clamp(34px,4.6vw,60px);line-height:1.08;color:#f0eadb}
+.bottom-visual-content h2 em{font-style:normal;color:#c8aa6e}
+.bottom-visual-content p{max-width:650px;margin:0 0 24px;color:#c0c8cf;font-size:16px}
+.bottom-visual-content .gold-btn{display:inline-flex;align-items:center;justify-content:center}
 
-/* PNG 英雄多欄響應式網格 */
-.png-gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-    gap: 12px;
-    margin: 15px 0;
-}
-.png-display-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: radial-gradient(circle, #141f29 0%, #070b0e 100%);
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #1e2830;
-    transition: all 0.3s ease;
-    min-height: 140px;
-}
-.lol-png-hero {
-    width: 100%;
-    height: 95px;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.6));
-    transition: all 0.3s ease;
-}
-.fallback-circle {
-    width: 50px; height: 50px; border-radius: 50%; display: none;
-}
-.png-display-area:hover {
-    border-color: #c8aa6e;
-}
-.png-display-area:hover .lol-png-hero {
-    transform: translateY(-4px);
-    filter: drop-shadow(0 0 10px rgba(200, 170, 110, 0.6));
-}
+.notice{margin-top:24px}
+.stats-section{margin-top:18px}
 
-/* SVG 展示區 */
-.svg-display-area {
-    display: flex;
-    justify-content: center;
-    background-color: #070b0e;
-    padding: 25px;
-    border-radius: 4px;
-    margin: 15px 0;
-    border: 1px solid #1e2830;
-}
-.lol-svg-logo { width: 80px; height: 80px; fill: #c8aa6e; transition: all 0.3s ease; }
-
-/* 下層分頁清單 */
-.sub-page {
-    background-color: #0e161d;
-}
-.gameplay-list {
-    list-style-type: none; padding-left: 0;
-}
-.gameplay-list li {
-    position: relative; padding-left: 20px; margin-bottom: 10px; line-height: 1.6; color: #a0a5b0; font-size: 14px;
-}
-.gameplay-list li::before {
-    content: "◆"; position: absolute; left: 0; color: #c8aa6e; font-size: 11px;
-}
-
-/* ==========================================================================
-   4. 🔵 2026 官網海克斯科技激活炫藍效果 (.hextech-active)
-   ========================================================================== */
-/* Banner 注入霓虹特效 */
-.lol-hero-banner.hextech-active {
-    border-bottom-color: #00d9ff;
-    box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
-}
-/* 主外框注入強烈發光效果 */
-.container.hextech-active {
-    border-color: #00d9ff;
-    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
-}
-
-/* 14張 JPG 大圖同步注入發光與呼吸動畫 */
-.container.hextech-active .lol-bg-img {
-    border-color: #00d9ff;
-    box-shadow: 0 0 15px rgba(0, 217, 255, 0.6);
-    animation: pulseJpg 2.5s infinite ease-in-out;
-}
-
-/* 13款 PNG 英雄同步啟用官網經典浮空與幽藍背暈 */
-.container.hextech-active .lol-png-hero {
-    filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.85));
-    animation: floatHero 3.5s infinite ease-in-out;
-}
-
-/* 透過倍數延遲，讓27張圖片產生完美的波浪流動感 */
-.container.hextech-active .gallery-item:nth-child(2n) .lol-bg-img,
-.container.hextech-active .png-display-area:nth-child(2n) .lol-png-hero { animation-delay: 0.4s; }
-.container.hextech-active .gallery-item:nth-child(3n) .lol-bg-img,
-.container.hextech-active .png-display-area:nth-child(3n) .lol-png-hero { animation-delay: 0.8s; }
-
-.container.hextech-active .lol-svg-logo {
-    fill: #00d9ff;
-    filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.7));
-}
-
-@keyframes pulseJpg {
-    0% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 217, 255, 0.3); }
-    50% { transform: scale(1.015); box-shadow: 0 0 22px rgba(0, 217, 255, 0.8); }
-    100% { transform: scale(1); box-shadow: 0 0 12px rgba(0, 217, 255, 0.3); }
-}
-@keyframes floatHero {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0px); }
+@media(max-width:700px){
+  .hero{min-height:600px}
+  .hero-content{padding:85px 0 100px}
+  .hero-kicker{font-size:9px;letter-spacing:1.5px}
+  .kicker-line{width:25px}
+  .hero-title{font-size:clamp(38px,11vw,58px);letter-spacing:-.8px}
+  .hero-description{font-size:15px!important;line-height:1.75}
+  .hero-actions{flex-direction:column;align-items:stretch}
+  .hero-actions .gold-btn,.hero-actions .ghost-btn{width:100%}
+  .hero-scroll{display:none}
+  .home-bottom-visual,.bottom-visual-content{min-height:360px}
+  .bottom-visual-content{padding:40px 0}
+  .bottom-visual-grid{background:linear-gradient(90deg,rgba(3,7,11,.96),rgba(3,7,11,.72)),linear-gradient(0deg,rgba(3,7,11,.7),transparent)}
 }
