@@ -90,6 +90,13 @@
     '核心對線': ['Matchup lab', 'マッチアップラボ', '맞라인 연구소'],
     '前往戰術商城與分析 ⚔': ['Open tactics store ⚔', 'タクティクスへ ⚔', '전술 상점으로 ⚔'],
     // 提示
+    '© 2026 LOL 攻略站。LOL 攻略站是在 Riot Games 的「法律通則」方針下利用該公司擁有的資產所製作。Riot Games 不為此專案提供背書或贊助。': [
+        '© 2026 LOL Guide Site. LOL Guide Site was created under Riot Games\' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.',
+        '© 2026 LOL 攻略サイト。LOL 攻略サイトは Riot Games の「Legal Jibber Jabber」ポリシーに基づき、Riot Games が所有するアセットを使用して制作されています。Riot Games は本プロジェクトを推奨または後援していません。',
+        '© 2026 LOL 공략 사이트. LOL 공략 사이트는 Riot Games의 "Legal Jibber Jabber" 정책에 따라 Riot Games가 소유한 자산을 사용하여 제작되었습니다. Riot Games는 이 프로젝트를 보증하거나 후원하지 않습니다.'],
+    '資料基於 Patch': ['Data patch', 'データパッチ', '데이터 패치'],
+    '僅供遊戲參考': ['for reference only', '参考用', '참고용'],
+    '非官方粉絲網站': ['unofficial fan site', '非公式ファンサイト', '비공식 팬 사이트'],
     // 各頁說明文字（由 build_extra.py 的 CFG 取出，key 一定對得上）
     '收錄每位英雄的官方造型縮圖（已排除炫彩），點一下可以到官方大圖。造型名稱、數量都跟著 Data Dragon 更新。': ['Browse official skin thumbnails for every champion (chromas excluded); click for the official splash art. Names and counts follow Data Dragon.', '全チャンピオンの公式スキン画像（クロマ除く）。クリックで公式スプラッシュアートへ。名前と数は Data Dragon に追従します。', '모든 챔피언의 공식 스킨 썸네일(크로마 제외). 클릭하면 공식 스플래시 아트로 이동합니다.'],
     '官方英雄讀取圖牆（loading art），加上四張分頁桌布。點圖可看較大版本或到官方大圖。': ['Official champion loading art plus four page wallpapers. Click an image for a larger version or the official splash art.', '公式チャンピオンロード画面と4枚の壁紙。クリックで拡大または公式スプラッシュアートへ。', '공식 챔피언 로딩 아트와 배경화면 4장. 클릭하면 크게 보거나 공식 스플래시 아트로 이동합니다.'],

@@ -456,7 +456,8 @@ __CLASSOPS__
     </div>
 
     <footer>
-        <div>&copy; 2026 LOL 攻略站 &middot; 資料基於 Patch __VER__ &middot; 僅供參考</div>
+        <div>&copy; 2026 LOL 攻略站。LOL 攻略站是在 Riot Games 的「法律通則」方針下利用該公司擁有的資產所製作。Riot Games 不為此專案提供背書或贊助。</div>
+        <div>資料基於 Patch ''' + esc(VER) + '''（Riot 官方 Data Dragon）· 僅供遊戲參考 · 非官方粉絲網站</div>
     </footer>
 
     <script src="ui.js"></script>
