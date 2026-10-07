@@ -91,6 +91,17 @@
     ':is(.db-heading,.heading)::before{content:"";display:block;width:46px;height:2px;margin-bottom:10px;',
     'border-radius:2px;background:linear-gradient(90deg,#c8aa6e,rgba(200,170,110,0))}',
 
+    /* 超小螢幕（320–400px）收緊頂欄，避免水平溢出 */
+    '@media (max-width:400px){',
+    '.topbar{padding-left:10px!important;padding-right:10px!important;gap:6px}',
+    '.brand{font-size:12px}',
+    '.brand b{font-size:9px;padding:1px 4px}',
+    '.topbar .icon-btn,.icon-btn{width:32px;height:32px;font-size:13px}',
+    '.topbar nav{gap:6px}',
+    '.topbar nav a{font-size:12.5px;padding:6px 5px}',
+    '.subnav a{font-size:12.5px;padding:6px 9px}',
+    '}',
+
     '@media (max-width:700px){:is(' + PANELS + '){outline-offset:2px}}'
   ].join('');
 
