@@ -303,3 +303,34 @@ body.light ::-webkit-scrollbar-thumb{background:#c3ced6;border-color:#eef2f4}
 body.light ::-webkit-scrollbar-thumb:hover{background:#c8aa6e}
 body.light .modal-box::-webkit-scrollbar-track{background:transparent}
 body.light .modal-box::-webkit-scrollbar-thumb{background:#c3ced6;border-color:transparent}
+
+/* ===== 各頁背景圖：LOL 官方美術（Riot Data Dragon / CommunityDragon） =====
+   圖片存在 assets/ 內，開網站不需要連外，離線也看得到。 */
+body.bg-home      { --page-art: url("assets/bg-home.jpg"); }
+body.bg-champions { --page-art: url("assets/bg-champions.jpg"); }
+body.bg-items     { --page-art: url("assets/bg-items.jpg"); }
+body.bg-guides    { --page-art: url("assets/bg-guides.jpg"); }
+
+body.bg-home, body.bg-champions, body.bg-items, body.bg-guides {
+  background-color: #05080d;
+  background-image:
+    radial-gradient(125% 85% at 50% 0%, rgba(5,8,13,.08) 0%, rgba(5,8,13,.50) 55%, rgba(5,8,13,.90) 100%),
+    linear-gradient(0deg, rgba(5,8,13,.90) 0%, rgba(5,8,13,.34) 45%, rgba(5,8,13,.68) 100%),
+    var(--page-art);
+  background-repeat: no-repeat, no-repeat, no-repeat;
+  background-position: center top, center center, center 20%;
+  background-size: auto, auto, cover;
+  background-attachment: fixed, fixed, fixed;
+}
+
+/* 淺色主題：同一張圖，換成亮色遮罩才不會髒掉 */
+body.light.bg-home, body.light.bg-champions, body.light.bg-items, body.light.bg-guides {
+  background-color: #eef2f4;
+  background-image:
+    linear-gradient(rgba(238,242,244,.90), rgba(238,242,244,.96)),
+    var(--page-art);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center 20%;
+  background-size: auto, cover;
+  background-attachment: fixed, fixed;
+}
