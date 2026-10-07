@@ -736,7 +736,7 @@ def write_js():
   function $(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
 
-  var DATA = null, ITEMS = [], state = { role: '全部', q: '', sel: 'all' };
+  var DATA = null, ITEMS = [], ALL_ABILITY_COUNT = 0, state = { role: '全部', q: '', sel: 'all' };
 
   function role(name) { return name ? '<span class="tag tag--role">' + esc(name) + '</span>' : ''; }
 
@@ -844,7 +844,10 @@ def write_js():
       });
       apply(); return;
     }
-    else if (MODE === 'abilities') body.innerHTML = DATA.map(function (c) { return c.ability.map(function (a) { return cardAbility(c, a); }).join(''); }).join('');
+    else if (MODE === 'abilities') {
+      ALL_ABILITY_COUNT = DATA.reduce(function (n, c) { return n + (c.ability || []).length; }, 0);
+      body.innerHTML = DATA.map(function (c) { return c.ability.map(function (a) { return cardAbility(c, a); }).join(''); }).join('');
+    }
     else if (MODE === 'maps') body.innerHTML = DATA.map(cardMap).join('');
     else if (MODE === 'runes') body.innerHTML = DATA.map(cardRuneTree).join('');
     else if (MODE === 'gear') body.innerHTML = DATA.map(cardGear).join('');
@@ -902,6 +905,7 @@ def write_js():
     var suffix = q ? '（關鍵字：' + raw.trim() + '）' : '';
     if (MODE === 'skins') $('exCount').textContent = '顯示 ' + shown + ' 位英雄的造型' + suffix;
     else if (MODE === 'runes') $('exCount').textContent = '顯示 ' + shown + ' 條符文樹（共 ' + DATA.length + ' 條）' + suffix;
+    else if (MODE === 'abilities') $('exCount').textContent = '顯示 ' + shown + ' 個技能（共 ' + (ALL_ABILITY_COUNT || shown) + ' 個）' + suffix;
     else if (MODE === 'maps') $('exCount').textContent = '顯示 ' + shown + ' / 共 ' + DATA.length + ' 張地圖' + suffix;
     else $('exCount').textContent = '顯示 ' + shown + ' 筆資料（共 ' + DATA.length + ' 筆）' + suffix;
 

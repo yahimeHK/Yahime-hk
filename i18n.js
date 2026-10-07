@@ -57,6 +57,7 @@
     '難度：簡單': ['Difficulty: Easy', '難易度：やさしい', '난이도: 쉬움'],
     '難度：中等': ['Difficulty: Medium', '難易度：ふつう', '난이도: 보통'],
     '難度：困難': ['Difficulty: Hard', '難易度：むずかしい', '난이도: 어려움'],
+    '被動': ['Passive', 'パッシブ', '패시브'],
     '簡單': ['Easy', 'やさしい', '쉬움'],
     '中等': ['Medium', 'ふつう', '보통'],
     '困難': ['Hard', 'むずかしい', '어려움'],
@@ -127,6 +128,16 @@
 
   // 有數字的句子用規則處理
   var RULES = [
+    [/^(\d+)\s*個技能$/, ['$1 abilities', '$1 スキル', '스킬 $1개']],
+    [/^(\d+)\s*張造型縮圖$/, ['$1 skin thumbnails', 'スキン画像 $1 枚', '스킨 썸네일 $1개']],
+    [/^(\d+)\s*張讀取圖$/, ['$1 loading art', 'ロード画面 $1 枚', '로딩 아트 $1개']],
+    [/^(\d+)\s*件道具$/, ['$1 items', 'アイテム $1 点', '아이템 $1개']],
+    [/^(\d+)\s*個符文$/, ['$1 runes', 'ルーン $1 個', '룬 $1개']],
+    [/^(\d+)\s*條符文樹$/, ['$1 rune trees', 'ルーンツリー $1 本', '룬 트리 $1개']],
+    [/^(\d+)\s*張地圖$/, ['$1 maps', 'マップ $1 枚', '맵 $1개']],
+    [/^(\d+)\s*個技能圖示$/, ['$1 ability icons', 'スキルアイコン $1 個', '스킬 아이콘 $1개']],
+    [/^(\d+)\s*件核心裝備$/, ['$1 core items', 'コアアイテム $1 点', '핵심 아이템 $1개']],
+    [/^顯示\s*(\d+)\s*個技能（共\s*(\d+)\s*個）$/, ['Showing $1 of $2 abilities', '$2 スキル中 $1 を表示', '$2개 중 $1개 스킬 표시']],
     [/^…其餘\s*(\d+)\s*項請用搜尋$/, ['…$1 more — use search', '…残り $1 件は検索してください', '…나머지 $1개는 검색하세요']],
     [/^共\s*(\d+)\s*筆$/, ['$1 entries', '$1 件', '$1개']],
     [/顯示\s*(\d+)\s*位英雄（共\s*(\d+)\s*位）/, ['Showing $1 of $2 champions', '$2 人中 $1 人を表示', '$2명 중 $1명 표시']],
@@ -164,8 +175,36 @@
     if (core && !LOOKUP[core]) LOOKUP[core] = DICT[k];
   });
 
+  /* ---------------- 資料內容對照（英雄／技能／符文／裝備…） ---------------- */
+  var dataMaps = {};        // code -> { 中文原文: 譯文 }
+  var dataQueues = {};      // code -> [callback]
+
+  function dataMap() {
+    return dataMaps[lang] || {};
+  }
+
+  function dataHit(key) {
+    var m = dataMap();
+    return m[key] || m[stripTail(key)] || null;
+  }
+
+  function ensureData(code, done) {
+    if (code === 'zh-Hant' || dataMaps[code]) { done(); return; }
+    if (dataQueues[code]) { dataQueues[code].push(done); return; }
+    dataQueues[code] = [done];
+    var finish = function () {
+      var list = dataQueues[code] || [];
+      delete dataQueues[code];
+      list.forEach(function (f) { try { f(); } catch (e) { /* 忽略 */ } });
+    };
+    fetch('assets/lol/i18n-' + code + '.json')
+      .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function (d) { dataMaps[code] = d.map || {}; finish(); })
+      ['catch'](function () { finish(); });          // 讀不到就用原文
+  }
+
   function t(key) {
-    var hit = LOOKUP[key] || LOOKUP[stripTail(key)];
+    var hit = LOOKUP[key] || LOOKUP[stripTail(key)] || dataHit(key);
     if (LI === 0 || !hit) return key;
     return hit[LI - 1] || key;
   }
@@ -181,11 +220,28 @@
     if (!key) return;
     var out = null;
     var core = stripTail(key);
-    var hit = LOOKUP[key] || (core !== key ? LOOKUP[core] : null);
+    var hit = LOOKUP[key] || (core !== key ? LOOKUP[core] : null) || dataHit(key);
+    // DICT 是四語陣列、資料對照是單一譯文字串，這裡要分開處理
+    var target = Array.isArray(hit) ? (hit[LI - 1] || null) : hit;
     if (LI === 0) {
       out = raw;
+    } else if (target) {
+      out = raw.replace(core || key, target);
     } else if (hit) {
-      out = raw.replace(core || key, hit[LI - 1]);
+      out = raw;                                  // 有對照但該語言沒有譯文，保持原文
+    } else if (key.indexOf(' · ') > 0) {
+      // 「英雄名 · 技能」／「稱號 · 位置」這類組合字串：每一段都查得到才翻譯
+      var parts = key.split(' · ');
+      var tr = [];
+      var all = true;
+      parts.forEach(function (p2) {
+        var d1 = DICT[p2] ? DICT[p2][LI - 1] : null;
+        var d2 = dataHit(p2);
+        var v = d1 || d2;
+        if (!v && !/^[A-Za-z0-9]+$/.test(p2)) all = false;   // Q/W/E/R 這種本來就是英文，允許直接沿用
+        tr.push(v || p2);
+      });
+      if (all) out = raw.replace(key, tr.join(' · '));
     } else {
       for (var i = 0; i < RULES.length; i++) {
         var m = RULES[i][0].exec(key);
@@ -222,8 +278,9 @@
         if (!el._i18nOrig) el._i18nOrig = {};
         if (!el._i18nOrig[a]) el._i18nOrig[a] = v;
         var orig = el._i18nOrig[a];
-        var ok = LOOKUP[orig.trim()] || LOOKUP[stripTail(orig)];
-        var out = LI === 0 ? orig : (ok ? ok[LI - 1] : null);
+        var ok = LOOKUP[orig.trim()] || LOOKUP[stripTail(orig)] || dataHit(orig.trim());
+        var okTarget = Array.isArray(ok) ? (ok[LI - 1] || null) : ok;
+        var out = LI === 0 ? orig : okTarget;
         if (out && v !== out) el.setAttribute(a, out);
       });
     });
@@ -279,9 +336,15 @@
     LI = idxOf(code);
     lang = LANGS[LI].code;
     try { localStorage.setItem(KEY, lang); } catch (e) { /* 無痕模式 */ }
-    walk(document.body);
+    walk(document.body);                       // 先翻介面（立即見效）
     applyChrome();
     window.dispatchEvent(new CustomEvent('lol:lang', { detail: { lang: lang } }));
+    ensureData(lang, function () {             // 資料對照載入後再翻一次內容
+      if (LANGS[LI].code === lang) {
+        walk(document.body);
+        applyChrome();
+      }
+    });
   }
 
   function build() {
@@ -335,6 +398,7 @@
 
   function init() {
     build();
+    if (LI !== 0) ensureData(lang, function () { walk(document.body); });
     new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true, characterData: true });
   }
 
