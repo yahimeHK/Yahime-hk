@@ -31,7 +31,7 @@ button,input,select,textarea{font:inherit}
 .hero-actions{margin:28px 0 18px}
 .hero-main-btn,.hero-random-btn{display:inline-flex;align-items:center;justify-content:center}
 .hero-pills{display:flex;gap:7px;flex-wrap:wrap}
-.hero-pills span{background:rgba(9,20,28,.72);border-color:rgba(98,170,190,.35);backdrop-filter:blur(8px)}
+.hero-pills span{padding:6px 12px;font-size:12px;font-weight:700;line-height:1.2;color:#9ddff0;background:rgba(9,20,28,.72);border:1px solid rgba(98,170,190,.35);border-radius:999px;backdrop-filter:blur(8px);transition:border-color .18s ease,color .18s ease}.hero-pills span:hover{border-color:rgba(0,217,255,.55);color:#d8f2fa}
 .hero-scroll{position:absolute;z-index:5;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;color:#83919b;font-size:9px;letter-spacing:2px}
 .hero-scroll i{width:1px;height:30px;background:linear-gradient(#c8aa6e,transparent)}
 @keyframes heroGlow{from{transform:scale(.9) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(2%,-2%,0)}}
