@@ -541,6 +541,9 @@ function openChampion(name) {
 
     const modal = $('modal');
     if (modal) { modal.classList.add('show'); modal.setAttribute('aria-hidden', 'false'); }
+
+    // 把目前打開的英雄寫進網址（#champ=名字）：重新整理後才會回到同一個英雄
+    if (history.replaceState) history.replaceState(null, '', '#champ=' + encodeURIComponent(c.name));
 }
 
 function renderCounter() {
@@ -639,6 +642,16 @@ async function loadGameData() {
         const c = pickRandomChampion();
         if (c) setTimeout(() => openChampion(c.name), 200);
     }
+
+    // 重新整理後回到同一個英雄：網址帶著 #champ=名字 就自動打開那個彈窗
+    const hashMatch = /^#champ=(.*)$/.exec(window.location.hash);
+    if (hashMatch) {
+        let wanted = '';
+        try { wanted = decodeURIComponent(hashMatch[1]); } catch (e) { wanted = hashMatch[1]; }
+        if (wanted && champions.some(c => c.name === wanted)) {
+            setTimeout(() => openChampion(wanted), 150);
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -686,6 +699,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (closeModal) closeModal.onclick = () => {
         const modal = $('modal');
         if (modal) { modal.classList.remove('show'); modal.setAttribute('aria-hidden', 'true'); }
+        // 關掉彈窗就把網址上的英雄清掉
+        if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
     };
 
     const modal = $('modal');

@@ -5,8 +5,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOL 攻略站 - 裝備與符文數據庫</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+  /* 手機版強制顯示導航（保險用） */
+  @media(max-width:1000px){
+    .topbar nav{
+      display:flex !important;
+      gap:14px !important;
+      overflow-x:auto !important;
+      flex-wrap:nowrap !important;
+    }
+    .topbar nav a{
+      font-size:13px !important;
+      white-space:nowrap !important;
+    }
+  }
+  @media(max-width:700px){
+    .brand{font-size:15px !important}
+    .topbar nav{gap:12px !important}
+  }
+</style>
+    <style>
+        :root{--gold:#c8aa6e;--gold-bright:#f0e6d2;--cyan:#00d9ff;--bg-dark:#05080d;--border:#1e2b35}
+        body{background:radial-gradient(ellipse at 20% 0%,rgba(200,170,110,.08),transparent 55%),radial-gradient(ellipse at 80% 100%,rgba(0,217,255,.06),transparent 55%),var(--bg-dark)}
+        .section-sub{display:flex;align-items:center;gap:10px;margin:48px 0 10px}
+        .section-sub .bar{width:4px;height:26px;background:linear-gradient(180deg,var(--gold),var(--cyan));border-radius:2px;box-shadow:0 0 12px rgba(200,170,110,.5)}
+        .section-sub h3{margin:0;color:var(--gold);font-size:22px;letter-spacing:1px;text-shadow:0 0 18px rgba(200,170,110,.25)}
+        .section-sub small{color:#76838d;font-size:12px;letter-spacing:2px}
+        .item-table{width:100%;border-collapse:collapse;margin-top:20px;background:linear-gradient(180deg,#0b1117,#080d12);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.03)}
+        .item-table thead th{background:linear-gradient(180deg,#101922,#0b131b);color:var(--gold);padding:16px 14px;text-align:left;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;border-bottom:1px solid rgba(200,170,110,.25);position:relative}
+        .item-table thead th::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,170,110,.7),transparent)}
+        .item-table tbody td{padding:16px 14px;border-bottom:1px solid rgba(30,43,53,.7);vertical-align:middle;font-size:14px}
+        .item-table tbody tr{transition:background .25s ease;opacity:0;transform:translateY(12px);animation:fadeUp .55s ease forwards}
+        .item-table tbody tr:hover{background:linear-gradient(90deg,rgba(200,170,110,.06),rgba(0,217,255,.03),transparent)}
+        .item-table tbody tr:hover td:first-child{color:var(--gold-bright);text-shadow:0 0 10px rgba(200,170,110,.6)}
+        .item-table tbody tr:last-child td{border-bottom:0}
+        .item-table tbody tr:nth-child(1){animation-delay:.03s}.item-table tbody tr:nth-child(2){animation-delay:.06s}.item-table tbody tr:nth-child(3){animation-delay:.09s}.item-table tbody tr:nth-child(4){animation-delay:.12s}.item-table tbody tr:nth-child(5){animation-delay:.15s}.item-table tbody tr:nth-child(6){animation-delay:.18s}.item-table tbody tr:nth-child(7){animation-delay:.21s}.item-table tbody tr:nth-child(8){animation-delay:.24s}.item-table tbody tr:nth-child(9){animation-delay:.27s}.item-table tbody tr:nth-child(10){animation-delay:.30s}.item-table tbody tr:nth-child(11){animation-delay:.33s}.item-table tbody tr:nth-child(12){animation-delay:.36s}.item-table tbody tr:nth-child(13){animation-delay:.39s}.item-table tbody tr:nth-child(14){animation-delay:.42s}.item-table tbody tr:nth-child(15){animation-delay:.45s}.item-table tbody tr:nth-child(16){animation-delay:.48s}.item-table tbody tr:nth-child(17){animation-delay:.51s}.item-table tbody tr:nth-child(18){animation-delay:.54s}
+        @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+        .item-table tbody td:first-child{font-weight:900;color:#6f7c86;font-size:15px;text-align:center;width:56px}
+        .cell-champ{display:flex;align-items:center;gap:12px;min-width:160px}
+        .cell-champ img{width:52px;height:52px;border-radius:12px;object-fit:cover;border:2px solid rgba(200,170,110,.55);background:#101922;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 6px 18px rgba(0,0,0,.5);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
+        .cell-champ img:hover{transform:scale(1.12) rotate(-1deg);border-color:var(--gold-bright);box-shadow:0 0 22px rgba(200,170,110,.65),0 0 40px rgba(0,217,255,.25)}
+        .cell-champ .name{font-weight:800;color:#f0eadb;line-height:1.2;letter-spacing:.5px}
+        .cell-champ .en{font-size:10px;color:#76838d;letter-spacing:2px;margin-top:2px}
+        .cell-items{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .cell-items img{width:38px;height:38px;border-radius:9px;border:1px solid rgba(200,170,110,.45);background:#0d151c;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.45);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+        .cell-items img:hover{transform:translateY(-4px) scale(1.08);border-color:var(--cyan);box-shadow:0 0 16px rgba(0,217,255,.55),0 0 32px rgba(0,217,255,.2)}
+        .cell-items .arrow{color:#4a5a66;font-size:12px;user-select:none}
+        .cell-rune{display:flex;align-items:center;gap:10px}
+        .cell-rune img{width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,170,110,.5);background:#0d151c;flex:none;animation:runePulse 3.5s ease-in-out infinite;transition:transform .4s ease,box-shadow .4s ease}
+        .cell-rune img:hover{transform:rotate(15deg) scale(1.12);box-shadow:0 0 22px rgba(200,170,110,.8)}
+        @keyframes runePulse{0%,100%{box-shadow:0 0 10px rgba(200,170,110,.25)}50%{box-shadow:0 0 20px rgba(200,170,110,.55)}}
+        .cell-rune .rune-text{color:var(--gold);font-weight:700;font-size:13px;letter-spacing:.5px;text-shadow:0 0 12px rgba(200,170,110,.25)}
+        .cell-role{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:linear-gradient(180deg,#111d26,#0c161d);border:1px solid rgba(0,217,255,.35);color:#9ddff0;font-size:12px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+        .cell-role .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:dotPulse 2s ease-in-out infinite}
+        @keyframes dotPulse{0%,100%{opacity:.6}50%{opacity:1}}
+        .cell-desc{color:#9da9b2;line-height:1.65;font-size:13px}
+        .heading h2{background:linear-gradient(90deg,#f0eadb,#c8aa6e 60%,#00d9ff);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;letter-spacing:1px}
+        .lol-particles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;background-image:radial-gradient(circle,rgba(200,170,110,.8) 1px,transparent 1.5px),radial-gradient(circle,rgba(0,217,255,.6) 1px,transparent 1.5px);background-size:180px 180px,260px 260px;background-position:0 0,90px 90px;animation:particleDrift 40s linear infinite}
+        @keyframes particleDrift{from{background-position:0 0,90px 90px}to{background-position:180px -180px,270px -90px}}
+        @media(max-width:900px){.item-table thead{display:none}.item-table tbody td{display:block;border:0;padding:8px 14px}.item-table tbody tr{display:block;margin-bottom:16px;border:1px solid var(--border);border-radius:12px;background:#0b1117;padding:10px 0}.item-table tbody td:first-child{text-align:left;color:var(--gold);padding-top:12px}.cell-champ img{width:44px;height:44px}}
+    </style>
 </head>
 <body>
+    <div class="lol-particles"></div>
+
     <header class="topbar">
         <div class="brand">SUMMONER'S <span>GUIDE</span><b>V5.1</b></div>
         <nav>
@@ -18,39 +80,181 @@
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
 
-    <main class="container" style="width: min(1200px, 90%); margin: 30px auto;">
+    <main class="container" style="width: min(1200px, 90%); margin: 30px auto; position:relative; z-index:1;">
         <div class="heading">
             <small>BUILD LAB · PATCH 16.19</small>
             <h2>符文 ＆ 核心裝備數據庫</h2>
-            <p>下表整理 Patch 26.19 各位置常見英雄的符文基石與核心裝備路徑，並附 AI 戰術解析。</p>
+            <p>下表整理 Patch 26.19 各位置常見英雄的符文基石與核心裝備路徑，並附 AI 戰術解析。實際對局請按敵方陣容靈活調整。</p>
         </div>
 
-        <table class="item-table" style="margin-top: 30px; width: 100%;">
+        <div class="section-sub">
+            <div class="bar"></div>
+            <h3>📜 符文 ＆ 核心裝備配置</h3>
+            <small>PATCH 26.19</small>
+        </div>
+
+        <table class="item-table">
             <thead>
                 <tr>
-                    <th>英雄</th>
-                    <th>位置</th>
-                    <th>符文</th>
-                    <th>核心裝備</th>
-                    <th>戰術解析</th>
+                    <th style="width:56px;">#</th>
+                    <th style="width:190px;">英雄</th>
+                    <th style="width:110px;">位置</th>
+                    <th style="width:210px;">符文（主系基石）</th>
+                    <th style="width:290px;">核心裝備</th>
+                    <th>AI 戰術解析</th>
                 </tr>
             </thead>
             <tbody>
-                <tr><td>蓋倫</td><td>上路</td><td>征服者</td><td>狂戰士脛甲 → 挺進破壞者 → 幻影之舞</td><td>E技能持續疊層，強化單帶與生存</td></tr>
-                <tr><td>暗裔劍魔</td><td>上路</td><td>征服者</td><td>鐵板靴 → 星蝕 → 焚天</td><td>星蝕提供換血護盾與移速</td></tr>
-                <tr><td>卡莉絲塔</td><td>上路</td><td>致命節奏</td><td>電刃 → 貪欲九頭蛇 → 鬼索的狂暴之刃</td><td>普攻壓制為主，清線與持續輸出</td></tr>
-                <tr><td>科加斯</td><td>打野</td><td>叢刃</td><td>雄心之鋼</td><td>配合R技能永久疊加生命，打野T0</td></tr>
-                <tr><td>德瑪西亞皇子</td><td>打野</td><td>征服者</td><td>焚天 → 水銀之靴 → 黑色切割者</td><td>EQ連招爆發，為團隊創造輸出空間</td></tr>
-                <tr><td>莉莉亞</td><td>打野</td><td>征服者</td><td>中婭沙漏</td><td>進場後安全等待技能冷卻</td></tr>
-                <tr><td>猩紅收割者</td><td>中路</td><td>風暴狂涌</td><td>明朗之靴 → 風暴狂涌 → 死亡之帽</td><td>進場移速與爆發，後期AP收益極高</td></tr>
-                <tr><td>加里歐</td><td>中路</td><td>餘震</td><td>深淵面具 → 中婭沙漏 → 自然之力</td><td>強化進場後的魔抗與AP</td></tr>
-                <tr><td>梅爾</td><td>中路</td><td>奧術彗星</td><td>盧登的回聲 → 法師之靴 → 暗影之焰</td><td>遠程消耗型法師</td></tr>
-                <tr><td>吉茵珂絲</td><td>下路</td><td>致命節奏</td><td>海克斯光學C44 → 狂戰士護脛 → 芮蘭颶風箭</td><td>強化團戰多目標輸出</td></tr>
-                <tr><td>韋魯斯</td><td>下路</td><td>強攻</td><td>納什之牙 → 鬼索的狂暴之刃 → 盧安娜的颶風</td><td>AP攻速流，普攻附帶魔法傷害</td></tr>
-                <tr><td>卡瑪</td><td>輔助</td><td>召喚艾莉</td><td>夢境締造者 → 艾歐尼亞明晰之靴 → 赫利亞的回響</td><td>艾莉強化消耗與護盾</td></tr>
-                <tr><td>加里歐</td><td>輔助</td><td>餘震</td><td>鋼鐵烈陽之匣 → 騎士之誓 → 基克的聚合</td><td>提供團隊護盾，保護核心輸出</td></tr>
+                <tr>
+                    <td>1</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Garen.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=G'" alt="Garen"><div><div class="name">蓋倫</div><div class="en">GAREN</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=靴'" alt="狂戰士脛甲"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6631.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=挺'" alt="挺進破壞者"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3046.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=幻'" alt="幻影之舞"></div></td>
+                    <td class="cell-desc">征服者搭配 E 技能持續疊層，挺進破壞者提供進場與減速，幻影之舞強化單帶與生存。</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Aatrox.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Aatrox"><div><div class="name">暗裔劍魔</div><div class="en">AATROX</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3047.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鐵'" alt="鐵板靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6692.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=星'" alt="星蝕"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3161.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=焚'" alt="焚天"></div></td>
+                    <td class="cell-desc">星蝕提供換血護盾與移速，焚天強化 Q 技能爆發與清線，是當前主流先手路徑。</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Kalista.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=K'" alt="Kalista"><div><div class="name">卡莉絲塔</div><div class="en">KALISTA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png" onerror="this.style.display='none'" alt="Lethal Tempo"><span class="rune-text">致命節奏</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電刃"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3072.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=九'" alt="貪欲九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3124.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鬼'" alt="鬼索的狂暴之刃"></div></td>
+                    <td class="cell-desc">上路卡莉絲塔以普攻壓制為主，電刃提供清線與爆發，鬼索強化持續輸出。</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Ambessa.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Ambessa"><div><div class="name">鐵血狼母</div><div class="en">AMBESSA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6698.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=瀆'" alt="褻瀆九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3047.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鐵'" alt="鐵板靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3153.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電震渦流劍"></div></td>
+                    <td class="cell-desc">褻瀆九頭蛇強化清線與技能穿插，電震渦流劍提供爆發與技能急速。</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Chogath.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=C'" alt="Cho'Gath"><div><div class="name">科加斯</div><div class="en">CHO'GATH</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png" onerror="this.style.display='none'" alt="Hail of Blades"><span class="rune-text">叢刃</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3084.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=雄'" alt="雄心之鋼"></div></td>
+                    <td class="cell-desc">26.19 打野 T0，勝率 53.6%，94% 玩家使用叢刃；雄心之鋼配合 R 技能永久疊加生命。</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/JarvanIV.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=J'" alt="Jarvan IV"><div><div class="name">德瑪西亞皇子</div><div class="en">JARVAN IV</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3161.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=焚'" alt="焚天"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3111.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=水'" alt="水銀之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3071.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=黑'" alt="黑色切割者"></div></td>
+                    <td class="cell-desc">焚天強化 EQ 連招爆發，黑切削甲為團隊創造輸出空間，是節奏型打野標準路徑。</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Ambessa.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Ambessa"><div><div class="name">鐵血狼母</div><div class="en">AMBESSA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6698.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=瀆'" alt="褻瀆九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3047.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鐵'" alt="鐵板靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3153.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電震渦流劍"></div></td>
+                    <td class="cell-desc">打野位以快速清野與 Gank 為主，褻瀆九頭蛇提供清線與續航，電震渦流劍強化單抓。</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Lillia.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=L'" alt="Lillia"><div><div class="name">莉莉亞</div><div class="en">LILLIA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者 / 風暴狂涌</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3157.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=中'" alt="中婭沙漏"></div></td>
+                    <td class="cell-desc">中婭沙漏讓莉莉亞在進場後安全等待技能冷卻，是團戰進場的核心保命裝。</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Vladimir.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=V'" alt="Vladimir"><div><div class="name">猩紅收割者</div><div class="en">VLADIMIR</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/StormraidersSurge/StormraidersSurge.png" onerror="this.style.display='none'" alt="Stormraider's Surge"><span class="rune-text">風暴狂涌</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3158.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=明'" alt="明朗之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3152.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=風'" alt="風暴狂涌"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3089.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=帽'" alt="死亡之帽"></div></td>
+                    <td class="cell-desc">勝率 51.1%；風暴狂涌提供進場移速與爆發，死亡之帽最大化後期 AP 收益。</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Galio.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=G'" alt="Galio"><div><div class="name">加里歐</div><div class="en">GALIO</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Guardian/Guardian.png" onerror="this.style.display='none'" alt="Aftershock"><span class="rune-text">餘震</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3001.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=深'" alt="深淵面具"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3157.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=中'" alt="中婭沙漏"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/4401.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=自'" alt="自然之力"></div></td>
+                    <td class="cell-desc">中單勝率 52.7%；深淵面具強化進場後的魔抗與 AP，自然之力對抗法傷陣容。</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Mel.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=M'" alt="Mel"><div><div class="name">梅爾</div><div class="en">MEL</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png" onerror="this.style.display='none'" alt="Arcane Comet"><span class="rune-text">奧術彗星</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6655.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=盧'" alt="盧登的回聲"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3020.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=法'" alt="法師之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/4645.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=闇'" alt="暗影之焰"></div></td>
+                    <td class="cell-desc">遠程消耗型法師，盧登提供清線與爆發，暗影之焰強化對低血量目標的擊殺。</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Ambessa.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Ambessa"><div><div class="name">鐵血狼母</div><div class="en">AMBESSA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/Electrocute/Electrocute.png" onerror="this.style.display='none'" alt="Electrocute"><span class="rune-text">電刑</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6698.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=瀆'" alt="褻瀆九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3153.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電震渦流劍"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6333.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=死'" alt="死亡之舞"></div></td>
+                    <td class="cell-desc">中路以電刑強化單殺爆發，死亡之舞提供團戰生存與延遲傷害。</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Jinx.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=J'" alt="Jinx"><div><div class="name">吉茵珂絲</div><div class="en">JINX</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>下路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png" onerror="this.style.display='none'" alt="Lethal Tempo"><span class="rune-text">致命節奏</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6672.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=海'" alt="海克斯光學C44"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=狂'" alt="狂戰士護脛"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3085.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=芮'" alt="芮蘭颶風箭"></div></td>
+                    <td class="cell-desc">勝率 52.3%；致命節奏搭配颶風箭強化團戰多目標輸出，是當前最穩定的 ADC 路徑。</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Kalista.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=K'" alt="Kalista"><div><div class="name">卡莉絲塔</div><div class="en">KALISTA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>下路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png" onerror="this.style.display='none'" alt="Lethal Tempo"><span class="rune-text">致命節奏</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電刃"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3072.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=九'" alt="貪欲九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3124.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鬼'" alt="鬼索的狂暴之刃"></div></td>
+                    <td class="cell-desc">下路卡莉絲塔以 R 技能保護輔助進場，鬼索提供混合傷害與持續輸出。</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Varus.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=V'" alt="Varus"><div><div class="name">韋魯斯</div><div class="en">VARUS</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>下路</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png" onerror="this.style.display='none'" alt="Press the Attack"><span class="rune-text">強攻</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3115.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=納'" alt="納什之牙"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3124.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鬼'" alt="鬼索的狂暴之刃"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3085.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=颶'" alt="盧安娜的颶風"></div></td>
+                    <td class="cell-desc">AP 攻速流，納什之牙強化 W 被動傷害，鬼索讓普攻附帶魔法傷害，是當前主流韋魯斯路徑。</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Karma.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=K'" alt="Karma"><div><div class="name">卡瑪</div><div class="en">KARMA</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>輔助</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png" onerror="this.style.display='none'" alt="Summon Aery"><span class="rune-text">召喚艾莉</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6620.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=夢'" alt="夢境締造者"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3158.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=明'" alt="艾歐尼亞明晰之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6621.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=赫'" alt="赫利亞的回響"></div></td>
+                    <td class="cell-desc">勝率 48.8%；艾莉強化消耗與護盾，赫利亞的回響提供團隊治療與續航。</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Galio.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=G'" alt="Galio"><div><div class="name">加里歐</div><div class="en">GALIO</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>輔助</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Guardian/Guardian.png" onerror="this.style.display='none'" alt="Aftershock"><span class="rune-text">餘震</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3190.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=烈'" alt="鋼鐵烈陽之匣"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3109.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=騎'" alt="騎士之誓"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3050.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=基'" alt="基克的聚合"></div></td>
+                    <td class="cell-desc">輔助位登場率漲幅最高；烈陽之匣提供團隊護盾，騎士之誓保護核心輸出。</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Malzahar.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=M'" alt="Malzahar"><div><div class="name">馬爾札哈</div><div class="en">MALZAHAR</div></div></div></td>
+                    <td><span class="cell-role"><span class="dot"></span>輔助</span></td>
+                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png" onerror="this.style.display='none'" alt="Summon Aery"><span class="rune-text">召喚艾莉</span></div></td>
+                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3020.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=法'" alt="法師之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6653.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=黎'" alt="黎安卓的折磨"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3118.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=薩'" alt="薩茲薩克的領域之刺"></div></td>
+                    <td class="cell-desc">以 R 技能壓制關鍵目標，黎安卓的折磨強化持續傷害與清線能力。</td>
+                </tr>
             </tbody>
         </table>
+
+        <p style="margin-top: 14px; color: #76838d; font-size: 13px;">
+            📌 數據基於 Patch 26.19 公開統計，涵蓋翡翠以上段位。實際對局請根據敵方陣容與自身熟練度調整。
+        </p>
 
         <div class="heading" style="margin-top: 50px;">
             <small>PRESETS DIRECTION</small>

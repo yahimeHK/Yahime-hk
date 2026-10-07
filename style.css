@@ -280,3 +280,26 @@ body.light .heading h2,body.light .champ-info h3{color:#182027}
   .hero-glow,.hero-particles{animation:none}
   .bottom-visual-image{transition:none}
 }
+
+/* ===== 捲軸改成深色（原本英雄彈窗右邊會出現一條白色捲軸） ===== */
+*{scrollbar-color:#2f3f4c #0a1016;scrollbar-width:thin}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#0a1016}
+::-webkit-scrollbar-thumb{background:#2f3f4c;border:2px solid #0a1016;border-radius:999px}
+::-webkit-scrollbar-thumb:hover{background:#c8aa6e}
+::-webkit-scrollbar-corner{background:#0a1016}
+
+/* 彈窗內的捲軸再細一點，貼齊圓角 */
+.modal-box{scrollbar-width:thin}
+.modal-box::-webkit-scrollbar{width:8px}
+.modal-box::-webkit-scrollbar-track{background:transparent}
+.modal-box::-webkit-scrollbar-thumb{background:#2f3f4c;background-clip:padding-box;border:2px solid transparent;border-radius:999px}
+.modal-box::-webkit-scrollbar-thumb:hover{background:#c8aa6e;background-clip:padding-box}
+
+/* 淺色主題跟著換色 */
+body.light *{scrollbar-color:#c3ced6 #eef2f4}
+body.light ::-webkit-scrollbar-track{background:#eef2f4}
+body.light ::-webkit-scrollbar-thumb{background:#c3ced6;border-color:#eef2f4}
+body.light ::-webkit-scrollbar-thumb:hover{background:#c8aa6e}
+body.light .modal-box::-webkit-scrollbar-track{background:transparent}
+body.light .modal-box::-webkit-scrollbar-thumb{background:#c3ced6;border-color:transparent}

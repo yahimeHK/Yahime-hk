@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOL 攻略站 - 戰術商城（AI 協作計算）</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="shop.css">
 </head>
 <body>
     <header class="topbar">
@@ -18,35 +19,112 @@
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
 
-    <main class="container" style="width: min(1200px, 90%); margin: 30px auto;">
-        <div class="heading">
+    <main class="shop-wrap">
+        <section class="shop-hero">
             <small>AI TACTICAL STORE</small>
-            <h2>AI 特製實戰攻略包訂購區</h2>
-            <p>請選擇你想要修練的戰術貨物、輸入購買數量，系統將透過 JavaScript 即時為您試算總額並發放數位序號。</p>
-        </div>
+            <h1>AI 特製實戰攻略包 <em>訂購區</em></h1>
+            <p>選一個你現在最想修練的方向、輸入數量，系統會即時試算金額並發放數位序號。滿 1000 RP 另外解鎖 AI 加贈的『峽谷心理戰小冊』。</p>
+            <div class="shop-hero__pills">
+                <span>3 種戰術包</span>
+                <span>滿 1000 RP 送贈品</span>
+                <span>即時試算</span>
+                <span>純前端運算</span>
+            </div>
+        </section>
 
-        <div class="comment-form" style="margin-top: 30px; padding: 24px; background: #101922; border: 1px solid #253540; border-radius: 12px;">
-            <div style="display: flex; flex-direction: column; gap: 8px;">
-                <label for="shop-product" style="color: #c8aa6e; font-weight: 700;">🛒 選擇你的戰術貨物：</label>
-                <select id="shop-product">
-                    <option value="500" data-name="巴龍 Buff 團戰全攻略包">巴龍 Buff 團戰全攻略包 (500 RP)</option>
-                    <option value="350" data-name="菁英級走位與對線技巧講義">菁英級走位與對線技巧講義 (350 RP)</option>
-                    <option value="200" data-name="野區開局與高效 Gank 路線圖">野區開局與高效 Gank 路線圖 (200 RP)</option>
-                </select>
+        <section class="shop-grid">
+            <!-- 商品卡：點卡片就等於選了下拉選單裡的貨物 -->
+            <div class="shop-products" id="shopProducts">
+                <button class="product-card" type="button" data-value="500" data-name="巴龍 Buff 團戰全攻略包">
+                    <span class="product-card__icon">🐉</span>
+                    <span class="product-card__body">
+                        <span class="product-card__name">巴龍 Buff 團戰全攻略包</span>
+                        <span class="product-card__desc">從集結、視野到巴龍爭奪的完整時間軸，含 5 種逆風開團腳本。</span>
+                    </span>
+                    <span class="product-card__price">500 <em>RP</em></span>
+                    <span class="product-card__tick">已選擇</span>
+                </button>
+
+                <button class="product-card" type="button" data-value="350" data-name="菁英級走位與對線技巧講義">
+                    <span class="product-card__icon">🎯</span>
+                    <span class="product-card__body">
+                        <span class="product-card__name">菁英級走位與對線技巧講義</span>
+                        <span class="product-card__desc">換血節奏、兵線控制與走位細節，用圖解拆給你看。</span>
+                    </span>
+                    <span class="product-card__price">350 <em>RP</em></span>
+                    <span class="product-card__tick">已選擇</span>
+                </button>
+
+                <button class="product-card" type="button" data-value="200" data-name="野區開局與高效 Gank 路線圖">
+                    <span class="product-card__icon">🗺️</span>
+                    <span class="product-card__body">
+                        <span class="product-card__name">野區開局與高效 Gank 路線圖</span>
+                        <span class="product-card__desc">三種開局路線、河蟹與預示者的取捨，跟著地圖走就對了。</span>
+                    </span>
+                    <span class="product-card__price">200 <em>RP</em></span>
+                    <span class="product-card__tick">已選擇</span>
+                </button>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 14px;">
-                <label for="shop-quantity" style="color: #c8aa6e; font-weight: 700;">🔢 輸入訂購數量：</label>
-                <input type="number" id="shop-quantity" min="1" max="99" value="1">
+
+            <!-- 結帳：保留原本的欄位 id，state.js 才能在重新整理後還原你的選擇 -->
+            <aside class="shop-checkout">
+                <h2>🧾 結帳試算</h2>
+
+                <label class="field">
+                    <span>選擇戰術貨物</span>
+                    <select id="shop-product">
+                        <option value="500" data-name="巴龍 Buff 團戰全攻略包">巴龍 Buff 團戰全攻略包 (500 RP)</option>
+                        <option value="350" data-name="菁英級走位與對線技巧講義">菁英級走位與對線技巧講義 (350 RP)</option>
+                        <option value="200" data-name="野區開局與高效 Gank 路線圖">野區開局與高效 Gank 路線圖 (200 RP)</option>
+                    </select>
+                </label>
+
+                <div class="field">
+                    <span>訂購數量</span>
+                    <div class="stepper">
+                        <button type="button" id="qty-minus" aria-label="減少數量">−</button>
+                        <input type="number" id="shop-quantity" min="1" max="99" value="1" inputmode="numeric" aria-label="訂購數量">
+                        <button type="button" id="qty-plus" aria-label="增加數量">＋</button>
+                    </div>
+                </div>
+
+                <div class="shop-total">
+                    <span>預估總額</span>
+                    <b id="shop-total">500 <em>RP</em></b>
+                </div>
+
+                <div class="shop-bonus">
+                    <div class="shop-bonus__bar"><i id="bonusBar"></i></div>
+                    <p id="bonusHint">再購買 500 RP 即可獲得贈品！</p>
+                </div>
+
+                <button type="button" class="gold-btn" id="checkout-btn">⚡ 立即試算總金額</button>
+                <div id="shop-response" role="status" aria-live="polite"></div>
+            </aside>
+        </section>
+
+        <section class="shop-perks">
+            <div class="perk">
+                <div class="ico">⚡</div>
+                <b>即時試算</b>
+                <p>改數量、換貨物，總額與滿額進度條立刻跟著變，不用按任何按鈕。</p>
             </div>
-            <div style="margin-top: 20px;">
-                <button type="button" class="gold-btn" id="checkout-btn" style="width: 100%;">⚡ 立即試算總金額 ⚡</button>
+            <div class="perk">
+                <div class="ico">🎁</div>
+                <b>滿額贈品</b>
+                <p>總額滿 1000 RP 就解鎖 AI 加贈的『峽谷心理戰小冊』，序號會一起給你。</p>
             </div>
-            <div id="shop-response" style="margin-top: 20px; display: none; padding: 16px; border-radius: 8px;"></div>
-        </div>
+            <div class="perk">
+                <div class="ico">🔒</div>
+                <b>純前端運算</b>
+                <p>所有計算都在你的瀏覽器完成，不會送出任何資料，離線也能用。</p>
+            </div>
+        </section>
 
         <div class="heading" style="margin-top: 50px;">
             <small>GUIDE ARTICLES</small>
             <h2>AI 推薦文摘</h2>
+            <p>下單前先看幾篇，挑一個最符合你現在瓶頸的方向。</p>
         </div>
         <div class="article-grid" id="articleGrid" style="margin-top: 20px;"></div>
     </main>
@@ -60,31 +138,103 @@
     <script src="state.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const checkoutBtn = document.getElementById('checkout-btn');
-            const shopProduct = document.getElementById('shop-product');
-            const shopQuantity = document.getElementById('shop-quantity');
-            const shopResponse = document.getElementById('shop-response');
-            if (!checkoutBtn || !shopProduct || !shopQuantity || !shopResponse) return;
-            checkoutBtn.addEventListener('click', () => {
-                const price = parseInt(shopProduct.value, 10);
-                const quantity = parseInt(shopQuantity.value, 10);
-                const productName = shopProduct.options[shopProduct.selectedIndex].getAttribute('data-name');
-                if (isNaN(quantity) || quantity < 1) {
-                    shopResponse.style.display = 'block';
-                    shopResponse.style.background = 'rgba(231, 76, 60, 0.15)';
-                    shopResponse.style.border = '1px solid #e74c3c';
-                    shopResponse.style.color = '#e74c3c';
-                    shopResponse.innerHTML = '❌ 錯誤：請輸入正確的購買數量（至少 1 本）！';
+            const sel = document.getElementById('shop-product');
+            const qty = document.getElementById('shop-quantity');
+            const btn = document.getElementById('checkout-btn');
+            const out = document.getElementById('shop-response');
+            const totalEl = document.getElementById('shop-total');
+            const bar = document.getElementById('bonusBar');
+            const hint = document.getElementById('bonusHint');
+            const minus = document.getElementById('qty-minus');
+            const plus = document.getElementById('qty-plus');
+            const cards = Array.prototype.slice.call(document.querySelectorAll('.product-card'));
+            if (!sel || !qty || !btn || !out) return;
+
+            const GOAL = 1000;
+            const MAXQ = 99;
+
+            const priceOf = () => parseInt(sel.value, 10) || 0;
+            const nameOf = () => {
+                const o = sel.options[sel.selectedIndex];
+                return o ? (o.getAttribute('data-name') || o.textContent) : '';
+            };
+            function quantity() {
+                const n = parseInt(qty.value, 10);
+                if (isNaN(n) || n < 1) return 1;
+                return Math.min(MAXQ, n);
+            }
+
+            function syncCards() {
+                cards.forEach((c) => c.classList.toggle('is-selected', c.dataset.value === sel.value));
+            }
+
+            function refresh() {
+                const total = priceOf() * quantity();
+                if (totalEl) totalEl.innerHTML = total.toLocaleString() + ' <em>RP</em>';
+                if (bar) bar.style.width = Math.min(100, Math.round(total / GOAL * 100)) + '%';
+                if (hint) {
+                    hint.textContent = total >= GOAL
+                        ? '已達成滿額門檻，贈品已解鎖！'
+                        : '再購買 ' + (GOAL - total) + ' RP 即可獲得贈品！';
+                }
+                syncCards();
+            }
+
+            // 商品卡就是選單的另一種操作方式
+            cards.forEach((c) => c.addEventListener('click', () => {
+                sel.value = c.dataset.value;
+                sel.dispatchEvent(new Event('change', { bubbles: true }));
+                refresh();
+            }));
+
+            if (minus) minus.addEventListener('click', () => {
+                qty.value = String(Math.max(1, quantity() - 1));
+                qty.dispatchEvent(new Event('input', { bubbles: true }));
+                refresh();
+            });
+            if (plus) plus.addEventListener('click', () => {
+                qty.value = String(Math.min(MAXQ, quantity() + 1));
+                qty.dispatchEvent(new Event('input', { bubbles: true }));
+                refresh();
+            });
+
+            sel.addEventListener('change', refresh);
+            qty.addEventListener('input', refresh);
+
+            btn.addEventListener('click', () => {
+                const q = parseInt(qty.value, 10);
+                if (isNaN(q) || q < 1) {
+                    out.className = 'is-error';
+                    out.innerHTML = '❌ 請輸入正確的購買數量（至少 1 件）！';
                     return;
                 }
-                const totalCost = price * quantity;
-                let bonusMessage = totalCost >= 1000 ? "<br><span style='color: #00d9ff;'>🎁 滿額觸發：解鎖 AI 加贈的『峽谷心理戰小冊』！</span>" : `<br><span style='color: #8e9aa4;'>💡 再購買 ${1000 - totalCost} RP 即可獲得贈品！</span>`;
-                shopResponse.style.display = 'block';
-                shopResponse.style.background = 'rgba(200, 170, 110, 0.12)';
-                shopResponse.style.border = '1px solid #c8aa6e';
-                shopResponse.style.color = '#e9e4d5';
-                shopResponse.innerHTML = `<h3 style="margin: 0 0 8px; color: #c8aa6e;">🎉 訂單試算成功！</h3><p>貨物：<b>${productName}</b></p><p>數量：<b>${quantity}</b> 件</p><p>應付總額：<b style="color: #00d9ff;">${totalCost} RP</b></p>${bonusMessage}`;
+                if (q > MAXQ) {
+                    out.className = 'is-error';
+                    out.innerHTML = '❌ 單筆最多 ' + MAXQ + ' 件，請分批下單。';
+                    return;
+                }
+
+                const price = priceOf();
+                const total = price * q;
+                const code = 'SG-' + new Date().getFullYear() + '-' +
+                             Math.random().toString(36).slice(2, 6).toUpperCase();
+                const bonus = total >= GOAL
+                    ? '<div class="shop-bonus-line">🎁 滿額觸發：解鎖 AI 加贈的『峽谷心理戰小冊』！</div>'
+                    : '<div class="shop-bonus-line shop-bonus-line--dim">💡 再購買 ' + (GOAL - total) + ' RP 即可獲得贈品！</div>';
+
+                out.className = 'is-ok';
+                out.innerHTML =
+                    '<h3>🎉 訂單試算成功！</h3>' +
+                    '<div class="shop-receipt">' +
+                        '<div><span>貨物</span><b>' + nameOf() + '</b></div>' +
+                        '<div><span>單價</span><b>' + price + ' RP</b></div>' +
+                        '<div><span>數量</span><b>' + q + ' 件</b></div>' +
+                        '<div><span>應付總額</span><b class="shop-receipt__total">' + total.toLocaleString() + ' RP</b></div>' +
+                        '<div><span>數位序號</span><b class="shop-receipt__code">' + code + '</b></div>' +
+                    '</div>' + bonus;
             });
+
+            refresh();
         });
     </script>
 </body>
