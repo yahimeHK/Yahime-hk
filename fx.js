@@ -35,30 +35,62 @@
     + '.db-link,.download-btn,.readArticle,.product-card';
 
 
-  /* ---------- 框架層：所有區塊與卡片的一致外框（靜態，不受特效開關影響） ---------- */
+  /* ---------- 框架層：全站一致、看得出來的外框（靜態，不受特效開關影響） ---------- */
+  // 大區塊：青色的內框 ＋ 外擴一圈金色細線（雙線框）
   var PANELS = '.section,.video-section,.notice,.items-hero,.champ-hero,.ex-hero,.shop-hero,'
-    + '.bottom-visual-content,.modal-box,.ex-modal__box,.db-modal__box,.stats,.allchamp';
-
+    + '.bottom-visual-content,.stats,.allchamp';
+  // 彈窗：只加框，不要外環（避免在遮罩上浮一圈）
+  var MODALS = '.modal-box,.ex-modal__box,.db-modal__box';
+  // 卡片：統一框線與內光
   var CARDS2 = '.db-card,.ac-card,.skin-card,.ability-card,.gear-card,.tac-card,.art-card,'
     + '.map-card,.rune-card,.db-champ,.video-thumb,.quick,.counter-card,.product-card,'
-    + '.map-gal__item,.wall-card,.ac-rune,.ability,.item,.post,.article,.card';
+    + '.map-gal__item,.wall-card,.ability,.item,.post,.article,.card,.build-block';
+  // 圖片與頭像
+  var PICS = '.db-champ__avatar,.ac-card__avatar,.db-card__avatar,.art-card img,.skin-card img,'
+    + '.ac-item img,.ability-card img,.rune-card img,.map-card img,.db-ability img,.item-row img,'
+    + '.gear-card img,.tac-card__head img';
+  // 表單欄位
+  var FIELDS = 'input[type="search"],input[type="text"],input[type="number"],input[type="email"],select,textarea';
 
   var FRAME = [
-    /* 大區塊：一圈細框＋頂部高光＋柔和外陰影 */
-    ':is(' + PANELS + '){border-color:rgba(98,170,190,.22);',
-    'box-shadow:0 0 0 1px rgba(98,170,190,.16),inset 0 1px 0 rgba(255,255,255,.045),0 26px 60px -40px rgba(0,0,0,.95)}',
-    /* 卡片：統一框線顏色與內光 */
-    ':is(' + CARDS2 + '){border-color:rgba(98,170,190,.17);',
-    'box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}',
-    /* 條列／表格類：左側金色細線，與網站主色一致 */
-    ':is(.rune-card,.ac-rune,.ability,.item){border-color:rgba(98,170,190,.17)}',
-    /* 頁首、分類列、頁尾：一致的細分隔線 */
-    '.topbar,.subnav{border-bottom:1px solid rgba(98,170,190,.16)}',
-    'footer{border-top:1px solid rgba(98,170,190,.14)}',
-    /* 標籤與膠囊：統一外框 */
+    /* 大區塊：雙線框（青內、金外）＋柔和陰影 */
+    ':is(' + PANELS + '){',
+    'border:1px solid rgba(0,217,255,.22);',
+    'outline:1px solid rgba(200,170,110,.20);outline-offset:4px;',
+    'box-shadow:0 0 0 1px rgba(3,7,11,.55),inset 0 1px 0 rgba(255,255,255,.05),0 24px 60px -40px rgba(0,0,0,.95)}',
+
+    /* 彈窗：只加框 */
+    ':is(' + MODALS + '){border:1px solid rgba(0,217,255,.30);',
+    'box-shadow:0 0 0 1px rgba(200,170,110,.18),0 30px 80px -50px rgba(0,0,0,1)}',
+
+    /* 卡片：一致的框線＋頂部內光＋底部陰影 */
+    ':is(' + CARDS2 + '){border:1px solid rgba(98,170,190,.28);',
+    'box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 12px 28px -24px rgba(0,0,0,.95)}',
+
+    /* 圖片與頭像：一致的細框 */
+    ':is(' + PICS + '){border:1px solid rgba(98,170,190,.30);background:#0a1016}',
+
+    /* 表單欄位：一致的框線（含 focus 外光） */
+    ':is(' + FIELDS + '){border:1px solid rgba(98,170,190,.28);background-color:rgba(6,11,16,.9)}',
+    ':is(' + FIELDS + '):focus{border-color:rgba(0,217,255,.55);box-shadow:0 0 0 3px rgba(0,217,255,.12)}',
+
+    /* 影片播放器與舞台 */
+    '.stage__frame,#stage,.video-card,.video-card--feature{border:1px solid rgba(0,217,255,.20)}',
+
+    /* 頁首、分類導覽列、頁尾：一致的分隔線 */
+    '.topbar{border-bottom:1px solid rgba(98,170,190,.20)}',
+    '.subnav{border-bottom:1px solid rgba(98,170,190,.18)}',
+    'footer{border-top:1px solid rgba(98,170,190,.16)}',
+
+    /* 膠囊與標籤：統一邊框 */
     ':is(.tag,.badge,.hero-pills span,.champ-hero__pills span,.items-hero__pills span,.ex-hero__pills span){',
-    'border:1px solid rgba(98,170,190,.22)}',
-    '@media (max-width:700px){:is(' + PANELS + '){box-shadow:0 0 0 1px rgba(98,170,190,.16),0 14px 32px -24px rgba(0,0,0,.9)}}'
+    'border:1px solid rgba(98,170,190,.28)}',
+
+    /* 段落標題前加一小段金線，讓每個區塊都有明確的「框」起點 */
+    ':is(.db-heading,.heading)::before{content:"";display:block;width:46px;height:2px;margin-bottom:10px;',
+    'border-radius:2px;background:linear-gradient(90deg,#c8aa6e,rgba(200,170,110,0))}',
+
+    '@media (max-width:700px){:is(' + PANELS + '){outline-offset:2px}}'
   ].join('');
 
   var CSS = [
