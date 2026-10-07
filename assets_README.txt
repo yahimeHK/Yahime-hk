@@ -22,8 +22,7 @@ assets/home-bottom.jpg
 - 0.5×–2× 變速、子母畫面、全螢幕、記住上次觀看進度
 - 播放器樣式全部收在 .salvation-player 之內，不會影響攻略站原有版面
 
-以下三個 MP4 屬 Riot Games / YouTube 官方素材，全部加起來約 63 MB，
-因此不隨 repo 上傳（與上一版做法一致）。需要播放時把它們放進 assets/ 即可：
+以下三個 MP4 已隨這個 repo 一起上傳（合計約 63 MB），開啟網站即可直接播放：
 
 assets/assetsvideo1.mp4
 - 《救贖》開幕動畫，640×272、4:54，約 20.6 MB
@@ -32,7 +31,7 @@ assets/assetsvideo2.mp4
 assets/assetsvideo3.mp4
 - 英雄 Spotlight 精選，約 33.9 MB
 
-影片就位後，在本資料夾執行以下其中一種即可觀看：
+本機開發時，在本資料夾執行以下其中一種即可觀看：
 - 雙擊 start.bat（會自動開瀏覽器）
 - python serve.py 然後開 http://127.0.0.1:8099/
 
