@@ -81,13 +81,13 @@
       const v = read(K_FIELD + el.id);
       if (v === null) return;
       if (el.type === 'checkbox' || el.type === 'radio') {
-        if (el.checked === (v === '1')) return;
         el.checked = (v === '1');
       } else {
-        if (el.value === v) return;
         el.value = v;
       }
-      // 觸發網站原本的監聽器，讓畫面重新套用這個條件
+      // 每次都重新觸發網站的監聽器，讓畫面套用這個條件。
+      // （第一次還原時，非同步頁面的監聽器可能還沒綁好，所以不能只在「值有變」時才觸發；
+      //   重複觸發是安全的，網站的處理函式都是幂等的。）
       el.dispatchEvent(new Event('input', { bubbles: true }));
       el.dispatchEvent(new Event('change', { bubbles: true }));
     });
@@ -137,11 +137,14 @@
   // 那時 script.js 已經把 renderChampions 等 listener 接好，還原才會生效。
   document.addEventListener('DOMContentLoaded', () => {
     if (!isReload) return;
-    restoreFields();
-    restoreTabs();
 
-    // 英雄卡片是之後才非同步載入的，版面高度會變，所以多還原幾次
-    [0, 120, 350, 800, 1500, 2500].forEach((ms) => window.setTimeout(restoreScroll, ms));
+    // 英雄卡片、分類頁的卡片與分頁都是「之後才非同步載入」的，
+    // 所以篩選值／分頁與捲動位置都要多還原幾次（重複呼叫是安全的：已相同就跳過）
+    const restoreAll = () => { restoreFields(); restoreTabs(); };
+    [0, 120, 350, 800, 1500, 2500].forEach((ms) => window.setTimeout(() => {
+      restoreAll();
+      restoreScroll();
+    }, ms));
   });
 
   window.addEventListener('load', () => {

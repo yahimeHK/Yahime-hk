@@ -623,6 +623,10 @@ function handleRandomHero() {
 }
 
 async function loadGameData() {
+    // 這一頁若沒有英雄卡片／彈窗／克制查詢，就不需要下載 Data Dragon 的完整英雄資料（十幾 MB）
+    if (!($('champGrid') || $('counterChamp') || $('modal'))) {
+        return;
+    }
     try {
         const res = await fetch(`${DDragonBase}/championFull.json`);
         if (!res.ok) throw new Error('Data Dragon load failed');

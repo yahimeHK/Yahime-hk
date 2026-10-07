@@ -763,8 +763,7 @@ def write_js():
     if (push && history.replaceState) {
       history.replaceState(null, '', '#champ=' + encodeURIComponent(c.name));
     }
-    $('dbModalBox') && ($('dbModalBox').scrollTop = 0);
-    document.querySelector('.db-modal__box').scrollTop = 0;
+    document.querySelector('.db-modal__box').scrollTop = 0;      // 開窗後捲回頂端
   }
 
   function close() {

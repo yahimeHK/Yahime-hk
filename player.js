@@ -362,7 +362,7 @@
     if (!scrubbing) return;
     scrubbing = false;
     scrub.classList.remove('is-dragging');
-    try { scrub.releasePointerCapture(e.pointerId); } catch (_) {}
+    try { scrub.releasePointerCapture(e.pointerId); } catch (_) { /* 沒捕捉到時會丟錯，屬正常情況 */ }
     paint();
     showControls();
   });
