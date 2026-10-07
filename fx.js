@@ -77,6 +77,7 @@
     /* 影片播放器與舞台 */
     '.stage__frame,#stage,.video-card,.video-card--feature{border:1px solid rgba(0,217,255,.20)}',
 
+    '.notice{display:none !important}',   /* 依需求隱藏「📌 資料說明」區塊；要恢復請刪掉這一行 */
     /* 頁首、分類導覽列、頁尾：一致的分隔線 */
     '.topbar{border-bottom:1px solid rgba(98,170,190,.20)}',
     '.subnav{border-bottom:1px solid rgba(98,170,190,.18)}',
