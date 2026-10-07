@@ -58,7 +58,7 @@ try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch { }
 $tools = Join-Path $RepoPath 'tools'
 Write-Log ('開始更新 LOL 資料（Python: {0}）' -f $python)
 
-foreach ($script in 'build_champions.py', 'build_items.py') {
+foreach ($script in 'build_champions.py', 'build_items.py', 'build_extra.py') {
   $path = Join-Path $tools $script
   if (-not (Test-Path -LiteralPath $path)) { Write-Log ('跳過：找不到 {0}' -f $path); continue }
   $out = & $python $path 2>&1

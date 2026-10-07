@@ -461,7 +461,7 @@ def write_html(cards):
     </footer>
 
     <script src="script.js"></script>
-    <script src="state.js" defer></script>
+    <script src="nav.js" defer></script>`n    <script src="state.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cards = Array.prototype.slice.call(document.querySelectorAll('#buildCards .db-card'));

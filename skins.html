@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#05080d">
+    <title>LOL 攻略站 V6.0 - 角色造型</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="extra.css">
+</head>
+<body class="bg-champions">
+    <header class="topbar">
+        <div class="brand">SUMMONER'S <span>GUIDE</span><b>V6.0</b></div>
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="champions.html">英雄攻略</a>
+            <a href="items.html">裝備攻略</a>
+            <a href="guides.html">戰術商城</a>
+        </nav>
+        <button class="icon-btn" id="themeBtn">☀️</button>
+    </header>
+
+    <main class="ex-wrap" data-page="skins">
+        <section class="ex-hero">
+            <small>SKINS GALLERY &middot; PATCH 16.20.1</small>
+            <h1>角色造型 <em>分類資料庫</em></h1>
+            <p data-role="intro"></p>
+            <div class="ex-hero__pills" data-role="pills"></div>
+        </section>
+
+        <div class="ex-toolbar">
+            <div class="role-filters" id="exRoles" hidden></div>
+            <input type="search" id="exSearch" placeholder="搜尋…" aria-label="搜尋">
+            <select id="exSelect" hidden></select>
+            <span class="ex-count" id="exCount">載入中…</span>
+        </div>
+
+        <div class="ex-body" id="exBody"></div>
+        <p class="ex-empty" id="exEmpty" hidden>沒有符合條件的資料。</p>
+
+        <div class="notice">
+            📌 <b>資料說明：</b> 內容與圖片取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），
+            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。分類頁面由 <b>tools/build_extra.py</b> 產生，可重複更新。
+        </div>
+    </main>
+
+    <div class="ex-modal" id="exModal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="ex-modal__box">
+            <button class="ex-modal__close" id="exClose" aria-label="關閉">&times;</button>
+            <div id="exModalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div>&copy; 2026 LOL 攻略站 &middot; 資料基於 Patch 16.20.1 &middot; 僅供參考</div>
+    </footer>
+
+    <script src="ui.js"></script>
+    <script src="nav.js" defer></script>
+    <script src="state.js" defer></script>
+    <script src="extra.js" defer></script>
+</body>
+</html>

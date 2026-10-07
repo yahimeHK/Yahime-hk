@@ -80,3 +80,24 @@ tools/check_site.py        整站檢查（頁面、素材、參照、CSS 作用�
 - 「LOL 攻略站 自動推送」每 5 分鐘檢查變更，有變更就 commit + push，GitHub Pages 約 1 分鐘後更新
 - 也可以雙擊桌面上的「立即更新資料.bat」手動更新
 - 記錄檔：%LOCALAPPDATA%\LOLGuideAutoPush\update-data.log（更新）與 auto-push.log（推送）
+
+=== V6.0 七個分類分頁 ===
+
+由 tools/build_extra.py 產生（可重複執行，跟著 Data Dragon 更新）：
+
+skins.html      角色造型：172 位英雄、996 張造型縮圖（已排除炫彩，每位最多 6 個）→ assets/lol/skin/
+gallery.html    圖片：173 張官方讀取圖牆 + 4 張頁面桌布（可下載）→ assets/lol/art/
+abilities.html  技能圖片及簡介：865 個被動與 Q/W/E/R（圖示＋官方說明）
+maps.html       地圖：召喚峽谷／嚎哭深淵等素材與地圖重點 → assets/lol/map/
+runes.html      符文＋符文簡介：5 條符文樹、62 個符文（shortDesc／longDesc）
+gear.html       核心裝備：402 件可購買道具（圖示、價格、官方說明、合成路徑）→ assets/lol/gear/
+tactics.html    戰術解析：173 位英雄的玩法定位、位置重點、Riot 官方提示與克制資料
+
+共用檔案：
+  nav.js      分類導覽列（注入在 topbar 之後，所有頁面共用，會標記目前頁面）
+  extra.css   七個分頁的樣式
+  extra.js    七個分頁的前端（依 <main data-page="…"> 決定載入哪個 JSON）
+  assets/lol/{skins,gallery,maps,runes,gear}.json  各分頁的資料
+
+造型縮圖（144px）與讀取圖（260px 寬）由 Pillow 縮小後才存入 assets，原始大圖只留在快取，
+所以 2,737 張圖片總共只有約 27 MB。
