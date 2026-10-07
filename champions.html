@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 英雄資料庫</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="champions-db.css">
 </head>
 <body class="bg-champions">
     <header class="topbar">
@@ -20,61 +21,74 @@
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
 
-    <main class="container" style="width: min(1200px, 90%); margin: 30px auto;">
-        <div class="heading">
-            <small>CHAMPION LIST</small>
-            <h2>英雄資料庫</h2>
-            <p>可以使用名稱、位置、類型及難度進行篩選。點擊卡片可開啟由 AI 協作生成的實戰玩法與符文方向！</p>
+    <main class="champ-wrap">
+        <section class="champ-hero">
+            <small>CHAMPION DATABASE &middot; PATCH 16.20.1</small>
+            <h1>英雄資料庫 <em>完整攻略卡</em></h1>
+            <p>173 位英雄，每位都有角色頭像、技能圖示與簡介、位置、建議符文（含符文說明）、核心裝備與戰術解析。
+               內容與圖片自動取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），並已下載到本機，離線也能看。</p>
+            <div class="champ-hero__pills">
+                <span>173 位英雄</span>
+                <span>5 條路線</span>
+                <span>被動＋Q/W/E/R 技能</span>
+                <span>符文／裝備／戰術解析</span>
+            </div>
+        </section>
+
+        <div class="champ-toolbar">
+            <div class="role-filters" id="roleFilters">
+                <button type="button" class="tab active" data-role="全部">全部 <b>173</b></button>
+                <button type="button" class="tab" data-role="上路">上路 <b data-count="上路">0</b></button>
+                <button type="button" class="tab" data-role="打野">打野 <b data-count="打野">0</b></button>
+                <button type="button" class="tab" data-role="中路">中路 <b data-count="中路">0</b></button>
+                <button type="button" class="tab" data-role="下路">下路 <b data-count="下路">0</b></button>
+                <button type="button" class="tab" data-role="輔助">輔助 <b data-count="輔助">0</b></button>
+            </div>
+            <div class="champ-selects">
+                <select id="dbClass" aria-label="依職業篩選">
+                    <option value="all">全部職業</option>
+                    <option value="刺客">刺客</option>
+                    <option value="鬥士">鬥士</option>
+                    <option value="法師">法師</option>
+                    <option value="射手">射手</option>
+                    <option value="輔助">輔助</option>
+                    <option value="坦克">坦克</option>
+                </select>
+                <select id="dbDiff" aria-label="依難度篩選">
+                    <option value="all">全部難度</option>
+                    <option value="簡單">簡單</option>
+                    <option value="中等">中等</option>
+                    <option value="困難">困難</option>
+                </select>
+                <input type="search" id="dbSearch" placeholder="搜尋英雄名稱、稱號或技能…" aria-label="搜尋英雄">
+                <button type="button" class="small-btn" id="dbClear">清除篩選</button>
+            </div>
         </div>
 
-        <div class="toolbar">
-            <input type="text" id="champSearch" placeholder="搜尋英雄名稱、玩法標籤...">
-            <select id="champRole">
-                <option value="all">全部位置</option>
-                <option value="上路">上路</option>
-                <option value="打野">打野</option>
-                <option value="中路">中路</option>
-                <option value="下路">下路</option>
-                <option value="輔助">輔助</option>
-            </select>
-            <select id="champClass">
-                <option value="all">全部類型</option>
-                <option value="戰士">戰士</option>
-                <option value="法師">法師</option>
-                <option value="刺客">刺客</option>
-                <option value="射手">射手</option>
-                <option value="坦克">坦克</option>
-                <option value="輔助">輔助</option>
-            </select>
-            <select id="champDifficulty">
-                <option value="all">全部難度</option>
-                <option value="簡單">簡單</option>
-                <option value="中等">中等</option>
-                <option value="困難">困難</option>
-            </select>
-            <button class="small-btn" id="clearFilters">清除篩選</button>
+        <p class="champ-count" id="dbCount">載入中…</p>
+        <div class="champ-grid" id="dbGrid"></div>
+        <p class="champ-empty" id="dbEmpty" hidden>沒有符合條件的英雄，換個條件試試。</p>
+
+        <div class="notice">
+            📌 <b>資料說明：</b> 英雄、技能、符文與裝備資料及圖片皆取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），
+            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。位置對照沿用站內既有設定；
+            符文與核心裝備為依職業／位置整理的建議方向，實戰請依對局與對手調整。
         </div>
-
-        <div class="result-line">符合條件的英雄：<span id="resultCount">0</span> 隻</div>
-
-        <div class="card-grid" id="champGrid"></div>
-        <div id="emptyChamp" class="empty" style="display:none;">沒有符合條件的英雄。</div>
     </main>
 
-    <div class="modal" id="modal" aria-hidden="true">
-        <div class="modal-box">
-            <button class="close" id="closeModal">&times;</button>
-            <div id="modalBody"></div>
+    <div class="db-modal" id="dbModal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="db-modal__box" role="document">
+            <button class="db-modal__close" id="dbClose" aria-label="關閉">&times;</button>
+            <div id="dbModalBody"></div>
         </div>
     </div>
 
-    <div class="toast" id="toast"></div>
-
     <footer>
-        <div>&copy; 2026 LOL 攻略站. 內容由 AI 協作生成及 Riot Data Dragon 提供</div>
+        <div>&copy; 2026 LOL 攻略站 &middot; 資料基於 Patch 16.20.1 &middot; 僅供參考</div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="ui.js"></script>
     <script src="state.js" defer></script>
+    <script src="champions-db.js" defer></script>
 </body>
 </html>

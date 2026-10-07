@@ -63,3 +63,20 @@ assets/lol/rune/     符文樹與基石圖示（13 張）
 - 橫向手機（高度 <=520）縮短首頁高度
 - 觸控裝置取消 hover 位移效果
 - 超寬螢幕（>=1600）內容寬度由 1200 放大到 1320
+
+=== V6.0 自動更新 ===
+
+tools/ 內放的是產生器（可重複執行、跟著 Riot 官方資料更新）：
+
+tools/build_champions.py   重新產生英雄資料庫：champions.html、champions-db.css/js、assets/lol/champions.json
+                           （173 位英雄的頭像、被動與 Q/W/E/R 技能圖示＋簡介、位置、建議符文＋符文說明、
+                             核心裝備、戰術解析，以及 LeagueOfGraphs／LaneLore 即時數據連結）
+tools/build_items.py       重新產生裝備攻略：items.html、items.css（20 位英雄的完整攻略卡）
+tools/fetch_backgrounds.py 重新下載四個分頁的背景美術（需要 Pillow）
+tools/check_site.py        整站檢查（頁面、素材、參照、CSS 作用域、JS 語法、影片規格）
+
+自動更新方式（Windows 排程工作）：
+- 「LOL 攻略站 更新資料」每週一 09:00 執行 tools/update-lol-data.ps1，重新產生上面兩個頁面
+- 「LOL 攻略站 自動推送」每 5 分鐘檢查變更，有變更就 commit + push，GitHub Pages 約 1 分鐘後更新
+- 也可以雙擊桌面上的「立即更新資料.bat」手動更新
+- 記錄檔：%LOCALAPPDATA%\LOLGuideAutoPush\update-data.log（更新）與 auto-push.log（推送）
