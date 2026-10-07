@@ -477,12 +477,17 @@ def write_pages(base):
     </footer>
 
     <script src="ui.js"></script>
-    <script src="nav.js" defer></script>`n    <script src="fx.js" defer></script>`n    <script src="i18n.js" defer></script>
+    <script src="nav.js" defer></script>
+    <script src="fx.js" defer></script>
+    <script src="i18n.js" defer></script>
     <script src="state.js" defer></script>
     <script src="extra.js" defer></script>
 </body>
 </html>
 '''.replace('__TITLE__', title).replace('__KICKER__', kicker).replace('__MODE__', mode).replace('__VER__', VER)
+        # 保險：不論樣板怎麼被改動，寫檔前一定把佔位符換掉
+        doc = (doc.replace('__TITLE__', title).replace('__KICKER__', kicker)
+                  .replace('__MODE__', mode).replace('__VER__', VER))
         with open(os.path.join(SITE, fname), 'w', encoding='utf-8', newline='\n') as fh:
             fh.write(doc)
     print('  已寫入 7 個分類分頁:', ', '.join(p[0] for p in PAGES))
