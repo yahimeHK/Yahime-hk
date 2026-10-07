@@ -23,16 +23,43 @@
         <section class="items-hero">
             <small>BUILD LAB &middot; PATCH 16.20.1</small>
             <h1>符文 ＆ 核心裝備 <em>數據庫</em></h1>
-            <p>每位英雄一張卡：角色頭像、技能圖示與簡介、建議基石（含符文說明）、技能加點、召喚師技能、
-               核心裝備、對線重點與戰術解析。資料與圖片取自 Riot 官方 Data Dragon <b>16.20.1</b> 並已下載到本機，離線可用。</p>
+            <p>上方是<b>全英雄符文 ＆ 核心裝備資料庫</b>（173 位，建議基石含符文說明、主副符文樹與五件核心裝備），
+               下方是深度攻略卡：技能加點、召喚師技能、對線重點與戰術解析。資料與圖片取自 Riot 官方 Data Dragon <b>16.20.1</b> 並已下載到本機，離線可用。</p>
             <div class="items-hero__pills">
-                <span>20 位英雄</span>
+                <span>173 位英雄符文＆裝備</span>
+                <span>20 張深度攻略卡</span>
                 <span>100 個技能圖示</span>
                 <span>100 件核心裝備</span>
                 <span>5 條路線</span>
                 <span>附即時數據連結</span>
             </div>
         </section>
+
+        <section class="allchamp" id="allchampSection">
+            <div class="db-heading">
+                <small>RUNES &amp; CORE ITEMS &middot; 全英雄</small>
+                <h2>符文 ＆ 核心裝備 數據庫 <em id="allTotal">載入中…</em></h2>
+                <p>收錄全部英雄的建議基石（含官方符文說明）、主／副符文樹與五件核心裝備，點「完整攻略」可看技能與戰術解析。</p>
+            </div>
+            <div class="items-toolbar">
+                <div class="role-filters" id="allRoleFilters"></div>
+                <div class="ex-searchbox">
+                    <span class="ex-searchbox__icon" aria-hidden="true">🔍</span>
+                    <input type="search" id="allChampFilter" placeholder="輸入英雄名稱（中文或英文都可以）" aria-label="搜尋英雄" autocomplete="off">
+                    <button type="button" id="allFind" class="ex-find">搜尋</button>
+                    <button type="button" id="allReset" class="ex-reset" title="清除關鍵字" aria-label="清除關鍵字">✕</button>
+                </div>
+            </div>
+            <p class="items-count" id="allCount">載入中…</p>
+            <div class="allchamp-grid" id="allChampsGrid"></div>
+            <p class="allchamp-empty" id="allEmpty" hidden>找不到符合的英雄，換個關鍵字試試。</p>
+        </section>
+
+        <div class="db-heading db-heading--deep">
+            <small>DEEP DIVE</small>
+            <h2>深度攻略卡 <em>20 位英雄</em></h2>
+            <p>技能加點、召喚師技能、對線重點與戰術解析的完整版。</p>
+        </div>
 
         <div class="items-toolbar">
             <div class="role-filters" id="roleFilters">
@@ -1910,7 +1937,7 @@
     </footer>
 
     <script src="script.js"></script>
-    <script src="state.js" defer></script>
+    <script src="nav.js" defer></script>`n    <script src="state.js" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cards = Array.prototype.slice.call(document.querySelectorAll('#buildCards .db-card'));
@@ -1943,6 +1970,116 @@
             if (box) box.addEventListener('input', apply);
             apply();
         });
+    </script>
+    <script>
+    /* 全英雄符文＆核心裝備數據庫（資料來源：assets/lol/champions.json，由 build_champions.py 產生） */
+    (function () {
+        'use strict';
+        var ALL = [], role = '全部';
+        function $(id) { return document.getElementById(id); }
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+        function card(c) {
+            var rune = c.rune || {};
+            var its = c.items || [];
+            var items = its.map(function (it) {
+                return '<span class="ac-item" title="' + esc(it.n) + '"><img src="' + esc(it.i) + '" alt="' + esc(it.n) + '" loading="lazy"><i>' + esc(it.n) + '</i></span>';
+            }).join('');
+            var gold = its.reduce(function (n, it) { return n + (it.g || 0); }, 0);
+            return '<article class="ac-card" data-role="' + esc(c.role) + '" data-name="' +
+                esc([c.name, c.en, c.title, (c.aliases || []).join(' '), (c.tags || []).join(' ')].join(' ')) + '">' +
+                '<header class="ac-card__head">' +
+                '<img class="ac-card__avatar" src="' + esc(c.avatar) + '" alt="' + esc(c.name) + '" loading="lazy">' +
+                '<div><b>' + esc(c.name) + '</b><small>' + esc(c.title) + '</small>' +
+                '<span class="tag tag--role">' + esc(c.role) + '</span>' +
+                (c.tags || []).map(function (x) { return '<span class="tag">' + esc(x) + '</span>'; }).join('') +
+                '</div></header>' +
+                '<div class="ac-rune"><img src="' + esc(rune.icon || '') + '" alt="">' +
+                '<div><b>' + esc(rune.keystone || '') + '</b>' +
+                '<span>主樹 ' + esc(rune.tree || '') + ' ／ 副樹 ' + esc(rune.sub || '') + '</span>' +
+                '<p>' + esc(rune.desc || '') + '</p></div></div>' +
+                '<div class="ac-items">' + items + '</div>' +
+                '<footer class="ac-card__foot"><span>' + (gold ? '核心裝備共 ' + gold + ' 金幣' : '核心裝備 ' + its.length + ' 件') + '</span>' +
+                '<a class="ext-link ext-link--local" href="champions.html#champ=' + encodeURIComponent(c.name) + '">完整攻略 →</a></footer>' +
+                '</article>';
+        }
+
+        function apply() {
+            var box = $('allChampFilter');
+            var q = ((box && box.value) || '').toLowerCase().trim();
+            var shown = 0;
+            Array.prototype.forEach.call(document.querySelectorAll('#allChampsGrid .ac-card'), function (el) {
+                var okRole = (role === '全部' || el.dataset.role === role);
+                var okQ = !q || (el.dataset.name || '').toLowerCase().indexOf(q) >= 0;
+                var on = okRole && okQ;
+                el.hidden = !on;
+                if (on) shown++;
+            });
+            $('allCount').textContent = '顯示 ' + shown + ' 位英雄（共 ' + ALL.length + ' 位）' + (q ? '（關鍵字：' + box.value.trim() + '）' : '');
+            $('allEmpty').hidden = shown !== 0;
+            var sb = document.querySelector('#allchampSection .ex-searchbox');
+            if (sb) sb.classList.toggle('has-query', !!q);
+        }
+
+        function firstVisible() {
+            var list = document.querySelectorAll('#allChampsGrid .ac-card');
+            for (var i = 0; i < list.length; i++) { if (!list[i].hidden) return list[i]; }
+            return null;
+        }
+
+        function build() {
+            var grid = $('allChampsGrid');
+            if (!grid) return;
+            fetch('assets/lol/champions.json').then(function (r) {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            }).then(function (d) {
+                ALL = d.champions || [];
+                grid.innerHTML = ALL.map(card).join('');
+
+                var counts = { '全部': ALL.length };
+                ALL.forEach(function (c) { counts[c.role] = (counts[c.role] || 0) + 1; });
+                $('allRoleFilters').innerHTML = ['全部', '上路', '打野', '中路', '下路', '輔助'].map(function (r) {
+                    return '<button type="button" class="tab' + (r === '全部' ? ' active' : '') + '" data-role="' + r + '">' +
+                        r + ' <b>' + (counts[r] || 0) + '</b></button>';
+                }).join('');
+                Array.prototype.forEach.call(document.querySelectorAll('#allRoleFilters .tab'), function (t) {
+                    t.addEventListener('click', function () {
+                        Array.prototype.forEach.call(document.querySelectorAll('#allRoleFilters .tab'), function (x) { x.classList.remove('active'); });
+                        t.classList.add('active');
+                        role = t.dataset.role;
+                        apply();
+                    });
+                });
+
+                var box = $('allChampFilter');
+                if (box) {
+                    box.addEventListener('input', apply);
+                    box.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter') { e.preventDefault(); apply(); var c = firstVisible(); if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                        if (e.key === 'Escape') { box.value = ''; apply(); }
+                    });
+                }
+                if ($('allFind')) $('allFind').addEventListener('click', function () {
+                    apply();
+                    var c = firstVisible();
+                    if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                if ($('allReset')) $('allReset').addEventListener('click', function () {
+                    if (box) { box.value = ''; box.focus(); }
+                    apply();
+                });
+
+                $('allTotal').textContent = ALL.length + ' 位英雄';
+                apply();
+            }).catch(function (err) {
+                $('allCount').textContent = '資料載入失敗：' + err.message;
+            });
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+        else build();
+    })();
     </script>
 </body>
 </html>

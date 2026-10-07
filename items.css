@@ -146,3 +146,80 @@
   .item-row span { font-size: 10.5px; }
   .ext-link { font-size: 12px; padding: 7px 10px; }
 }
+
+
+/* ===== 全英雄符文 ＆ 核心裝備 數據庫 ===== */
+[hidden] { display: none !important; }          /* 卡片有 display:flex／grid，會蓋掉 [hidden] */
+.db-heading { margin: 6px 0 16px; }
+.db-heading--deep { margin-top: 44px; padding-top: 24px; border-top: 1px solid #1d2a33; }
+.db-heading small { color: #00d9ff; letter-spacing: 2.2px; font-weight: 800; font-size: 11px; }
+.db-heading h2 { margin: 8px 0 10px; font-size: clamp(23px, 3.2vw, 32px); color: #f0eadb; }
+.db-heading h2 em { font-style: normal; color: #c8aa6e; font-size: .64em; margin-left: 8px; }
+.db-heading p { margin: 0; color: #aab4bc; max-width: 74ch; }
+
+.allchamp { margin: 30px 0 6px; }
+.allchamp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(292px, 1fr)); gap: 14px; }
+.allchamp-empty { text-align: center; padding: 24px; color: #76838d; }
+
+.ac-card {
+  padding: 14px; background: linear-gradient(180deg, #101922, #0b1117);
+  border: 1px solid #253540; border-radius: 14px;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.ac-card:hover { transform: translateY(-3px); border-color: #2f4d5c; }
+.ac-card__head { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.ac-card__avatar { width: 52px; height: 52px; border-radius: 12px; border: 1px solid #2f4453; background: #0a1016; }
+.ac-card__head b { display: block; font-size: 15.5px; color: #f0eadb; }
+.ac-card__head small { display: block; margin: 1px 0 5px; font-size: 11.5px; color: #8e9aa4; }
+.ac-card__head .tag { margin-right: 4px; font-size: 10.5px; padding: 2px 7px; }
+
+.ac-rune {
+  display: flex; gap: 10px; padding: 10px 11px;
+  background: linear-gradient(90deg, rgba(200, 170, 110, .12), rgba(0, 217, 255, .04));
+  border-left: 3px solid #c8aa6e; border-radius: 0 10px 10px 0;
+}
+.ac-rune > img { width: 42px; height: 42px; flex: 0 0 auto; border-radius: 50%; background: #0a1016; padding: 2px; border: 1px solid rgba(200, 170, 110, .45); }
+.ac-rune b { display: block; font-size: 14px; color: #e8cf9c; }
+.ac-rune span { display: block; margin: 2px 0 4px; font-size: 11.5px; color: #9ddff0; }
+.ac-rune p { margin: 0; font-size: 11.5px; line-height: 1.55; color: #9da9b2; }
+
+.ac-items { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.ac-item { display: grid; justify-items: center; width: 52px; }
+.ac-item img { width: 40px; height: 40px; border-radius: 9px; border: 1px solid #2b3a45; background: #0a1016; }
+.ac-item i { font-style: normal; margin-top: 3px; font-size: 9.5px; line-height: 1.25; color: #8e9aa4; text-align: center; }
+
+.ac-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #22323d; font-size: 11.5px; color: #c8aa6e; }
+.ac-card__foot .ext-link { font-size: 11.5px; padding: 6px 10px; }
+
+/* 搜尋框（含圖示、搜尋鈕、清除鈕） */
+.ex-searchbox {
+  flex: 1 1 300px; display: flex; align-items: center; gap: 6px;
+  padding: 4px 4px 4px 12px; background: #080e14;
+  border: 1px solid #2b3a45; border-radius: 12px; transition: border-color .18s, box-shadow .18s;
+}
+.ex-searchbox:focus-within { border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0, 217, 255, .12); }
+.ex-searchbox__icon { font-size: 14px; opacity: .75; }
+.ex-searchbox input[type="search"] {
+  flex: 1 1 auto; min-width: 0; padding: 8px 2px; color: #e8e4d9;
+  background: transparent; border: 0; font: inherit;
+}
+.ex-searchbox input[type="search"]:focus { outline: none; }
+.ex-searchbox input[type="search"]::-webkit-search-cancel-button { display: none; }
+.ex-searchbox .ex-find {
+  flex: 0 0 auto; padding: 8px 16px; font-size: 13px; font-weight: 800; color: #071016;
+  background: linear-gradient(180deg, #d8bd80, #c8aa6e); border: 0; border-radius: 9px; cursor: pointer;
+}
+.ex-searchbox .ex-find:hover { filter: brightness(1.08); }
+.ex-searchbox .ex-reset {
+  flex: 0 0 auto; display: none; padding: 8px 10px; font-size: 13px; color: #9da9b2;
+  background: #111d26; border: 1px solid #2b3a45; border-radius: 9px; cursor: pointer;
+}
+.ex-searchbox.has-query .ex-reset { display: inline-block; }
+.ex-searchbox .ex-reset:hover { color: #fff; border-color: #00d9ff; }
+
+@media (max-width: 1000px) { .allchamp-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); } }
+@media (max-width: 700px) {
+  .allchamp-grid { grid-template-columns: 1fr; }
+  .ac-card__head .tag { font-size: 10px; }
+}
+@media (hover: none) { .ac-card:hover { transform: none; } }

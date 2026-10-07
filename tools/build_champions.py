@@ -299,7 +299,7 @@ def main():
                 continue
             icon = save_image('https://ddragon.leagueoflegends.com/cdn/%s/img/item/%s.png' % (VER, iid),
                               os.path.join('item', '%s.png' % iid))
-            item_list.append({'n': it['name'], 'i': icon})
+            item_list.append({'n': it['name'], 'i': icon, 'g': (it.get('gold') or {}).get('total', 0)})
 
         # 技能
         ability = []

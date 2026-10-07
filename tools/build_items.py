@@ -298,6 +298,13 @@ def main():
 def write_html(cards):
     total_abilities = sum(len(c['abilities']) for c in cards)
     total_items = sum(len(c['items']) for c in cards)
+    # 全英雄符文＆核心裝備數據庫（資料由 build_champions.py 產生）
+    all_count = 0
+    try:
+        with open(os.path.join(ASSETS, 'champions.json'), encoding='utf-8') as fh:
+            all_count = len(json.load(fh).get('champions', []))
+    except Exception:                                             # noqa: BLE001
+        all_count = 0
     p = []
     p.append('''<!DOCTYPE html>
 <html lang="zh-Hant">
@@ -324,16 +331,43 @@ def write_html(cards):
         <section class="items-hero">
             <small>BUILD LAB &middot; PATCH ''' + esc(VER) + '''</small>
             <h1>符文 ＆ 核心裝備 <em>數據庫</em></h1>
-            <p>每位英雄一張卡：角色頭像、技能圖示與簡介、建議基石（含符文說明）、技能加點、召喚師技能、
-               核心裝備、對線重點與戰術解析。資料與圖片取自 Riot 官方 Data Dragon <b>''' + esc(VER) + '''</b> 並已下載到本機，離線可用。</p>
+            <p>上方是<b>全英雄符文 ＆ 核心裝備資料庫</b>（''' + str(all_count) + ''' 位，建議基石含符文說明、主副符文樹與五件核心裝備），
+               下方是深度攻略卡：技能加點、召喚師技能、對線重點與戰術解析。資料與圖片取自 Riot 官方 Data Dragon <b>''' + esc(VER) + '''</b> 並已下載到本機，離線可用。</p>
             <div class="items-hero__pills">
-                <span>''' + str(len(cards)) + ''' 位英雄</span>
+                <span>''' + str(all_count) + ''' 位英雄符文＆裝備</span>
+                <span>''' + str(len(cards)) + ''' 張深度攻略卡</span>
                 <span>''' + str(total_abilities) + ''' 個技能圖示</span>
                 <span>''' + str(total_items) + ''' 件核心裝備</span>
                 <span>5 條路線</span>
                 <span>附即時數據連結</span>
             </div>
         </section>
+
+        <section class="allchamp" id="allchampSection">
+            <div class="db-heading">
+                <small>RUNES &amp; CORE ITEMS &middot; 全英雄</small>
+                <h2>符文 ＆ 核心裝備 數據庫 <em id="allTotal">載入中…</em></h2>
+                <p>收錄全部英雄的建議基石（含官方符文說明）、主／副符文樹與五件核心裝備，點「完整攻略」可看技能與戰術解析。</p>
+            </div>
+            <div class="items-toolbar">
+                <div class="role-filters" id="allRoleFilters"></div>
+                <div class="ex-searchbox">
+                    <span class="ex-searchbox__icon" aria-hidden="true">🔍</span>
+                    <input type="search" id="allChampFilter" placeholder="輸入英雄名稱（中文或英文都可以）" aria-label="搜尋英雄" autocomplete="off">
+                    <button type="button" id="allFind" class="ex-find">搜尋</button>
+                    <button type="button" id="allReset" class="ex-reset" title="清除關鍵字" aria-label="清除關鍵字">✕</button>
+                </div>
+            </div>
+            <p class="items-count" id="allCount">載入中…</p>
+            <div class="allchamp-grid" id="allChampsGrid"></div>
+            <p class="allchamp-empty" id="allEmpty" hidden>找不到符合的英雄，換個關鍵字試試。</p>
+        </section>
+
+        <div class="db-heading db-heading--deep">
+            <small>DEEP DIVE</small>
+            <h2>深度攻略卡 <em>''' + str(len(cards)) + ''' 位英雄</em></h2>
+            <p>技能加點、召喚師技能、對線重點與戰術解析的完整版。</p>
+        </div>
 
         <div class="items-toolbar">
             <div class="role-filters" id="roleFilters">
@@ -494,6 +528,116 @@ def write_html(cards):
             if (box) box.addEventListener('input', apply);
             apply();
         });
+    </script>
+    <script>
+    /* 全英雄符文＆核心裝備數據庫（資料來源：assets/lol/champions.json，由 build_champions.py 產生） */
+    (function () {
+        'use strict';
+        var ALL = [], role = '全部';
+        function $(id) { return document.getElementById(id); }
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+        function card(c) {
+            var rune = c.rune || {};
+            var its = c.items || [];
+            var items = its.map(function (it) {
+                return '<span class="ac-item" title="' + esc(it.n) + '"><img src="' + esc(it.i) + '" alt="' + esc(it.n) + '" loading="lazy"><i>' + esc(it.n) + '</i></span>';
+            }).join('');
+            var gold = its.reduce(function (n, it) { return n + (it.g || 0); }, 0);
+            return '<article class="ac-card" data-role="' + esc(c.role) + '" data-name="' +
+                esc([c.name, c.en, c.title, (c.aliases || []).join(' '), (c.tags || []).join(' ')].join(' ')) + '">' +
+                '<header class="ac-card__head">' +
+                '<img class="ac-card__avatar" src="' + esc(c.avatar) + '" alt="' + esc(c.name) + '" loading="lazy">' +
+                '<div><b>' + esc(c.name) + '</b><small>' + esc(c.title) + '</small>' +
+                '<span class="tag tag--role">' + esc(c.role) + '</span>' +
+                (c.tags || []).map(function (x) { return '<span class="tag">' + esc(x) + '</span>'; }).join('') +
+                '</div></header>' +
+                '<div class="ac-rune"><img src="' + esc(rune.icon || '') + '" alt="">' +
+                '<div><b>' + esc(rune.keystone || '') + '</b>' +
+                '<span>主樹 ' + esc(rune.tree || '') + ' ／ 副樹 ' + esc(rune.sub || '') + '</span>' +
+                '<p>' + esc(rune.desc || '') + '</p></div></div>' +
+                '<div class="ac-items">' + items + '</div>' +
+                '<footer class="ac-card__foot"><span>' + (gold ? '核心裝備共 ' + gold + ' 金幣' : '核心裝備 ' + its.length + ' 件') + '</span>' +
+                '<a class="ext-link ext-link--local" href="champions.html#champ=' + encodeURIComponent(c.name) + '">完整攻略 →</a></footer>' +
+                '</article>';
+        }
+
+        function apply() {
+            var box = $('allChampFilter');
+            var q = ((box && box.value) || '').toLowerCase().trim();
+            var shown = 0;
+            Array.prototype.forEach.call(document.querySelectorAll('#allChampsGrid .ac-card'), function (el) {
+                var okRole = (role === '全部' || el.dataset.role === role);
+                var okQ = !q || (el.dataset.name || '').toLowerCase().indexOf(q) >= 0;
+                var on = okRole && okQ;
+                el.hidden = !on;
+                if (on) shown++;
+            });
+            $('allCount').textContent = '顯示 ' + shown + ' 位英雄（共 ' + ALL.length + ' 位）' + (q ? '（關鍵字：' + box.value.trim() + '）' : '');
+            $('allEmpty').hidden = shown !== 0;
+            var sb = document.querySelector('#allchampSection .ex-searchbox');
+            if (sb) sb.classList.toggle('has-query', !!q);
+        }
+
+        function firstVisible() {
+            var list = document.querySelectorAll('#allChampsGrid .ac-card');
+            for (var i = 0; i < list.length; i++) { if (!list[i].hidden) return list[i]; }
+            return null;
+        }
+
+        function build() {
+            var grid = $('allChampsGrid');
+            if (!grid) return;
+            fetch('assets/lol/champions.json').then(function (r) {
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            }).then(function (d) {
+                ALL = d.champions || [];
+                grid.innerHTML = ALL.map(card).join('');
+
+                var counts = { '全部': ALL.length };
+                ALL.forEach(function (c) { counts[c.role] = (counts[c.role] || 0) + 1; });
+                $('allRoleFilters').innerHTML = ['全部', '上路', '打野', '中路', '下路', '輔助'].map(function (r) {
+                    return '<button type="button" class="tab' + (r === '全部' ? ' active' : '') + '" data-role="' + r + '">' +
+                        r + ' <b>' + (counts[r] || 0) + '</b></button>';
+                }).join('');
+                Array.prototype.forEach.call(document.querySelectorAll('#allRoleFilters .tab'), function (t) {
+                    t.addEventListener('click', function () {
+                        Array.prototype.forEach.call(document.querySelectorAll('#allRoleFilters .tab'), function (x) { x.classList.remove('active'); });
+                        t.classList.add('active');
+                        role = t.dataset.role;
+                        apply();
+                    });
+                });
+
+                var box = $('allChampFilter');
+                if (box) {
+                    box.addEventListener('input', apply);
+                    box.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter') { e.preventDefault(); apply(); var c = firstVisible(); if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                        if (e.key === 'Escape') { box.value = ''; apply(); }
+                    });
+                }
+                if ($('allFind')) $('allFind').addEventListener('click', function () {
+                    apply();
+                    var c = firstVisible();
+                    if (c && c.scrollIntoView) c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                if ($('allReset')) $('allReset').addEventListener('click', function () {
+                    if (box) { box.value = ''; box.focus(); }
+                    apply();
+                });
+
+                $('allTotal').textContent = ALL.length + ' 位英雄';
+                apply();
+            }).catch(function (err) {
+                $('allCount').textContent = '資料載入失敗：' + err.message;
+            });
+        }
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+        else build();
+    })();
     </script>
 </body>
 </html>
@@ -659,6 +803,85 @@ def write_css():
   .item-row span { font-size: 10.5px; }
   .ext-link { font-size: 12px; padding: 7px 10px; }
 }
+'''
+    # 全英雄符文＆核心裝備數據庫
+    css += '''
+
+/* ===== 全英雄符文 ＆ 核心裝備 數據庫 ===== */
+[hidden] { display: none !important; }          /* 卡片有 display:flex／grid，會蓋掉 [hidden] */
+.db-heading { margin: 6px 0 16px; }
+.db-heading--deep { margin-top: 44px; padding-top: 24px; border-top: 1px solid #1d2a33; }
+.db-heading small { color: #00d9ff; letter-spacing: 2.2px; font-weight: 800; font-size: 11px; }
+.db-heading h2 { margin: 8px 0 10px; font-size: clamp(23px, 3.2vw, 32px); color: #f0eadb; }
+.db-heading h2 em { font-style: normal; color: #c8aa6e; font-size: .64em; margin-left: 8px; }
+.db-heading p { margin: 0; color: #aab4bc; max-width: 74ch; }
+
+.allchamp { margin: 30px 0 6px; }
+.allchamp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(292px, 1fr)); gap: 14px; }
+.allchamp-empty { text-align: center; padding: 24px; color: #76838d; }
+
+.ac-card {
+  padding: 14px; background: linear-gradient(180deg, #101922, #0b1117);
+  border: 1px solid #253540; border-radius: 14px;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.ac-card:hover { transform: translateY(-3px); border-color: #2f4d5c; }
+.ac-card__head { display: flex; gap: 10px; align-items: center; margin-bottom: 10px; }
+.ac-card__avatar { width: 52px; height: 52px; border-radius: 12px; border: 1px solid #2f4453; background: #0a1016; }
+.ac-card__head b { display: block; font-size: 15.5px; color: #f0eadb; }
+.ac-card__head small { display: block; margin: 1px 0 5px; font-size: 11.5px; color: #8e9aa4; }
+.ac-card__head .tag { margin-right: 4px; font-size: 10.5px; padding: 2px 7px; }
+
+.ac-rune {
+  display: flex; gap: 10px; padding: 10px 11px;
+  background: linear-gradient(90deg, rgba(200, 170, 110, .12), rgba(0, 217, 255, .04));
+  border-left: 3px solid #c8aa6e; border-radius: 0 10px 10px 0;
+}
+.ac-rune > img { width: 42px; height: 42px; flex: 0 0 auto; border-radius: 50%; background: #0a1016; padding: 2px; border: 1px solid rgba(200, 170, 110, .45); }
+.ac-rune b { display: block; font-size: 14px; color: #e8cf9c; }
+.ac-rune span { display: block; margin: 2px 0 4px; font-size: 11.5px; color: #9ddff0; }
+.ac-rune p { margin: 0; font-size: 11.5px; line-height: 1.55; color: #9da9b2; }
+
+.ac-items { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.ac-item { display: grid; justify-items: center; width: 52px; }
+.ac-item img { width: 40px; height: 40px; border-radius: 9px; border: 1px solid #2b3a45; background: #0a1016; }
+.ac-item i { font-style: normal; margin-top: 3px; font-size: 9.5px; line-height: 1.25; color: #8e9aa4; text-align: center; }
+
+.ac-card__foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #22323d; font-size: 11.5px; color: #c8aa6e; }
+.ac-card__foot .ext-link { font-size: 11.5px; padding: 6px 10px; }
+
+/* 搜尋框（含圖示、搜尋鈕、清除鈕） */
+.ex-searchbox {
+  flex: 1 1 300px; display: flex; align-items: center; gap: 6px;
+  padding: 4px 4px 4px 12px; background: #080e14;
+  border: 1px solid #2b3a45; border-radius: 12px; transition: border-color .18s, box-shadow .18s;
+}
+.ex-searchbox:focus-within { border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0, 217, 255, .12); }
+.ex-searchbox__icon { font-size: 14px; opacity: .75; }
+.ex-searchbox input[type="search"] {
+  flex: 1 1 auto; min-width: 0; padding: 8px 2px; color: #e8e4d9;
+  background: transparent; border: 0; font: inherit;
+}
+.ex-searchbox input[type="search"]:focus { outline: none; }
+.ex-searchbox input[type="search"]::-webkit-search-cancel-button { display: none; }
+.ex-searchbox .ex-find {
+  flex: 0 0 auto; padding: 8px 16px; font-size: 13px; font-weight: 800; color: #071016;
+  background: linear-gradient(180deg, #d8bd80, #c8aa6e); border: 0; border-radius: 9px; cursor: pointer;
+}
+.ex-searchbox .ex-find:hover { filter: brightness(1.08); }
+.ex-searchbox .ex-reset {
+  flex: 0 0 auto; display: none; padding: 8px 10px; font-size: 13px; color: #9da9b2;
+  background: #111d26; border: 1px solid #2b3a45; border-radius: 9px; cursor: pointer;
+}
+.ex-searchbox.has-query .ex-reset { display: inline-block; }
+.ex-searchbox .ex-reset:hover { color: #fff; border-color: #00d9ff; }
+
+@media (max-width: 1000px) { .allchamp-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); } }
+@media (max-width: 700px) {
+  .allchamp-grid { grid-template-columns: 1fr; }
+  .ac-card__head .tag { font-size: 10px; }
+}
+@media (hover: none) { .ac-card:hover { transform: none; } }
 '''
     out = os.path.join(SITE, 'items.css')
     with open(out, 'w', encoding='utf-8', newline='\n') as fh:
