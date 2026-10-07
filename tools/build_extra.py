@@ -96,51 +96,65 @@ def _download(url, rel_path, attempts=4):
     return ''
 
 
-def save_image(url, rel_path, square_px=None, width_px=None):
-    """下載圖片；指定尺寸且有 Pillow 時會縮小後才放進 assets（原始檔只留在快取，不佔 repo）。"""
-    if (square_px or width_px) and HAVE_PIL:
-        rel_path = re.sub(r'\.(jpg|jpeg|png)$', r'_s.\1', rel_path)
-        dest = os.path.join(ASSETS, rel_path)
-        if os.path.exists(dest) and os.path.getsize(dest) > 0:
-            return 'assets/lol/' + rel_path.replace('\\', '/')
-        tmp_src = os.path.join(CACHE, 'img_' + os.path.basename(rel_path).replace('_s.', '.'))
-        if not (os.path.exists(tmp_src) and os.path.getsize(tmp_src) > 0):
-            ok = False
-            for attempt in range(4):
-                polite()
-                try:
-                    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (lol-guide-build)'})
-                    with urllib.request.urlopen(req, timeout=120) as r:
-                        data = r.read()
-                    with open(tmp_src, 'wb') as fh:
-                        fh.write(data)
-                    ok = True
-                    break
-                except Exception:                                 # noqa: BLE001
-                    time.sleep(1.0 * (attempt + 1))
-            if not ok:
-                print('   ! 下載失敗 %s' % url, file=sys.stderr)
-                return ''
-        try:
-            from PIL import Image as _Image
-            im = _Image.open(tmp_src).convert('RGB')
-            if square_px:
-                side = min(im.size)
-                left = (im.width - side) // 2
-                top = max(0, int((im.height - side) * 0.28))
-                im = im.crop((left, top, left + side, top + side)).resize((square_px, square_px), _Image.LANCZOS)
-            else:
-                h = max(1, round(im.height * width_px / im.width))
-                im = im.resize((width_px, h), _Image.LANCZOS)
-            os.makedirs(os.path.dirname(dest), exist_ok=True)
-            im.save(dest, 'JPEG', quality=78, optimize=True)
-            IMG['n'] += 1
-            IMG['b'] += os.path.getsize(dest)
-            return 'assets/lol/' + rel_path.replace('\\', '/')
-        except Exception as e:                                    # noqa: BLE001
-            print('   ! 縮圖失敗 %s -> %s' % (tmp_src, e), file=sys.stderr)
+def _downscaled(url, rel_path, square_px, width_px):
+    """下載原圖到快取後再縮小寫入 assets（原始大圖不會進 repo）。"""
+    rel_path = re.sub(r'\.(jpg|jpeg|png)$', r'_s.\1', rel_path)
+    dest = os.path.join(ASSETS, rel_path)
+    if os.path.exists(dest) and os.path.getsize(dest) > 0:
+        return 'assets/lol/' + rel_path.replace('\\', '/')
+    tmp_src = os.path.join(CACHE, 'img_' + os.path.basename(rel_path).replace('_s.', '.'))
+    if not (os.path.exists(tmp_src) and os.path.getsize(tmp_src) > 0):
+        ok = False
+        for attempt in range(4):
+            polite()
+            try:
+                req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (lol-guide-build)'})
+                with urllib.request.urlopen(req, timeout=120) as r:
+                    data = r.read()
+                with open(tmp_src, 'wb') as fh:
+                    fh.write(data)
+                ok = True
+                break
+            except Exception:                                     # noqa: BLE001
+                time.sleep(1.0 * (attempt + 1))
+        if not ok:
             return ''
-    return _download(url, rel_path)
+    try:
+        from PIL import Image as _Image
+        im = _Image.open(tmp_src).convert('RGB')
+        if square_px:
+            side = min(im.size)
+            left = (im.width - side) // 2
+            top = max(0, int((im.height - side) * 0.28))
+            im = im.crop((left, top, left + side, top + side)).resize((square_px, square_px), _Image.LANCZOS)
+        else:
+            h = max(1, round(im.height * width_px / im.width))
+            im = im.resize((width_px, h), _Image.LANCZOS)
+        os.makedirs(os.path.dirname(dest), exist_ok=True)
+        im.save(dest, 'JPEG', quality=78, optimize=True)
+        IMG['n'] += 1
+        IMG['b'] += os.path.getsize(dest)
+        return 'assets/lol/' + rel_path.replace('\\', '/')
+    except Exception as e:                                        # noqa: BLE001
+        print('   ! 縮圖失敗 %s -> %s' % (tmp_src, e), file=sys.stderr)
+        return ''
+
+
+def save_image(url, rel_path, square_px=None, width_px=None, fallback=None):
+    """下載圖片；指定尺寸且有 Pillow 時縮小後才放進 assets；主要網址失敗時改用備援網址。"""
+    if (square_px or width_px) and HAVE_PIL:
+        rel = _downscaled(url, rel_path, square_px, width_px)
+        if rel:
+            return rel
+        if fallback:
+            return _downscaled(fallback[0], fallback[1], square_px, width_px)
+        return ''
+    rel = _download(url, rel_path)
+    if rel:
+        return rel
+    if fallback:
+        return _download(fallback[0], fallback[1])
+    return ''
 
 def clean(text, limit=140):
     if not text:
@@ -191,8 +205,11 @@ def main():
             continue
         rows = []
         for s in real:
+            # 官方 tiles 圖對少數英雄不存在（例如費德提克），改用 loading 圖當縮圖來源
             img = save_image('https://ddragon.leagueoflegends.com/cdn/img/champion/tiles/%s_%d.jpg' % (key, s['num']),
-                             os.path.join('skin', '%s_%d.jpg' % (key, s['num'])), square_px=SKIN_PX)
+                             os.path.join('skin', '%s_%d.jpg' % (key, s['num'])), square_px=SKIN_PX,
+                             fallback=('https://ddragon.leagueoflegends.com/cdn/img/champion/loading/%s_%d.jpg' % (key, s['num']),
+                                       os.path.join('skin', '%s_%d.jpg' % (key, s['num']))))
             if img:
                 rows.append({'num': s['num'], 'name': '預設造型' if s['name'] == 'default' else s['name'],
                              'img': img,

@@ -106,3 +106,10 @@ tactics.html    戰術解析：173 位英雄的玩法定位、位置重點、Rio
 maps.html 的小地圖與地形圖（召喚峽谷＋五種元素龍地形、嚎哭深淵＋活動主題、競技場八個場地）
 取自 CommunityDragon（raw.communitydragon.org）的遊戲原始檔，版權屬 Riot Games；
 Data Dragon 的 img/map/map22.png 與 map30.png 其實是相同的空樣板圖，已不再使用。
+
+英雄數量檢查（與官方一致）：
+- 官方基準：Riot Data Dragon 的英雄總數（championFull.json，目前 173 位）
+- tools/check_site.py 每次執行都會比對：champions.json／skins.json／gallery.json 的英雄數，
+  以及 index／champions／items 等頁面顯示的英雄數字（items 頁允許「20 位英雄」的深度攻略子集合）
+- script.js 的離線種子清單（championSeed）由官方英雄清單產生，共 173 位，離線時數量也一致
+- 首頁的「英雄總數」與「最新版本」由 script.js 依實際載入的資料自動填入（data-champ-count／data-ddragon-version）

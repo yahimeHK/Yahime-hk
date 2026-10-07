@@ -39,6 +39,59 @@ def http(url, headers=None, method="GET", attempts=3):
     raise last
 
 
+# -------------------------------------------------------------------- counts
+COUNT_RE = re.compile(r'(\d+)\s*位?英雄(?!類|类|型)')   # 排除「6 英雄類型」這類非數量的說法
+# 這些頁面的英雄數字必須等於官方數量；items 頁另外允許「深度攻略卡」的子集合數字
+COUNT_ALLOWED_EXTRA = {
+    'items.html': {20},          # 20 張深度攻略卡（刻意的子集合）
+}
+
+
+def champion_counts(site, official):
+    """檢查各頁顯示的英雄總數與資料檔的數量是否跟官方 Data Dragon 一致。"""
+    if not official:
+        rec(INFO, "count", "沒有官方快取可比對（略過數量檢查）")
+        return
+    # 1) 資料檔數量
+    import json
+    for name, key in (('champions.json', 'count'), ('skins.json', None), ('gallery.json', None)):
+        path = os.path.join(site, 'assets', 'lol', name)
+        if not os.path.exists(path):
+            rec(FAIL, "count", "缺少 assets/lol/%s" % name)
+            continue
+        try:
+            with open(path, encoding='utf-8') as fh:
+                data = json.load(fh)
+        except Exception as e:                                    # noqa: BLE001
+            rec(FAIL, "count", "%s 讀取失敗：%s" % (name, e))
+            continue
+        n = data.get('count') if key else len(data.get('champions', []))
+        if n == official:
+            rec(PASS, "count", "%s 英雄數 %d（與官方一致）" % (name, n))
+        else:
+            rec(FAIL, "count", "%s 英雄數 %d ≠ 官方 %d" % (name, n or 0, official))
+
+    # 2) 各頁顯示的數字
+    pages = ['index.html', 'champions.html', 'items.html', 'skins.html',
+             'gallery.html', 'abilities.html', 'tactics.html']
+    for page in pages:
+        path = os.path.join(site, page)
+        if not os.path.exists(path):
+            continue
+        with open(path, encoding='utf-8') as fh:
+            text = fh.read()
+        nums = set(int(x) for x in COUNT_RE.findall(text))
+        # 動態填入的欄位（JS 會蓋掉）以靜態值驗證即可
+        extra = COUNT_ALLOWED_EXTRA.get(page, set())
+        bad = sorted(n for n in nums if n != official and n not in extra)
+        if not nums:
+            rec(INFO, "count", "%s 沒有顯示英雄總數" % page)
+        elif bad:
+            rec(FAIL, "count", "%s 顯示的英雄數字與官方不符：%s（官方 %d）" % (page, bad, official))
+        else:
+            rec(PASS, "count", "%s 英雄數字 %s（官方 %d）" % (page, sorted(nums), official))
+
+
 # --------------------------------------------------------------------------- refs
 REF_RE_HTML = re.compile(r'(?:src|href)\s*=\s*["\']([^"\']+)["\']', re.I)
 REF_RE_CSS = re.compile(r'url\(\s*["\']?([^"\')]+)["\']?\s*\)', re.I)
@@ -120,10 +173,26 @@ def mp4_video_spec(path):
     return spec
 
 
+def official_champion_count():
+    """官方 Data Dragon 的英雄總數（優先用本機快取，沒有就讀站上的 champions.json）。"""
+    import json
+    cache = os.path.join(os.environ.get('TEMP', '/tmp'), 'lolcache')
+    try:
+        with open(os.path.join(cache, 'versions.json'), encoding='utf-8') as fh:
+            ver = json.load(fh)[0]
+        with open(os.path.join(cache, 'champFull_%s.json' % ver), encoding='utf-8') as fh:
+            return len(json.load(fh)['data'])
+    except Exception:                                             # noqa: BLE001
+        return None
+
+
 def main():
     site = os.path.abspath(sys.argv[1])
     base = sys.argv[2].rstrip("/") + "/"
     node = sys.argv[3] if len(sys.argv) > 3 else None
+
+    # ------------------------------------------------- 0. 英雄數量是否與官方一致
+    champion_counts(site, official_champion_count())
 
     # ---------------------------------------------------------------- 1. HTTP
     pages = ["index.html", "champions.html", "items.html", "guides.html"]

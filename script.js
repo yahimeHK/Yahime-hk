@@ -1,4 +1,4 @@
-/* LOL攻略網站 V6 data layer - Patch 26.19 / Data Dragon 16.19.1 */
+/* LOL攻略網站 V6 data layer - Patch 16.20.1 / Data Dragon 16.20.1 */
 const DDragonVersion = '16.19.1';
 const DDragonBase = `https://ddragon.leagueoflegends.com/cdn/${DDragonVersion}/data/zh_TW`;
 const DDragonEnglish = `https://ddragon.leagueoflegends.com/cdn/${DDragonVersion}/data/en_US`;
@@ -35,47 +35,48 @@ const championSeed = [
     { name: "Gnar", img: "Gnar" }, { name: "Gragas", img: "Gragas" }, { name: "Graves", img: "Graves" },
     { name: "Gwen", img: "Gwen" }, { name: "Hecarim", img: "Hecarim" }, { name: "Heimerdinger", img: "Heimerdinger" },
     { name: "Hwei", img: "Hwei" }, { name: "Illaoi", img: "Illaoi" }, { name: "Irelia", img: "Irelia" },
-    { name: "Ivern", img: "Ivern" }, { name: "Jarvan IV", img: "JarvanIV" }, { name: "Jax", img: "Jax" },
-    { name: "Jayce", img: "Jayce" }, { name: "Jhin", img: "Jhin" }, { name: "Jinx", img: "Jinx" },
-    { name: "K'Sante", img: "KSante" }, { name: "Kai'Sa", img: "Kaisa" }, { name: "Kalista", img: "Kalista" },
-    { name: "Karma", img: "Karma" }, { name: "Karthus", img: "Karthus" }, { name: "Kassadin", img: "Kassadin" },
-    { name: "Katarina", img: "Katarina" }, { name: "Kayle", img: "Kayle" }, { name: "Kayn", img: "Kayn" },
-    { name: "Kennen", img: "Kennen" }, { name: "Kha'Zix", img: "Khazix" }, { name: "Kindred", img: "Kindred" },
-    { name: "Kled", img: "Kled" }, { name: "Kog'Maw", img: "KogMaw" }, { name: "LeBlanc", img: "Leblanc" },
-    { name: "Lee Sin", img: "LeeSin" }, { name: "Leona", img: "Leona" }, { name: "Lillia", img: "Lillia" },
-    { name: "Lissandra", img: "Lissandra" }, { name: "Lucian", img: "Lucian" }, { name: "Lulu", img: "Lulu" },
-    { name: "Lux", img: "Lux" }, { name: "Malphite", img: "Malphite" }, { name: "Malzahar", img: "Malzahar" },
-    { name: "Maokai", img: "Maokai" }, { name: "Master Yi", img: "MasterYi" }, { name: "Mel", img: "Mel" },
-    { name: "Milio", img: "Milio" }, { name: "Miss Fortune", img: "MissFortune" }, { name: "Mordekaiser", img: "Mordekaiser" },
-    { name: "Morgana", img: "Morgana" }, { name: "Naafiri", img: "Naafiri" }, { name: "Nami", img: "Nami" },
-    { name: "Nasus", img: "Nasus" }, { name: "Nautilus", img: "Nautilus" }, { name: "Neeko", img: "Neeko" },
-    { name: "Nidalee", img: "Nidalee" }, { name: "Nilah", img: "Nilah" }, { name: "Nocturne", img: "Nocturne" },
-    { name: "Nunu & Willump", img: "Nunu" }, { name: "Olaf", img: "Olaf" }, { name: "Orianna", img: "Orianna" },
-    { name: "Ornn", img: "Ornn" }, { name: "Pantheon", img: "Pantheon" }, { name: "Poppy", img: "Poppy" },
-    { name: "Pyke", img: "Pyke" }, { name: "Qiyana", img: "Qiyana" }, { name: "Quinn", img: "Quinn" },
-    { name: "Rakan", img: "Rakan" }, { name: "Rammus", img: "Rammus" }, { name: "Rek'Sai", img: "RekSai" },
-    { name: "Rell", img: "Rell" }, { name: "Renata Glasc", img: "Renata" }, { name: "Renekton", img: "Renekton" },
-    { name: "Rengar", img: "Rengar" }, { name: "Riven", img: "Riven" }, { name: "Rumble", img: "Rumble" },
-    { name: "Ryze", img: "Ryze" }, { name: "Samira", img: "Samira" }, { name: "Sejuani", img: "Sejuani" },
-    { name: "Senna", img: "Senna" }, { name: "Seraphine", img: "Seraphine" }, { name: "Sett", img: "Sett" },
-    { name: "Shaco", img: "Shaco" }, { name: "Shen", img: "Shen" }, { name: "Shyvana", img: "Shyvana" },
-    { name: "Singed", img: "Singed" }, { name: "Sion", img: "Sion" }, { name: "Sivir", img: "Sivir" },
-    { name: "Skarner", img: "Skarner" }, { name: "Smolder", img: "Smolder" }, { name: "Sona", img: "Sona" },
-    { name: "Soraka", img: "Soraka" }, { name: "Swain", img: "Swain" }, { name: "Sylas", img: "Sylas" },
-    { name: "Syndra", img: "Syndra" }, { name: "Tahm Kench", img: "TahmKench" }, { name: "Taliyah", img: "Taliyah" },
-    { name: "Talon", img: "Talon" }, { name: "Taric", img: "Taric" }, { name: "Teemo", img: "Teemo" },
-    { name: "Thresh", img: "Thresh" }, { name: "Tristana", img: "Tristana" }, { name: "Trundle", img: "Trundle" },
-    { name: "Tryndamere", img: "Tryndamere" }, { name: "Twisted Fate", img: "TwistedFate" }, { name: "Twitch", img: "Twitch" },
-    { name: "Udyr", img: "Udyr" }, { name: "Urgot", img: "Urgot" }, { name: "Varus", img: "Varus" },
-    { name: "Vayne", img: "Vayne" }, { name: "Veigar", img: "Veigar" }, { name: "Vel'Koz", img: "Velkoz" },
-    { name: "Vex", img: "Vex" }, { name: "Vi", img: "Vi" }, { name: "Viego", img: "Viego" },
-    { name: "Viktor", img: "Viktor" }, { name: "Vladimir", img: "Vladimir" }, { name: "Volibear", img: "Volibear" },
-    { name: "Warwick", img: "Warwick" }, { name: "Wukong", img: "Wukong" }, { name: "Xayah", img: "Xayah" },
-    { name: "Xerath", img: "Xerath" }, { name: "Xin Zhao", img: "XinZhao" }, { name: "Yasuo", img: "Yasuo" },
-    { name: "Yone", img: "Yone" }, { name: "Yorick", img: "Yorick" }, { name: "Yuumi", img: "Yuumi" },
-    { name: "Zac", img: "Zac" }, { name: "Zed", img: "Zed" }, { name: "Zeri", img: "Zeri" },
-    { name: "Ziggs", img: "Ziggs" }, { name: "Zilean", img: "Zilean" }, { name: "Zoe", img: "Zoe" },
-    { name: "Zyra", img: "Zyra" }, { name: "Zaahen", img: "Zaahen" }
+    { name: "Ivern", img: "Ivern" }, { name: "Janna", img: "Janna" }, { name: "Jarvan IV", img: "JarvanIV" },
+    { name: "Jax", img: "Jax" }, { name: "Jayce", img: "Jayce" }, { name: "Jhin", img: "Jhin" },
+    { name: "Jinx", img: "Jinx" }, { name: "K'Sante", img: "KSante" }, { name: "Kai'Sa", img: "Kaisa" },
+    { name: "Kalista", img: "Kalista" }, { name: "Karma", img: "Karma" }, { name: "Karthus", img: "Karthus" },
+    { name: "Kassadin", img: "Kassadin" }, { name: "Katarina", img: "Katarina" }, { name: "Kayle", img: "Kayle" },
+    { name: "Kayn", img: "Kayn" }, { name: "Kennen", img: "Kennen" }, { name: "Kha'Zix", img: "Khazix" },
+    { name: "Kindred", img: "Kindred" }, { name: "Kled", img: "Kled" }, { name: "Kog'Maw", img: "KogMaw" },
+    { name: "LeBlanc", img: "Leblanc" }, { name: "Lee Sin", img: "LeeSin" }, { name: "Leona", img: "Leona" },
+    { name: "Lillia", img: "Lillia" }, { name: "Lissandra", img: "Lissandra" }, { name: "Locke", img: "Locke" },
+    { name: "Lucian", img: "Lucian" }, { name: "Lulu", img: "Lulu" }, { name: "Lux", img: "Lux" },
+    { name: "Malphite", img: "Malphite" }, { name: "Malzahar", img: "Malzahar" }, { name: "Maokai", img: "Maokai" },
+    { name: "Master Yi", img: "MasterYi" }, { name: "Mel", img: "Mel" }, { name: "Milio", img: "Milio" },
+    { name: "Miss Fortune", img: "MissFortune" }, { name: "Mordekaiser", img: "Mordekaiser" }, { name: "Morgana", img: "Morgana" },
+    { name: "Naafiri", img: "Naafiri" }, { name: "Nami", img: "Nami" }, { name: "Nasus", img: "Nasus" },
+    { name: "Nautilus", img: "Nautilus" }, { name: "Neeko", img: "Neeko" }, { name: "Nidalee", img: "Nidalee" },
+    { name: "Nilah", img: "Nilah" }, { name: "Nocturne", img: "Nocturne" }, { name: "Nunu & Willump", img: "Nunu" },
+    { name: "Olaf", img: "Olaf" }, { name: "Orianna", img: "Orianna" }, { name: "Ornn", img: "Ornn" },
+    { name: "Pantheon", img: "Pantheon" }, { name: "Poppy", img: "Poppy" }, { name: "Pyke", img: "Pyke" },
+    { name: "Qiyana", img: "Qiyana" }, { name: "Quinn", img: "Quinn" }, { name: "Rakan", img: "Rakan" },
+    { name: "Rammus", img: "Rammus" }, { name: "Rek'Sai", img: "RekSai" }, { name: "Rell", img: "Rell" },
+    { name: "Renata Glasc", img: "Renata" }, { name: "Renekton", img: "Renekton" }, { name: "Rengar", img: "Rengar" },
+    { name: "Riven", img: "Riven" }, { name: "Rumble", img: "Rumble" }, { name: "Ryze", img: "Ryze" },
+    { name: "Samira", img: "Samira" }, { name: "Sejuani", img: "Sejuani" }, { name: "Senna", img: "Senna" },
+    { name: "Seraphine", img: "Seraphine" }, { name: "Sett", img: "Sett" }, { name: "Shaco", img: "Shaco" },
+    { name: "Shen", img: "Shen" }, { name: "Shyvana", img: "Shyvana" }, { name: "Singed", img: "Singed" },
+    { name: "Sion", img: "Sion" }, { name: "Sivir", img: "Sivir" }, { name: "Skarner", img: "Skarner" },
+    { name: "Smolder", img: "Smolder" }, { name: "Sona", img: "Sona" }, { name: "Soraka", img: "Soraka" },
+    { name: "Swain", img: "Swain" }, { name: "Sylas", img: "Sylas" }, { name: "Syndra", img: "Syndra" },
+    { name: "Tahm Kench", img: "TahmKench" }, { name: "Taliyah", img: "Taliyah" }, { name: "Talon", img: "Talon" },
+    { name: "Taric", img: "Taric" }, { name: "Teemo", img: "Teemo" }, { name: "Thresh", img: "Thresh" },
+    { name: "Tristana", img: "Tristana" }, { name: "Trundle", img: "Trundle" }, { name: "Tryndamere", img: "Tryndamere" },
+    { name: "Twisted Fate", img: "TwistedFate" }, { name: "Twitch", img: "Twitch" }, { name: "Udyr", img: "Udyr" },
+    { name: "Urgot", img: "Urgot" }, { name: "Varus", img: "Varus" }, { name: "Vayne", img: "Vayne" },
+    { name: "Veigar", img: "Veigar" }, { name: "Vel'Koz", img: "Velkoz" }, { name: "Vex", img: "Vex" },
+    { name: "Vi", img: "Vi" }, { name: "Viego", img: "Viego" }, { name: "Viktor", img: "Viktor" },
+    { name: "Vladimir", img: "Vladimir" }, { name: "Volibear", img: "Volibear" }, { name: "Warwick", img: "Warwick" },
+    { name: "Wukong", img: "MonkeyKing" }, { name: "Xayah", img: "Xayah" }, { name: "Xerath", img: "Xerath" },
+    { name: "Xin Zhao", img: "XinZhao" }, { name: "Yasuo", img: "Yasuo" }, { name: "Yone", img: "Yone" },
+    { name: "Yorick", img: "Yorick" }, { name: "Yunara", img: "Yunara" }, { name: "Yuumi", img: "Yuumi" },
+    { name: "Zaahen", img: "Zaahen" }, { name: "Zac", img: "Zac" }, { name: "Zed", img: "Zed" },
+    { name: "Zeri", img: "Zeri" }, { name: "Ziggs", img: "Ziggs" }, { name: "Zilean", img: "Zilean" },
+    { name: "Zoe", img: "Zoe" }, { name: "Zyra", img: "Zyra" }
 ];
 
 const roleGroups = {
@@ -186,7 +187,7 @@ const championCounters = {
     "Gnar": { weakAgainst: ["Gangplank", "Vayne", "Renekton", "Irelia"], strongAgainst: [] }
 };
 
-/* ===== 完整符文方向（Patch 26.19） ===== */
+/* ===== 完整符文方向（Patch 16.20.1） ===== */
 const runeDirections = {
     "长手消耗": {
         label: "长手消耗型",
@@ -206,7 +207,7 @@ const runeDirections = {
         secondary: { tree: "Sorcery（巫术系）", runes: ["Transcendence（超然）","Scorch（焦灼）"] },
         shards: ["Adaptive Force","Adaptive Force","Magic Resist"],
         note: "电刑在 3 秒内用 3 个独立攻击或技能命中英雄时造成额外伤害。猛然冲击提供穿透，无情猎手提升游走效率。",
-        source: "Metabot 26.18 版本数据"
+        source: "Metabot 資料整理"
     },
     "法坦功能": {
         label: "法坦 / 功能型",
@@ -216,7 +217,7 @@ const runeDirections = {
         secondary: { tree: "Inspiration（启迪系）", runes: ["Biscuit Delivery（饼干配送）","Cosmic Insight（星界洞悉）"] },
         shards: ["Adaptive Force","Armor","Health"],
         note: "余震在控住敌人后提供双抗，骸骨镀层挡爆发，过度生长叠生命值。",
-        source: "Metabot 26.18 版本数据"
+        source: "Metabot 資料整理"
     },
     "持续输出": {
         label: "持续输出型",
@@ -226,7 +227,7 @@ const runeDirections = {
         secondary: { tree: "Resolve（坚决系）", runes: ["Bone Plating（骸骨镀层）","Overgrowth（过度生长）"] },
         shards: ["Adaptive Force","Adaptive Force","Health"],
         note: "风暴狂涌在 3 秒内造成目标 25% 最大生命值伤害时提供移速与爆发。",
-        source: "Metabot 26.18 版本数据"
+        source: "Metabot 資料整理"
     },
     "打野征服者": {
         label: "打野征服者（战士型）",
@@ -266,7 +267,7 @@ const runeDirections = {
         secondary: { tree: "Inspiration（启迪系）", runes: ["Biscuit Delivery（饼干配送）","Magical Footwear（神奇之靴）"] },
         shards: ["Adaptive Force","Armor","Health"],
         note: "不灭之握每 4 秒强化下一次普攻，造成额外伤害并永久提升生命值。",
-        source: "Metabot 26.18 版本数据"
+        source: "Metabot 資料整理"
     },
     "ADC精密": {
         label: "ADC 精密系（持续输出）",
@@ -276,7 +277,7 @@ const runeDirections = {
         secondary: { tree: "Inspiration（启迪系）", runes: ["Magical Footwear（神奇之靴）","Biscuit Delivery（饼干配送）"] },
         shards: ["Attack Speed","Adaptive Force","Health"],
         note: "致命节奏提供攻速上限突破，强攻强化三次普攻的额外伤害。砍倒对高血量前排效果显著。",
-        source: "Mobalytics 26.19 版本数据"
+        source: "Mobalytics 資料整理"
     },
     "ADC迅捷": {
         label: "ADC 迅捷步法（对线压制）",
@@ -296,7 +297,7 @@ const runeDirections = {
         secondary: { tree: "Resolve（坚决系）", runes: ["Bone Plating（骸骨镀层）","Second Wind（复苏之风）"] },
         shards: ["Adaptive Force","Adaptive Force","Health"],
         note: "艾莉在伤害敌人时飞向目标造成伤害，在保护队友时提供护盾。",
-        source: "Mobalytics 26.19 版本数据"
+        source: "Mobalytics 資料整理"
     },
     "辅助余震": {
         label: "辅助余震（坦克 / 开团型）",
@@ -306,7 +307,7 @@ const runeDirections = {
         secondary: { tree: "Inspiration（启迪系）", runes: ["Hextech Flashtraption（海克斯闪现）","Cosmic Insight（星界洞悉）"] },
         shards: ["Adaptive Force","Armor","Health"],
         note: "余震在控住敌人后提供双抗，生命源泉标记敌人让队友回复。",
-        source: "OP.GG 26.19 版本数据"
+        source: "OP.GG 資料整理"
     }
 };
 
@@ -441,6 +442,21 @@ function renderArticles(cat = 'all') {
         `<article class="article-card"><small>${a[0]}</small><h3>${a[1]}</h3><p>${a[2]}</p><button class="small-btn readArticle" data-title="${escapeHTML(a[1])}" data-text="${escapeHTML(a[2])}">閱讀摘要</button></article>`
     ).join('');
     document.querySelectorAll('.readArticle').forEach(b => b.onclick = () => toast(b.dataset.title + '：' + b.dataset.text));
+}
+
+
+function syncChampionCounts() {
+    // 全站顯示的英雄總數一律跟「目前載入的英雄資料」一致，避免寫死造成數字不同步
+    const n = champions.length;
+    if (!n) return;
+    document.querySelectorAll('[data-champ-count]').forEach((el) => {
+        el.textContent = n + (el.dataset.suffix || '');
+    });
+    const ver = document.querySelector('[data-ddragon-version]');
+    if (ver) {
+        const m = /cdn\/([0-9.]+)/.exec(String(DDragonBase));
+        if (m) ver.textContent = m[1];
+    }
 }
 
 function renderChampions() {
