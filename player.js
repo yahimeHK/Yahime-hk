@@ -54,7 +54,7 @@
       !played || !buffered || !scrubHover || !scrubTip || !curEl || !durEl) return;
 
   const STORE = {
-    time:   'lolPlayer.time',
+    // 觀看進度是每支影片分開存的，見下面的 timeKey()
     volume: 'lolPlayer.volume',
     muted:  'lolPlayer.muted',
     rate:   'lolPlayer.rate'
@@ -93,6 +93,16 @@
       try { localStorage.setItem(k, String(v)); } catch (_) { /* 忽略 */ }
     }
   };
+
+  // 每一支影片各自記住「看到哪裡」，切換主畫面時才不會互相蓋掉。
+  let currentId = '1';
+  const timeKey = (id) => 'lolPlayer.time.' + id;
+
+  function saveTime() {
+    if (Number.isFinite(video.duration) && video.currentTime > 0) {
+      store.set(timeKey(currentId), video.currentTime);
+    }
+  }
 
   function flash(message) {
     if (!message) return;
@@ -257,8 +267,8 @@
       );
     }
 
-    // 還原上次進度
-    const saved = parseFloat(store.get(STORE.time, '0'));
+    // 還原這支影片上次看到的位置
+    const saved = parseFloat(store.get(timeKey(currentId), '0'));
     if (Number.isFinite(saved) && saved > 8 && saved < video.duration - 15) {
       video.currentTime = saved;
       flash('已從 ' + fmt(saved) + ' 繼續播放');
@@ -530,14 +540,48 @@
 
   // ── 每幾秒記住播放位置 ─────────────────────────────────────────────────
   setInterval(() => {
-    if (!video.paused && Number.isFinite(video.duration) && video.currentTime > 0) {
-      store.set(STORE.time, video.currentTime);
-    }
+    if (!video.paused) saveTime();
   }, 4000);
 
   window.addEventListener('beforeunload', () => {
-    if (Number.isFinite(video.duration)) store.set(STORE.time, video.currentTime);
+    saveTime();
   });
+
+  /* ------------------------------------------------------- 切換主畫面影片 */
+  /**
+   * 換成另一支影片。沿用同一個 <video> 與同一組控制項，所以畫面不會重建閃爍。
+   * @param {string}  src       影片路徑
+   * @param {string}  id        影片編號（每支各自記住觀看進度）
+   * @param {boolean} autoplay  換過去後是否直接播放（使用者點擊時為 true）
+   */
+  function switchTo(src, id, autoplay) {
+    if (!src) return;
+    saveTime();                             // 先記住目前這支看到哪裡
+    if (id) currentId = String(id);
+
+    // 已經是同一個來源（例如剛載入時就是第一支）就不用重新載入，避免多一次閃爍
+    if (video.getAttribute('src') === src && video.readyState >= 1) {
+      if (autoplay) video.play().catch(() => {});
+      return;
+    }
+
+    metadataDone = false;                   // 讓新影片的 metadata 重新處理一次
+    note('');                               // 清掉上一支的錯誤訊息
+    frame.classList.remove('has-error');
+    frame.classList.remove('is-started');   // 中央播放鈕回來
+    if (factDur) factDur.textContent = '--:--';
+    if (chip) chip.textContent = '0%';
+    played.style.width = '0%';
+    buffered.style.width = '0%';
+    seek.value = '0';
+    curEl.textContent = '0:00';
+    durEl.textContent = '0:00';
+    busy(true);
+
+    video.src = src;
+    video.load();
+    if (autoplay) video.play().catch(() => {});
+  }
 
   /* ------------------------------------------------------------- start-up */
   applyVolume(1, false);
@@ -553,6 +597,8 @@
     video,
     play: () => video.play(),
     pause: () => video.pause(),
-    seek: (s) => seekTo(s, false)
+    seek: (s) => seekTo(s, false),
+    switchTo,
+    currentId: () => currentId
   };
 })();

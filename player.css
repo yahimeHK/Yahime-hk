@@ -519,3 +519,89 @@
 @media (max-width: 700px) {
   .video-card--feature { padding: 12px 12px 4px; }
 }
+
+/* ==========================================================================
+   主畫面影片切換（videos.js）
+   三張小圖固定排成一列：切換時只換上面的播放器，版面完全不會跳動。
+   ========================================================================== */
+.video-thumbs {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.video-thumb {
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  background: #101922;
+  border: 1px solid #253540;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .25s var(--ease), border-color .25s, box-shadow .25s;
+}
+.video-thumb:hover { transform: translateY(-4px); border-color: #00d9ff; box-shadow: 0 10px 28px rgba(0, 217, 255, .12); }
+.video-thumb:focus-visible { outline: 2px solid #00d9ff; outline-offset: 2px; }
+.video-thumb.is-active {
+  border-color: #c8aa6e;
+  box-shadow: 0 0 0 1px rgba(200, 170, 110, .55), 0 10px 28px rgba(0, 0, 0, .35);
+  cursor: default;
+}
+.video-thumb.is-active:hover { transform: none; border-color: #c8aa6e; }
+
+.video-thumb__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #03070b;
+  overflow: hidden;
+}
+.video-thumb__media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .8;
+  pointer-events: none;                 /* 整張卡都是按鈕，點哪裡都算 */
+  transition: opacity .3s var(--ease), transform .5s var(--ease);
+}
+.video-thumb:hover .video-thumb__media video { opacity: 1; transform: scale(1.04); }
+.video-thumb.is-active .video-thumb__media video { opacity: 1; }
+
+.video-thumb__mark {
+  position: absolute;
+  left: 10px; top: 10px;
+  z-index: 2;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: #071016;
+  background: #c8aa6e;
+  border-radius: 999px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity .25s var(--ease), transform .25s var(--ease);
+}
+.video-thumb.is-active .video-thumb__mark { opacity: 1; transform: translateY(0); }
+
+.video-thumb__title { display: block; margin: 12px 14px 4px; font-size: 15px; font-weight: 700; color: #f0eadb; }
+.video-thumb__desc { display: block; margin: 0 14px 14px; font-size: 12.5px; line-height: 1.55; color: #9da9b2; }
+
+/* 主畫面的比例跟著影片走（640×272 / 640×360），轉場時淡出淡入 */
+.salvation-player .video { transition: opacity .22s var(--ease); }
+.salvation-player .stage__frame { aspect-ratio: var(--frame-ratio, 640 / 272); transition: aspect-ratio .45s var(--ease); }
+.salvation-player .stage__frame.is-switching .video { opacity: 0; }
+.salvation-player .stage__frame.is-switching .bigplay { opacity: 0; }
+
+@media (max-width: 1000px) {
+  .video-thumbs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+  .video-thumbs { grid-template-columns: 1fr; gap: 12px; }
+}
