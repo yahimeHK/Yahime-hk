@@ -80,6 +80,15 @@
     Array.prototype.forEach.call(fields(), (el) => {
       const v = read(K_FIELD + el.id);
       if (v === null) return;
+      // 下拉選單的選項可能是之後才由資料建立的：選項還不存在就先跳過，
+      // 否則會設定失敗又觸發事件，反而把已存的狀態覆蓋掉（等下一次重試再還原）
+      if (el.tagName === 'SELECT') {
+        let hasOption = false;
+        for (let i = 0; i < el.options.length; i++) {
+          if (el.options[i].value === v) { hasOption = true; break; }
+        }
+        if (!hasOption) return;
+      }
       if (el.type === 'checkbox' || el.type === 'radio') {
         el.checked = (v === '1');
       } else {

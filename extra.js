@@ -32,6 +32,44 @@
       pills: function (d) { return [d.champions.length + ' 位英雄', '含官方提示與克制']; } }
   };
 
+  // 各分類頁的下拉篩選：選項由畫面資料自動產生，不需要手寫清單
+  var FILTERS = {
+    skins:     { scope: '.skin-card',      attr: 'data-theme', label: '全部造型系列', nested: '.skin-champ' },
+    gallery:   { scope: '[data-kind]',     attr: 'data-kind',  label: '全部類型' },
+    abilities: { scope: '.ability-card',   attr: 'data-slot',  label: '全部技能' },
+    maps:      { scope: '.map-card',       attr: 'data-map',   label: '全部地圖' },
+    runes:     { scope: '.rune-tree-block', attr: 'data-tree', label: '全部符文樹' },
+    gear:      { scope: '.gear-card',      attr: 'data-tags',  label: '全部類型' },
+    tactics:   { scope: '.tac-card',       attr: 'data-diff',  label: '全部難度' }
+  };
+
+  function buildFilter() {
+    var cfg = FILTERS[MODE];
+    var sel = $('exSelect');
+    if (!cfg || !sel) return;
+    var counts = {}, total = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('#exBody ' + cfg.scope), function (el) {
+      var raw = el.getAttribute(cfg.attr) || '';
+      if (!raw) return;
+      raw.split(/[ ]+/).forEach(function (v) {
+        v = v.trim();
+        if (!v) return;
+        counts[v] = (counts[v] || 0) + 1;
+        total++;
+      });
+    });
+    var keys = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a] || a.localeCompare(b); });
+    if (!keys.length) { sel.hidden = true; return; }
+    var shown = keys.slice(0, 40);                     // 選項太多時只列前 40 個（其餘仍可用搜尋）
+    sel.hidden = false;
+    sel.innerHTML = '<option value="all">' + esc(cfg.label) + '（' + keys.length + '）</option>' +
+      shown.map(function (k) {
+        return '<option value="' + esc(k) + '">' + esc(k) + '（' + counts[k] + '）</option>';
+      }).join('') +
+      (keys.length > shown.length ? '<option value="__more__" disabled>…其餘 ' + (keys.length - shown.length) + ' 項請用搜尋</option>' : '');
+    state.sel = 'all';
+  }
+
   function sum(arr, key) { var n = 0; arr.forEach(function (x) { n += (x[key] || []).length; }); return n; }
   function sumTrees(trees) { var n = 0; trees.forEach(function (t) { t.slots.forEach(function (s) { n += s.runes.length; }); }); return n; }
   function $(id) { return document.getElementById(id); }
@@ -51,7 +89,7 @@
   /* ---------------------------------------------------------------- 各頁卡片 */
   function cardSkins(c) {
     var imgs = c.skins.map(function (s) {
-      return '<button class="skin-card" type="button" data-big="' + esc(s.big) + '" data-name="' + esc(c.champ + ' ' + s.name) + '">' +
+      return '<button class="skin-card" type="button" data-theme="' + esc(s.theme || '') + '" data-big="' + esc(s.big) + '" data-name="' + esc(c.champ + ' ' + s.name) + '">' +
         '<img src="' + esc(s.img) + '" alt="' + esc(s.name) + '" loading="lazy">' +
         '<span>' + esc(s.name) + '</span></button>';
     }).join('');
@@ -61,13 +99,13 @@
   }
 
   function cardArt(c) {
-    return '<figure class="art-card" data-role="' + esc(c.role) + '" data-big="' + esc(c.big) + '" data-name="' + esc(sText(c)) + '">' +
+    return '<figure class="art-card" data-role="' + esc(c.role) + '" data-kind="讀取圖" data-big="' + esc(c.big) + '" data-name="' + esc(sText(c)) + '">' +
       '<img src="' + esc(c.img) + '" alt="' + esc(c.champ) + '" loading="lazy">' +
       '<span>' + esc(c.champ) + ' <small>' + esc(c.title) + '</small></span></figure>';
   }
 
   function cardAbility(c, a) {
-    return '<article class="ability-card" data-role="' + esc(c.role) + '" data-name="' + esc(sText(c, a.n + ' ' + a.k + ' ' + a.d)) + '">' +
+    return '<article class="ability-card" data-role="' + esc(c.role) + '" data-slot="' + esc(a.k) + '" data-name="' + esc(sText(c, a.n + ' ' + a.k + ' ' + a.d)) + '">' +
       '<img src="' + esc(a.i) + '" alt="' + esc(a.n) + '" loading="lazy">' +
       '<div><small>' + esc(c.name) + ' · ' + esc(a.k) + '</small>' +
       '<b>' + esc(a.n) + '</b><p>' + esc(a.d) + '</p></div></article>';
@@ -78,7 +116,7 @@
       return '<button type="button" class="map-gal__item" data-big="' + esc(g.img) + '" data-name="' + esc(m.name + ' ' + g.name) + '">' +
         '<img src="' + esc(g.img) + '" alt="' + esc(g.name) + '" loading="lazy"><span>' + esc(g.name) + '</span></button>';
     }).join('') + '</div>' : '';
-    return '<article class="map-card" data-name="' + esc(m.name + ' ' + m.sub + ' ' + (m.notes || []).join(' ')) + '"><div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
+    return '<article class="map-card" data-map="' + esc(m.name) + '" data-name="' + esc(m.name + ' ' + m.sub + ' ' + (m.notes || []).join(' ')) + '"><div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
       '<div><h2>' + esc(m.name) + '</h2><small>' + esc(m.sub) + '</small><ul>' +
       m.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' + gal + '</div></article>';
   }
@@ -92,7 +130,7 @@
       }).join('');
       return '<div class="rune-slot"><h4>' + esc(s.key) + '</h4><div class="rune-grid">' + cards + '</div></div>';
     }).join('');
-    return '<section class="rune-tree-block" data-name="' + esc(t.name) + '"><div class="rune-tree-head">' +
+    return '<section class="rune-tree-block" data-tree="' + esc(t.name) + '" data-name="' + esc(t.name) + '"><div class="rune-tree-head">' +
       '<img src="' + esc(t.icon) + '" alt="' + esc(t.name) + '"><b>' + esc(t.name) + '</b></div>' + slots + '</section>';
   }
 
@@ -110,7 +148,7 @@
     var tips = (t.tips || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     var enemy = (t.enemy || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     var weak = (t.weak || []).join('、'), strong = (t.strong || []).join('、');
-    return '<article class="tac-card" data-role="' + esc(c.role) + '" data-name="' + esc(sText(c, (c.tactic || {}).style)) + '">' +
+    return '<article class="tac-card" data-role="' + esc(c.role) + '" data-diff="' + esc(c.diffLabel || '') + '" data-name="' + esc(sText(c, (c.tactic || {}).style)) + '">' +
       '<div class="tac-card__head"><img src="' + esc(c.avatar) + '" alt="' + esc(c.name) + '" loading="lazy">' +
       '<div><b>' + esc(c.name) + '</b><small>' + esc(c.title) + ' · ' + esc(c.role) + '</small></div></div>' +
       '<div class="box box--gold">' + esc(t.style || '') + '</div>' +
@@ -132,14 +170,17 @@
         { img: 'assets/bg-items.jpg', name: '裝備攻略桌布' },
         { img: 'assets/bg-guides.jpg', name: '戰術商城桌布' }
       ].map(function (w) {
-        return '<div class="wall-card"><img src="' + esc(w.img) + '" alt="' + esc(w.name) + '" loading="lazy">' +
+        return '<div class="wall-card" data-kind="桌布" data-name="' + esc(w.name) + '"><img src="' + esc(w.img) + '" alt="' + esc(w.name) + '" loading="lazy">' +
           '<span>' + esc(w.name) + '<a class="ex-dl" href="' + esc(w.img) + '" download>下載</a></span></div>';
       }).join('');
       body.innerHTML = '<h3 style="margin:0 0 12px;color:#00d9ff;font-size:12px;letter-spacing:1.6px;">頁面桌布（1920×1080）</h3>' +
         '<div class="wall-row">' + walls + '</div>' +
         '<h3 style="margin:0 0 12px;color:#00d9ff;font-size:12px;letter-spacing:1.6px;">英雄讀取圖</h3>' +
         '<div class="art-wall">' + DATA.map(cardArt).join('') + '</div>';
-      ITEMS = [].slice.call(document.querySelectorAll('.art-card'));
+      // 桌布卡與讀取圖卡都要能被「類型」篩選（兩者都有 data-name／data-kind）
+      ITEMS = [].slice.call(document.querySelectorAll('#exBody [data-name]')).filter(function (el) {
+        return !el.classList.contains('rune-card') && !el.classList.contains('map-gal__item');
+      });
       apply(); return;
     }
     else if (MODE === 'abilities') body.innerHTML = DATA.map(function (c) { return c.ability.map(function (a) { return cardAbility(c, a); }).join(''); }).join('');
@@ -148,7 +189,9 @@
     else if (MODE === 'gear') body.innerHTML = DATA.map(cardGear).join('');
     else if (MODE === 'tactics') body.innerHTML = DATA.map(cardTactic).join('');
 
-    ITEMS = [].slice.call(body.querySelectorAll('[data-name]')).filter(function (el) { return !el.classList.contains('rune-card'); });
+    ITEMS = [].slice.call(body.querySelectorAll('[data-name]')).filter(function (el) {
+      return !el.classList.contains('rune-card') && !el.classList.contains('map-gal__item');
+    });
     apply();
   }
 
@@ -157,9 +200,10 @@
     var q = raw.toLowerCase().trim();
     var shown = 0;
 
+    var FLT = FILTERS[MODE];
     ITEMS.forEach(function (el) {
       var okRole = (state.role === '全部' || el.dataset.role === state.role || !el.dataset.role);
-      var okSel = (state.sel === 'all' || (el.dataset.tags || '').indexOf(state.sel) >= 0 || !el.dataset.tags);
+      var okSel = (state.sel === 'all' || !FLT || (el.getAttribute(FLT.attr) || '').indexOf(state.sel) >= 0);
       var okQ = !q || (el.dataset.name || '').toLowerCase().indexOf(q) >= 0;
       var on = okRole && okSel && okQ;
       el.hidden = !on;
@@ -172,7 +216,9 @@
       Array.prototype.forEach.call(blocks, function (b) {
         var okRole = (state.role === '全部' || b.dataset.role === state.role);
         var okQ = !q || (b.dataset.name || '').toLowerCase().indexOf(q) >= 0;
-        var on = okRole && okQ;
+        var anyCard = false;                            // 這個英雄是否還有符合篩選的造型
+        Array.prototype.forEach.call(b.querySelectorAll('.skin-card'), function (sc) { if (!sc.hidden) anyCard = true; });
+        var on = okRole && okQ && anyCard;
         b.hidden = !on;
         if (on) shown++;
       });
@@ -185,7 +231,8 @@
       var trees = document.querySelectorAll('.rune-tree-block');
       shown = 0;
       Array.prototype.forEach.call(trees, function (tr) {
-        var ok = !q || (tr.textContent || '').toLowerCase().indexOf(q) >= 0;
+        var okTree = (state.sel === 'all' || (tr.getAttribute('data-tree') || '') === state.sel);
+        var ok = okTree && (!q || (tr.textContent || '').toLowerCase().indexOf(q) >= 0);
         tr.hidden = !ok;
         if (ok) shown++;
       });
@@ -289,18 +336,11 @@
             });
           });
         }
-        // 裝備類型篩選
-        var sel = $('exSelect');
-        if (MODE === 'gear') {
-          var tags = {};
-          DATA.forEach(function (it) { (it.tags || []).forEach(function (t) { tags[t] = (tags[t] || 0) + 1; }); });
-          var list = Object.keys(tags).sort(function (a, b) { return tags[b] - tags[a]; });
-          sel.hidden = false;
-          sel.innerHTML = '<option value="all">全部類型</option>' +
-            list.map(function (t) { return '<option value="' + esc(t) + '">' + esc(t) + '（' + tags[t] + '）</option>'; }).join('');
-        }
         renderAll();
+        buildFilter();          // 下拉篩選的選項由剛渲染出來的資料自動產生
         bind();
+        var sel = $('exSelect');
+        if (sel) sel.addEventListener('change', function () { state.sel = sel.value; apply(); });
       })
       .catch(function (err) {
         $('exCount').textContent = '資料載入失敗：' + err.message;

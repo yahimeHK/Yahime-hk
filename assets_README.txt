@@ -122,3 +122,15 @@ Data Dragon 的 img/map/map22.png 與 map30.png 其實是相同的空樣板圖�
 - 右上角多一顆 ✨ 開關，狀態存在 localStorage(lolFx)；觸控裝置與系統「減少動態」預設關閉
 - 樣式由 fx.js 直接注入（不依賴外部 CSS，避免快取舊樣式）；pointermove 以 rAF／16ms 節流
 - 所有頁面都在 nav.js 之後載入這支檔案（產生器的樣板也已加入，重新產生不會掉）
+
+七個分類分頁的下拉篩選（選項由畫面資料自動產生，不需要手寫清單）：
+  skins.html      造型系列（從造型名稱取系列，例：機甲獵人／泳池狂歡／血月劍魔…，共 600+ 系列，最多列 40 個）
+  gallery.html    類型（桌布／讀取圖）
+  abilities.html  技能（被動／Q／W／E／R）
+  maps.html       地圖
+  runes.html      符文樹（精準／支配／巫術／意志／啟示）
+  gear.html       道具類型（沿用原本的裝備標籤，例：技能急速／生命／物理傷害）
+  tactics.html    難度（簡單／中等／困難）
+- 選項後面的數字是該分類的數量；可與位置分頁、搜尋框一起用（三個條件同時生效）
+- 產生器 tools/build_extra.py 會輸出對應屬性：data-theme／data-kind／data-slot／data-map／data-tree／data-diff（gear 沿用 data-tags）
+- 重新整理後下拉的選擇也會還原（state.js；選項是非同步建立的，會等選項出現再還原）
