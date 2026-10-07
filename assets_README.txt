@@ -38,3 +38,18 @@ assets/assetsvideo3.mp4
 serve.py 是本機靜態伺服器，會回應 byte range（206 Partial Content）；
 少了它（例如用 python -m http.server）拖曳時間軸會卡住，因為瀏覽器需要
 分段請求才能 seek。直接以 file:// 開啟時，播放器也會自行提示這個限制。
+
+=== 16.20.1 追加：裝備攻略頁的圖片素材 ===
+
+assets/lol/ 內的圖片全部由 Riot Data Dragon 16.20.1（zh_TW）下載後存到本機，
+所以裝備攻略頁（items.html）離線也能正常顯示，不會像以前連外失敗就整頁變純文字。
+
+assets/lol/champ/    英雄頭像（20 張）
+assets/lol/ability/  被動與 Q/W/E/R 技能圖示（100 張）
+assets/lol/item/     核心裝備圖示（47 張）
+assets/lol/rune/     符文樹與基石圖示（13 張）
+
+要更新到最新版本時，在專案根目錄執行：
+    python _build_items.py
+它會抓最新版本的 Data Dragon 資料與圖片，重新產生 items.html 與 items.css。
+（英雄清單、建議符文與核心裝備的配置寫在 _build_items.py 最上面的 CHAMPS 清單裡。）

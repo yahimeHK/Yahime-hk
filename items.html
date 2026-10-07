@@ -5,70 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOL 攻略站 - 裝備與符文數據庫</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-  /* 手機版強制顯示導航（保險用） */
-  @media(max-width:1000px){
-    .topbar nav{
-      display:flex !important;
-      gap:14px !important;
-      overflow-x:auto !important;
-      flex-wrap:nowrap !important;
-    }
-    .topbar nav a{
-      font-size:13px !important;
-      white-space:nowrap !important;
-    }
-  }
-  @media(max-width:700px){
-    .brand{font-size:15px !important}
-    .topbar nav{gap:12px !important}
-  }
-</style>
-    <style>
-        :root{--gold:#c8aa6e;--gold-bright:#f0e6d2;--cyan:#00d9ff;--bg-dark:#05080d;--border:#1e2b35}
-        body{background:radial-gradient(ellipse at 20% 0%,rgba(200,170,110,.08),transparent 55%),radial-gradient(ellipse at 80% 100%,rgba(0,217,255,.06),transparent 55%),var(--bg-dark)}
-        .section-sub{display:flex;align-items:center;gap:10px;margin:48px 0 10px}
-        .section-sub .bar{width:4px;height:26px;background:linear-gradient(180deg,var(--gold),var(--cyan));border-radius:2px;box-shadow:0 0 12px rgba(200,170,110,.5)}
-        .section-sub h3{margin:0;color:var(--gold);font-size:22px;letter-spacing:1px;text-shadow:0 0 18px rgba(200,170,110,.25)}
-        .section-sub small{color:#76838d;font-size:12px;letter-spacing:2px}
-        .item-table{width:100%;border-collapse:collapse;margin-top:20px;background:linear-gradient(180deg,#0b1117,#080d12);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.03)}
-        .item-table thead th{background:linear-gradient(180deg,#101922,#0b131b);color:var(--gold);padding:16px 14px;text-align:left;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;border-bottom:1px solid rgba(200,170,110,.25);position:relative}
-        .item-table thead th::after{content:"";position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:linear-gradient(90deg,transparent,rgba(200,170,110,.7),transparent)}
-        .item-table tbody td{padding:16px 14px;border-bottom:1px solid rgba(30,43,53,.7);vertical-align:middle;font-size:14px}
-        .item-table tbody tr{transition:background .25s ease;opacity:0;transform:translateY(12px);animation:fadeUp .55s ease forwards}
-        .item-table tbody tr:hover{background:linear-gradient(90deg,rgba(200,170,110,.06),rgba(0,217,255,.03),transparent)}
-        .item-table tbody tr:hover td:first-child{color:var(--gold-bright);text-shadow:0 0 10px rgba(200,170,110,.6)}
-        .item-table tbody tr:last-child td{border-bottom:0}
-        .item-table tbody tr:nth-child(1){animation-delay:.03s}.item-table tbody tr:nth-child(2){animation-delay:.06s}.item-table tbody tr:nth-child(3){animation-delay:.09s}.item-table tbody tr:nth-child(4){animation-delay:.12s}.item-table tbody tr:nth-child(5){animation-delay:.15s}.item-table tbody tr:nth-child(6){animation-delay:.18s}.item-table tbody tr:nth-child(7){animation-delay:.21s}.item-table tbody tr:nth-child(8){animation-delay:.24s}.item-table tbody tr:nth-child(9){animation-delay:.27s}.item-table tbody tr:nth-child(10){animation-delay:.30s}.item-table tbody tr:nth-child(11){animation-delay:.33s}.item-table tbody tr:nth-child(12){animation-delay:.36s}.item-table tbody tr:nth-child(13){animation-delay:.39s}.item-table tbody tr:nth-child(14){animation-delay:.42s}.item-table tbody tr:nth-child(15){animation-delay:.45s}.item-table tbody tr:nth-child(16){animation-delay:.48s}.item-table tbody tr:nth-child(17){animation-delay:.51s}.item-table tbody tr:nth-child(18){animation-delay:.54s}
-        @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
-        .item-table tbody td:first-child{font-weight:900;color:#6f7c86;font-size:15px;text-align:center;width:56px}
-        .cell-champ{display:flex;align-items:center;gap:12px;min-width:160px}
-        .cell-champ img{width:52px;height:52px;border-radius:12px;object-fit:cover;border:2px solid rgba(200,170,110,.55);background:#101922;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.6),0 6px 18px rgba(0,0,0,.5);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}
-        .cell-champ img:hover{transform:scale(1.12) rotate(-1deg);border-color:var(--gold-bright);box-shadow:0 0 22px rgba(200,170,110,.65),0 0 40px rgba(0,217,255,.25)}
-        .cell-champ .name{font-weight:800;color:#f0eadb;line-height:1.2;letter-spacing:.5px}
-        .cell-champ .en{font-size:10px;color:#76838d;letter-spacing:2px;margin-top:2px}
-        .cell-items{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-        .cell-items img{width:38px;height:38px;border-radius:9px;border:1px solid rgba(200,170,110,.45);background:#0d151c;flex:none;box-shadow:0 0 0 1px rgba(0,0,0,.5),0 4px 12px rgba(0,0,0,.45);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
-        .cell-items img:hover{transform:translateY(-4px) scale(1.08);border-color:var(--cyan);box-shadow:0 0 16px rgba(0,217,255,.55),0 0 32px rgba(0,217,255,.2)}
-        .cell-items .arrow{color:#4a5a66;font-size:12px;user-select:none}
-        .cell-rune{display:flex;align-items:center;gap:10px}
-        .cell-rune img{width:34px;height:34px;border-radius:50%;border:1px solid rgba(200,170,110,.5);background:#0d151c;flex:none;animation:runePulse 3.5s ease-in-out infinite;transition:transform .4s ease,box-shadow .4s ease}
-        .cell-rune img:hover{transform:rotate(15deg) scale(1.12);box-shadow:0 0 22px rgba(200,170,110,.8)}
-        @keyframes runePulse{0%,100%{box-shadow:0 0 10px rgba(200,170,110,.25)}50%{box-shadow:0 0 20px rgba(200,170,110,.55)}}
-        .cell-rune .rune-text{color:var(--gold);font-weight:700;font-size:13px;letter-spacing:.5px;text-shadow:0 0 12px rgba(200,170,110,.25)}
-        .cell-role{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:linear-gradient(180deg,#111d26,#0c161d);border:1px solid rgba(0,217,255,.35);color:#9ddff0;font-size:12px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
-        .cell-role .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:dotPulse 2s ease-in-out infinite}
-        @keyframes dotPulse{0%,100%{opacity:.6}50%{opacity:1}}
-        .cell-desc{color:#9da9b2;line-height:1.65;font-size:13px}
-        .heading h2{background:linear-gradient(90deg,#f0eadb,#c8aa6e 60%,#00d9ff);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:900;letter-spacing:1px}
-        .lol-particles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.35;background-image:radial-gradient(circle,rgba(200,170,110,.8) 1px,transparent 1.5px),radial-gradient(circle,rgba(0,217,255,.6) 1px,transparent 1.5px);background-size:180px 180px,260px 260px;background-position:0 0,90px 90px;animation:particleDrift 40s linear infinite}
-        @keyframes particleDrift{from{background-position:0 0,90px 90px}to{background-position:180px -180px,270px -90px}}
-        @media(max-width:900px){.item-table thead{display:none}.item-table tbody td{display:block;border:0;padding:8px 14px}.item-table tbody tr{display:block;margin-bottom:16px;border:1px solid var(--border);border-radius:12px;background:#0b1117;padding:10px 0}.item-table tbody td:first-child{text-align:left;color:var(--gold);padding-top:12px}.cell-champ img{width:44px;height:44px}}
-    </style>
+    <link rel="stylesheet" href="items.css">
 </head>
 <body class="bg-items">
-    <div class="lol-particles"></div>
-
     <header class="topbar">
         <div class="brand">SUMMONER'S <span>GUIDE</span><b>V5.1</b></div>
         <nav>
@@ -80,195 +19,1529 @@
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
 
-    <main class="container" style="width: min(1200px, 90%); margin: 30px auto; position:relative; z-index:1;">
-        <div class="heading">
-            <small>BUILD LAB · PATCH 16.19</small>
-            <h2>符文 ＆ 核心裝備數據庫</h2>
-            <p>下表整理 Patch 26.19 各位置常見英雄的符文基石與核心裝備路徑，並附 AI 戰術解析。實際對局請按敵方陣容靈活調整。</p>
+    <main class="items-wrap">
+        <section class="items-hero">
+            <small>BUILD LAB &middot; PATCH 16.20.1</small>
+            <h1>符文 ＆ 核心裝備 <em>數據庫</em></h1>
+            <p>每位英雄一張卡：角色頭像、技能圖示與簡介、建議基石（含符文說明）、核心裝備與戰術解析。
+               資料與圖片全部來自 Riot 官方 Data Dragon <b>16.20.1</b>，並已下載到本機，離線也看得到。</p>
+            <div class="items-hero__pills">
+                <span>20 位英雄</span>
+                <span>100 個技能圖示</span>
+                <span>100 件核心裝備</span>
+                <span>5 條路線</span>
+            </div>
+        </section>
+
+        <div class="items-toolbar">
+            <div class="role-filters" id="roleFilters">
+                <button type="button" class="tab active" data-role="全部">全部 <b>20</b></button>
+                <button type="button" class="tab" data-role="上路">上路 <b>4</b></button>
+                <button type="button" class="tab" data-role="打野">打野 <b>4</b></button>
+                <button type="button" class="tab" data-role="中路">中路 <b>4</b></button>
+                <button type="button" class="tab" data-role="下路">下路 <b>4</b></button>
+                <button type="button" class="tab" data-role="輔助">輔助 <b>4</b></button>
+            </div>
+            <input type="search" id="champFilter" placeholder="搜尋英雄名稱或稱號…" aria-label="搜尋英雄">
         </div>
 
-        <div class="section-sub">
-            <div class="bar"></div>
-            <h3>📜 符文 ＆ 核心裝備配置</h3>
-            <small>PATCH 26.19</small>
+        <p class="items-count" id="itemsCount">顯示 20 位英雄</p>
+
+        <div class="db-cards" id="buildCards">
+            <article class="db-card" data-role="上路" data-name="蓋倫 蒂瑪西亞之力">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Garen.jpg" alt="蓋倫" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>蓋倫 <small>蒂瑪西亞之力</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">上路</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">坦克</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Garen_Passive.png" alt="堅韌" loading="lazy">
+                            <div><b>被動｜堅韌</b><p>如果蓋倫近期內未受到傷害或是被敵人的技能影響的話，每秒將會回復一定比例的總生命。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GarenQ.png" alt="致命打擊" loading="lazy">
+                            <div><b>Q｜致命打擊</b><p>蓋倫的跑速獲得大量提升，並解除身上的所有緩速效果。他的下一次普攻會重傷敵人，造成額外傷害並將其沉默。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GarenW.png" alt="勇氣" loading="lazy">
+                            <div><b>W｜勇氣</b><p>蓋倫可通過擊殺敵軍來被動增加物防和魔防。他也可以啟動這項技能來短暫獲得護盾與韌性，與持續更久的少量傷害減免效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GarenE.png" alt="審判" loading="lazy">
+                            <div><b>E｜審判</b><p>蓋倫在他的身邊迅速旋轉大劍，對附近敵人造成物理傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GarenR.png" alt="蒂瑪西亞制裁" loading="lazy">
+                            <div><b>R｜蒂瑪西亞制裁</b><p>蓋倫召喚蒂瑪西亞之力，試圖處決一名敵方英雄。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
+                        <div>
+                            <b>征服者</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>在攻擊敵方英雄時獲得適性之力的堆層。在達到12層後，將你對英雄造成的一部分傷害轉化為等數值的回復量。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">副樹：<b>意志</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223006.png" alt="狂戰士護脛" loading="lazy"><span>狂戰士護脛</span></li>
+                        <li><img src="assets/lol/item/226631.png" alt="步履破壞者" loading="lazy"><span>步履破壞者</span></li>
+                        <li><img src="assets/lol/item/223046.png" alt="幻影之舞" loading="lazy"><span>幻影之舞</span></li>
+                        <li><img src="assets/lol/item/223053.png" alt="史特拉克手套" loading="lazy"><span>史特拉克手套</span></li>
+                        <li><img src="assets/lol/item/223065.png" alt="振奮盔甲" loading="lazy"><span>振奮盔甲</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>用 E 疊征服者，Q 沉默後接 R 收頭；分推時留意對手控場，別把 W 減傷提前交掉。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="上路" data-name="厄薩斯 冥血劍魔">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Aatrox.jpg" alt="厄薩斯" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>厄薩斯 <small>冥血劍魔</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">上路</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">難度：簡單</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Aatrox_Passive.png" alt="冥使劍姿" loading="lazy">
+                            <div><b>被動｜冥使劍姿</b><p>每隔一段時間，厄薩斯下一次普攻會根據目標的最大生命，造成額外魔法傷害並治療自身。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AatroxQ.png" alt="冥血邪劍" loading="lazy">
+                            <div><b>Q｜冥血邪劍</b><p>厄薩斯猛力揮砍大劍並造成物理傷害。最多可揮砍 3 次，每次都有不同的技能範圍。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AatroxW.png" alt="冥府血鏈" loading="lazy">
+                            <div><b>W｜冥府血鏈</b><p>厄薩斯打擊地表，對首位命中的敵人造成傷害。若技能範圍內的敵方英雄和大型野怪未能及時逃離，他們將會被拉回範圍中心並再次受到傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AatroxE.png" alt="冥影衝鋒" loading="lazy">
+                            <div><b>E｜冥影衝鋒</b><p>被動效果為厄薩斯對敵方英雄造成傷害時回復自身生命。主動效果為朝某一個方向衝刺。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AatroxR.png" alt="劍魔滅世" loading="lazy">
+                            <div><b>R｜劍魔滅世</b><p>厄薩斯釋放冥血之力，恐懼附近敵方士兵並獲得物理攻擊、提升生命值和跑速。如果他取得了一個擊殺或助攻，此效果將會延長。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
+                        <div>
+                            <b>征服者</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>在攻擊敵方英雄時獲得適性之力的堆層。在達到12層後，將你對英雄造成的一部分傷害轉化為等數值的回復量。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">副樹：<b>意志</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223006.png" alt="狂戰士護脛" loading="lazy"><span>狂戰士護脛</span></li>
+                        <li><img src="assets/lol/item/226692.png" alt="星蝕" loading="lazy"><span>星蝕</span></li>
+                        <li><img src="assets/lol/item/223074.png" alt="狂怒九頭蛇" loading="lazy"><span>狂怒九頭蛇</span></li>
+                        <li><img src="assets/lol/item/226333.png" alt="死亡之舞" loading="lazy"><span>死亡之舞</span></li>
+                        <li><img src="assets/lol/item/223065.png" alt="振奮盔甲" loading="lazy"><span>振奮盔甲</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>Q 邊緣命中才有擊飛與增傷，E 位移用來修正 Q2／Q3 落點；被動印記在換血時會回血。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="上路" data-name="安比薩 鐵血狼母">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Ambessa.jpg" alt="安比薩" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>安比薩 <small>鐵血狼母</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">上路</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">刺客</span>
+                            <span class="tag">難度：困難</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Icon_Ambessa_Passive.png" alt="龍犬詭步" loading="lazy">
+                            <div><b>被動｜龍犬詭步</b><p>在安比薩施放技能時輸入普攻或移動指令，她會在施展技能後衝刺一小段距離，擴大下一次普攻的範圍、提升傷害與攻速，以及返還能量。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AmbessaQ.png" alt="暗襲／裂斬" loading="lazy">
+                            <div><b>Q｜暗襲／裂斬</b><p>安比薩向前方半圓揮動她的龍犬雙刃，對雙刃擊中的敵軍造成額外傷害。此技能命中敵軍會短暫改變下次施放的方式，改為猛力揮砍龍犬雙刃，對前方直線區域造成傷害，且第一位命中的敵軍會受到額外傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AmbessaW.png" alt="鐵令" loading="lazy">
+                            <div><b>W｜鐵令</b><p>安比薩獲得護盾，短暫擺出防禦架式，然後重擊地面，對鄰近敵軍造成傷害。若她在防禦期間擋住任何非士兵單位造成的傷害，此技能造成的傷害會提升。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AmbessaE.png" alt="血戮" loading="lazy">
+                            <div><b>E｜血戮</b><p>安比薩向周圍揮動她的龍犬雙刃，傷害並緩速鄰近敵軍。此技能觸發的龍犬詭步會在衝刺結束後造成二次攻擊</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AmbessaR.png" alt="殛刑" loading="lazy">
+                            <div><b>R｜殛刑</b><p>安比薩閃現至所選方向上距離最遠的敵方英雄處，並壓制對方。接著將該名敵軍重摔到地上，造成傷害和暈眩</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
+                        <div>
+                            <b>征服者</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>在攻擊敵方英雄時獲得適性之力的堆層。在達到12層後，將你對英雄造成的一部分傷害轉化為等數值的回復量。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">副樹：<b>意志</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/3174.png" alt="裝甲戰靴" loading="lazy"><span>裝甲戰靴</span></li>
+                        <li><img src="assets/lol/item/226692.png" alt="星蝕" loading="lazy"><span>星蝕</span></li>
+                        <li><img src="assets/lol/item/223074.png" alt="狂怒九頭蛇" loading="lazy"><span>狂怒九頭蛇</span></li>
+                        <li><img src="assets/lol/item/223026.png" alt="守護天使" loading="lazy"><span>守護天使</span></li>
+                        <li><img src="assets/lol/item/223053.png" alt="史特拉克手套" loading="lazy"><span>史特拉克手套</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>靠位移疊層與能量管理打消耗，W 檔招、E 拉開距離；R 留給殘血追擊或強開。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="上路" data-name="克黎思妲 復仇之矛">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Kalista.jpg" alt="克黎思妲" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>克黎思妲 <small>復仇之矛</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">上路</span>
+                            <span class="tag">射手</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Kalista_Passive.png" alt="好戰突進" loading="lazy">
+                            <div><b>被動｜好戰突進</b><p>當克黎思妲在使用赦罪穿刺或進行普攻的途中獲得移動指令，她往該方向衝刺。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KalistaMysticShot.png" alt="赦罪穿刺" loading="lazy">
+                            <div><b>Q｜赦罪穿刺</b><p>拋出一個快速移動的飛矢並射穿它殺死的敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KalistaW.png" alt="憎靈守衛" loading="lazy">
+                            <div><b>W｜憎靈守衛</b><p>克黎思妲和她的血誓同盟攻擊相同目標時造成額外傷害。｜｜啟動來派出亡魂守衛偵察指定路徑，並獲得鬼魂前方的視野。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KalistaExpungeWrapper.png" alt="痛苦撕扯" loading="lazy">
+                            <div><b>E｜痛苦撕扯</b><p>克黎思妲的長矛將會貫穿目標並停留在該處，發動技能將長矛扯出，造成緩速與逐漸增加的傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KalistaRx.png" alt="命運呼喚" loading="lazy">
+                            <div><b>R｜命運呼喚</b><p>克黎思妲將血誓同盟的友軍傳送到自己身邊。他們可以衝到指定地點並且擊退敵人。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_LethalTempo_LethalTempoTemp.png" alt="致命節奏" loading="lazy">
+                        <div>
+                            <b>致命節奏</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>對敵方英雄進行普攻可增加攻速，最多6層。滿層時，進行普攻可造成額外適性傷害。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7200_Domination.png" alt="">副樹：<b>征服</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223006.png" alt="狂戰士護脛" loading="lazy"><span>狂戰士護脛</span></li>
+                        <li><img src="assets/lol/item/223153.png" alt="殞落王者之劍" loading="lazy"><span>殞落王者之劍</span></li>
+                        <li><img src="assets/lol/item/223124.png" alt="鬼索的狂暴之刃" loading="lazy"><span>鬼索的狂暴之刃</span></li>
+                        <li><img src="assets/lol/item/223085.png" alt="芮蘭颶風箭" loading="lazy"><span>芮蘭颶風箭</span></li>
+                        <li><img src="assets/lol/item/223046.png" alt="幻影之舞" loading="lazy"><span>幻影之舞</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>普攻疊矛再 E 引爆，對線壓制力極強；R 能救被綁定的隊友，也能直接開團。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="打野" data-name="科加斯 虛空恐懼">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Chogath.jpg" alt="科加斯" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>科加斯 <small>虛空恐懼</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">打野</span>
+                            <span class="tag">坦克</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/GreenTerror_TailSpike.png" alt="肉食者" loading="lazy">
+                            <div><b>被動｜肉食者</b><p>每當科加斯殺死一個單位，他將回復生命與魔力。當科加斯升級時，恢復量會跟著增加。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/Rupture.png" alt="破裂" loading="lazy">
+                            <div><b>Q｜破裂</b><p>使目標地面破裂，將敵人拋向空中，造成傷害並減速。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/FeralScream.png" alt="野性尖嘯" loading="lazy">
+                            <div><b>W｜野性尖嘯</b><p>科加斯向面前錐形區域施放恐怖聲波，造成魔法傷害並沉默數秒。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VorpalSpikes.png" alt="恐懼尖刺" loading="lazy">
+                            <div><b>E｜恐懼尖刺</b><p>科加斯的攻擊會釋放致命尖刺，傷害並緩速前方所有敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/Feast.png" alt="饗宴" loading="lazy">
+                            <div><b>R｜饗宴</b><p>吞噬一個敵方單位，造成大量真實傷害。此技能擊殺目標的話會讓科加斯成長，提高最大生命。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Resolve_GraspOfTheUndying_GraspOfTheUndying.png" alt="不死之握" loading="lazy">
+                        <div>
+                            <b>不死之握</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">主樹：意志</span>
+                            <p>進入戰鬥之後，每過 4 秒你下一次對敵方英雄的普攻將造成額外魔法傷害；治療你，並永久提升你的生命。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">副樹：<b>精準</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/3174.png" alt="裝甲戰靴" loading="lazy"><span>裝甲戰靴</span></li>
+                        <li><img src="assets/lol/item/223084.png" alt="雄心之鋼" loading="lazy"><span>雄心之鋼</span></li>
+                        <li><img src="assets/lol/item/223110.png" alt="冰霜之心" loading="lazy"><span>冰霜之心</span></li>
+                        <li><img src="assets/lol/item/223065.png" alt="振奮盔甲" loading="lazy"><span>振奮盔甲</span></li>
+                        <li><img src="assets/lol/item/224401.png" alt="自然之力" loading="lazy"><span>自然之力</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>R 疊層永久增加生命，後期坦度驚人；Q 命中後接 W 沉默再進場，避免空大。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="打野" data-name="嘉文四世 蒂瑪西亞楷模">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/JarvanIV.jpg" alt="嘉文四世" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>嘉文四世 <small>蒂瑪西亞楷模</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">打野</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">坦克</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/JarvanIVP.png" alt="戰爭律動" loading="lazy">
+                            <div><b>被動｜戰爭律動</b><p>嘉文的第一次普攻將會根據敵方現在的生命對他們造成額外物理傷害。此效果在數秒內，無法對同個敵人再次使用。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JarvanIVDragonStrike.png" alt="滅龍一擊" loading="lazy">
+                            <div><b>Q｜滅龍一擊</b><p>嘉文四世延伸長槍，造成物理傷害，同時降低路徑上所有敵方的物理防禦。如果長槍碰到他的戰旗，會將嘉文四世拉到戰旗所在位置，並擊飛路徑中的敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JarvanIVGoldenAegis.png" alt="光盾庇護" loading="lazy">
+                            <div><b>W｜光盾庇護</b><p>嘉文四世呼喚蒂瑪西亞的上古王者靈魂，鍛造出生命護盾，並且緩速周圍敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JarvanIVDemacianStandard.png" alt="帝國戰旗" loading="lazy">
+                            <div><b>E｜帝國戰旗</b><p>嘉文四世背負著象徵蒂瑪西亞的驕傲，被動的效果讓他獲得額外攻速，主動的效果讓他可以把戰旗豎立於地，對命中的目標造成魔法傷害，同時提高周圍友方英雄的攻速。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JarvanIVCataclysm.png" alt="浩劫降臨" loading="lazy">
+                            <div><b>R｜浩劫降臨</b><p>嘉文四世英勇的跳到目標身上，並且在目標周圍造成一個不可侵犯的競技場。範圍內的敵人都會在衝擊瞬間受到傷害。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
+                        <div>
+                            <b>征服者</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>在攻擊敵方英雄時獲得適性之力的堆層。在達到12層後，將你對英雄造成的一部分傷害轉化為等數值的回復量。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">副樹：<b>意志</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223111.png" alt="水星之靴" loading="lazy"><span>水星之靴</span></li>
+                        <li><img src="assets/lol/item/226631.png" alt="步履破壞者" loading="lazy"><span>步履破壞者</span></li>
+                        <li><img src="assets/lol/item/223071.png" alt="黑色切割者" loading="lazy"><span>黑色切割者</span></li>
+                        <li><img src="assets/lol/item/226333.png" alt="死亡之舞" loading="lazy"><span>死亡之舞</span></li>
+                        <li><img src="assets/lol/item/223053.png" alt="史特拉克手套" loading="lazy"><span>史特拉克手套</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>EQ 連段是開團核心，R 圈住對面關鍵輸出；前期節奏靠 Gank 與河道控制建立。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="打野" data-name="莉莉亞 羞赧綻華">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Lillia.jpg" alt="莉莉亞" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>莉莉亞 <small>羞赧綻華</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">打野</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：困難</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Lillia_Icon_Passive.png" alt="夢沉枝枒" loading="lazy">
+                            <div><b>被動｜夢沉枝枒</b><p>以技能命中英雄或野怪時，將在一段時間內對他們造成一部分最大生命值的額外傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LilliaQ.png" alt="盛綻之舞" loading="lazy">
+                            <div><b>Q｜盛綻之舞</b><p>被動：莉莉亞用技能命中敵人時會獲得可以累加的跑速。她也可以主動開啟這個技能，對附近的敵人造成魔法傷害，對外圈的敵人造成額外真實傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LilliaW.png" alt="拽柯之擊" loading="lazy">
+                            <div><b>W｜拽柯之擊</b><p>莉莉亞對附近一個區域造成傷害，對該區域正中心的敵人造成沉重的傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LilliaE.png" alt="飛旋種籽" loading="lazy">
+                            <div><b>E｜飛旋種籽</b><p>莉莉亞擲出一顆種籽，對命中的敵人造成傷害與緩速。如果種籽錯失目標，它將持續滾動，直至命中牆體或者目標。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LilliaR.png" alt="柔沉夢謠" loading="lazy">
+                            <div><b>R｜柔沉夢謠</b><p>莉莉亞讓所有已經受到夢境之塵影響的敵人疲倦，接著陷入沉睡。這些敵人在被強力喚醒時會承受額外傷害。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
+                        <div>
+                            <b>征服者</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>在攻擊敵方英雄時獲得適性之力的堆層。在達到12層後，將你對英雄造成的一部分傷害轉化為等數值的回復量。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">副樹：<b>巫術</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223020.png" alt="法師之靴" loading="lazy"><span>法師之靴</span></li>
+                        <li><img src="assets/lol/item/224633.png" alt="峽谷製造者" loading="lazy"><span>峽谷製造者</span></li>
+                        <li><img src="assets/lol/item/223157.png" alt="中婭沙漏" loading="lazy"><span>中婭沙漏</span></li>
+                        <li><img src="assets/lol/item/224637.png" alt="惡魔之擁" loading="lazy"><span>惡魔之擁</span></li>
+                        <li><img src="assets/lol/item/223065.png" alt="振奮盔甲" loading="lazy"><span>振奮盔甲</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>W 中心命中傷害最高，靠被動移速拉扯；R 睡到多人再開團，Q 疊層別中斷。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="打野" data-name="維爾戈 殞落王者">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Viego.jpg" alt="維爾戈" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>維爾戈 <small>殞落王者</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">打野</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">刺客</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Viego_Passive.png" alt="王權統御" loading="lazy">
+                            <div><b>被動｜王權統御</b><p>倒在維爾戈面前的敵方英雄會變為幽魂。透過攻擊一個幽魂，維爾戈可以暫時奪取該英雄軀體的控制權，獲得相當於他目標一部分最大生命的治療效果並獲得該英雄的基礎技能和道具的使用權。他會將其大絕替換為他自己大絕的一次無消耗施法。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ViegoQ.png" alt="殞落王者之劍" loading="lazy">
+                            <div><b>Q｜殞落王者之劍</b><p>維爾戈的幽冥之劍在 命中時額外造成當前生命百分比的被動傷害，並對短時間內被他用一個技能命中過的敵人進行兩次打擊，同時偷取生命。｜｜維爾戈可以啟動這個技能來向前戳刺他的雙手巨劍，穿刺他前方的所有敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ViegoW.png" alt="冥魂之噬" loading="lazy">
+                            <div><b>W｜冥魂之噬</b><p>維爾戈蓄力然後向前衝刺，並釋放一個濃縮的黯霧之球，來使命中的第一個敵人暈眩。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ViegoE.png" alt="幽影之徑" loading="lazy">
+                            <div><b>E｜幽影之徑</b><p>維爾戈號令黯霧去縈繞並籠罩一塊地形。維爾戈可以如幽魂一般隱藏在於黯霧中，獲得偽裝狀態、跑速和攻速。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ViegoR.png" alt="破心者" loading="lazy">
+                            <div><b>R｜破心者</b><p>維爾戈傳送到一個附近的地點並在抵達時處決一名敵方英雄，刺穿其心臟並在其周圍引發一陣毀滅性的衝擊波來擊退其友軍。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
+                        <div>
+                            <b>征服者</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>在攻擊敵方英雄時獲得適性之力的堆層。在達到12層後，將你對英雄造成的一部分傷害轉化為等數值的回復量。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7200_Domination.png" alt="">副樹：<b>征服</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223006.png" alt="狂戰士護脛" loading="lazy"><span>狂戰士護脛</span></li>
+                        <li><img src="assets/lol/item/223153.png" alt="殞落王者之劍" loading="lazy"><span>殞落王者之劍</span></li>
+                        <li><img src="assets/lol/item/223074.png" alt="狂怒九頭蛇" loading="lazy"><span>狂怒九頭蛇</span></li>
+                        <li><img src="assets/lol/item/226333.png" alt="死亡之舞" loading="lazy"><span>死亡之舞</span></li>
+                        <li><img src="assets/lol/item/223026.png" alt="守護天使" loading="lazy"><span>守護天使</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>擊殺後佔據對手身體重置技能，團戰要挑時機進場收割；E 潛行繞後找關鍵目標。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="中路" data-name="弗拉迪米爾 血色收割者">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Vladimir.jpg" alt="弗拉迪米爾" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>弗拉迪米爾 <small>血色收割者</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">中路</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">鬥士</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/VladimirP.png" alt="血色契約" loading="lazy">
+                            <div><b>被動｜血色契約</b><p>每 30 點額外生命會增加弗拉迪米爾 1 點魔法攻擊，每 1 點魔法攻擊會增加弗拉迪米爾 1.6 點額外生命。（該效果不會迴圈累加）。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VladimirQ.png" alt="鮮血轉換" loading="lazy">
+                            <div><b>Q｜鮮血轉換</b><p>弗拉迪米爾從他的目標身上抽取生命。當滿足條件時，鮮血轉換傷害會大幅增加，並在短時間內獲得治療效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VladimirSanguinePool.png" alt="血紅之池" loading="lazy">
+                            <div><b>W｜血紅之池</b><p>弗拉迪米爾潛入血泊之中，不能被選為目標，持續 2 秒。血泊上的敵人被減速，同時弗拉迪米爾吸取他們的生命。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VladimirE.png" alt="血之潮汐" loading="lazy">
+                            <div><b>E｜血之潮汐</b><p>弗拉迪米爾消耗自身生命來儲存一股血液，當施放時對周圍單位造成傷害，但不能穿透目標。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VladimirHemoplague.png" alt="血之瘟疫" loading="lazy">
+                            <div><b>R｜血之瘟疫</b><p>弗拉迪米爾向目標區域注入劇毒瘟疫。持續時間內增加被感染的敵人所受到的傷害。血之瘟疫在數秒後會對被感染的敵人造成額外魔法傷害並治療弗拉迪米爾。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Sorcery_PhaseRush_StormraidersSurgeRuneIcon2.png" alt="風暴浪湧" loading="lazy">
+                        <div>
+                            <b>風暴浪湧</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">主樹：巫術</span>
+                            <p>對敵方英雄造成25%最大生命傷害時，會將大幅增加跑速和緩速抗性。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223020.png" alt="法師之靴" loading="lazy"><span>法師之靴</span></li>
+                        <li><img src="assets/lol/item/223089.png" alt="死亡之帽" loading="lazy"><span>死亡之帽</span></li>
+                        <li><img src="assets/lol/item/223040.png" alt="熾天使的擁抱" loading="lazy"><span>熾天使的擁抱</span></li>
+                        <li><img src="assets/lol/item/223100.png" alt="巫妖之禍" loading="lazy"><span>巫妖之禍</span></li>
+                        <li><img src="assets/lol/item/223157.png" alt="中婭沙漏" loading="lazy"><span>中婭沙漏</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>紅怒 Q 換血、W 既是保命也是進場；R 先手放大隊友傷害，注意血量換傷害的節奏。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="中路" data-name="加里歐 禦國巨像">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Galio.jpg" alt="加里歐" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>加里歐 <small>禦國巨像</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">中路</span>
+                            <span class="tag">坦克</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Galio_Passive.png" alt="護國意志" loading="lazy">
+                            <div><b>被動｜護國意志</b><p>每過幾秒加里歐下一次的普攻即可對範圍內敵人造成魔法傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GalioQ.png" alt="征戰風暴" loading="lazy">
+                            <div><b>Q｜征戰風暴</b><p>加里歐釋放兩道氣流，氣流匯聚之後形成一股隨著時間過去而造成傷害的旋風。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GalioW.png" alt="杜蘭德之盾" loading="lazy">
+                            <div><b>W｜杜蘭德之盾</b><p>加里歐進入防禦狀態並降低跑速，解除後嘲諷並傷害周圍所有敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GalioE.png" alt="光榮制裁" loading="lazy">
+                            <div><b>E｜光榮制裁</b><p>加里歐向後退並蓄力接下來的攻擊，接著向前衝刺並擊飛第一個撞到的敵方英雄。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/GalioR.png" alt="英靈之門" loading="lazy">
+                            <div><b>R｜英靈之門</b><p>加里歐指定一名友軍的位置為他的著陸點，並給予範圍內所有隊友一個魔法護盾。短暫延遲一段時間之後加里歐會降落至友軍原先的位置，擊飛範圍內所有敵人。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Resolve_VeteranAftershock_VeteranAftershock.png" alt="裂地衝擊" loading="lazy">
+                        <div>
+                            <b>裂地衝擊</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">主樹：意志</span>
+                            <p>硬控場一名敵方英雄後獲得防禦加成，接著對你周圍敵人造成大量魔法傷害。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">副樹：<b>巫術</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223020.png" alt="法師之靴" loading="lazy"><span>法師之靴</span></li>
+                        <li><img src="assets/lol/item/228020.png" alt="深淵面具" loading="lazy"><span>深淵面具</span></li>
+                        <li><img src="assets/lol/item/223157.png" alt="中婭沙漏" loading="lazy"><span>中婭沙漏</span></li>
+                        <li><img src="assets/lol/item/224401.png" alt="自然之力" loading="lazy"><span>自然之力</span></li>
+                        <li><img src="assets/lol/item/223190.png" alt="日輪的加冕" loading="lazy"><span>日輪的加冕</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>W 嘲諷是開團核心，R 可全球支援；對線用 Q 清線兼消耗，被動普攻範圍傷害別浪費。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="中路" data-name="梅爾 映魂祕使">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Mel.jpg" alt="梅爾" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>梅爾 <small>映魂祕使</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">中路</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">輔助</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Mel_Passive.png" alt="炙灼耀輝" loading="lazy">
+                            <div><b>被動｜炙灼耀輝</b><p>每當梅爾使用技能，下次普攻會額外射出三發射彈，最多可累積九發。｜｜梅爾使用技能或普攻造成傷害後，會附加奪目堆層，可無限累積。梅爾對敵人造成的奪目傷害足夠，便會消耗堆層處決敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/MelQ.png" alt="絢輝彈幕" loading="lazy">
+                            <div><b>Q｜絢輝彈幕</b><p>梅爾射出會在目標位置周圍爆炸的彈幕，對範圍內的敵人多次造成傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/MelW.png" alt="叱返金身" loading="lazy">
+                            <div><b>W｜叱返金身</b><p>梅爾在自身周圍生成屏障，能反彈射彈避免傷害，並增加跑速。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/MelE.png" alt="烈陽羅網" loading="lazy">
+                            <div><b>E｜烈陽羅網</b><p>梅爾向前方射出光球，定身位於光球中心的敵人，並對周圍的敵人造成持續傷害和緩速效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/MelR.png" alt="無垠天照" loading="lazy">
+                            <div><b>R｜無垠天照</b><p>梅爾無視距離，打擊所有身上有奪目標記的敵人，奪目層數越高，造成的傷害越高。｜｜「無垠天照」等級提升後，會增加奪目的傷害。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Sorcery_ArcaneComet_ArcaneComet.png" alt="奧術彗星" loading="lazy">
+                        <div>
+                            <b>奧術彗星</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">主樹：巫術</span>
+                            <p>使用技能傷害一名敵方英雄時召喚一枚彗星至他們的位置。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223020.png" alt="法師之靴" loading="lazy"><span>法師之靴</span></li>
+                        <li><img src="assets/lol/item/226655.png" alt="盧登回音" loading="lazy"><span>盧登回音</span></li>
+                        <li><img src="assets/lol/item/222503.png" alt="黑焰火炬" loading="lazy"><span>黑焰火炬</span></li>
+                        <li><img src="assets/lol/item/223089.png" alt="死亡之帽" loading="lazy"><span>死亡之帽</span></li>
+                        <li><img src="assets/lol/item/223157.png" alt="中婭沙漏" loading="lazy"><span>中婭沙漏</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>遠程消耗型法師，W 反彈技能要抓時機；保持距離疊加被動，靠 Q 持續騷擾。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="中路" data-name="阿璃 九尾妖狐">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Ahri.jpg" alt="阿璃" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>阿璃 <small>九尾妖狐</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">中路</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">刺客</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Ahri_SoulEater2.png" alt="銷魂" loading="lazy">
+                            <div><b>被動｜銷魂</b><p>擊殺9名士兵或野怪後，阿璃獲得治療。｜參與一名敵方英雄的擊殺後，阿璃獲得更大量的治療。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AhriQ.png" alt="幻玉" loading="lazy">
+                            <div><b>Q｜幻玉</b><p>阿璃擲出她的幻玉後再召回，飛出時造成魔法傷害。折返時造成真實傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AhriW.png" alt="魅火" loading="lazy">
+                            <div><b>W｜魅火</b><p>阿璃獲得短暫的爆發性跑速加成，並釋放出三團狐火，鎖定附近的敵人進行攻擊。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AhriE.png" alt="傾城" loading="lazy">
+                            <div><b>E｜傾城</b><p>阿璃送出飛吻，傷害並魅惑一名命中的敵方英雄，立刻打斷移動技能，並使對方毫無抵抗的走向她。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/AhriR.png" alt="飛仙" loading="lazy">
+                            <div><b>R｜飛仙</b><p>阿璃向前衝刺並發射魔法彈，傷害附近敵人。飛仙進入冷卻前最多可以施放 3 次，參與敵方英雄的擊殺時，可獲得額外的重新施放次數。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Sorcery_ArcaneComet_ArcaneComet.png" alt="奧術彗星" loading="lazy">
+                        <div>
+                            <b>奧術彗星</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">主樹：巫術</span>
+                            <p>使用技能傷害一名敵方英雄時召喚一枚彗星至他們的位置。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223020.png" alt="法師之靴" loading="lazy"><span>法師之靴</span></li>
+                        <li><img src="assets/lol/item/226655.png" alt="盧登回音" loading="lazy"><span>盧登回音</span></li>
+                        <li><img src="assets/lol/item/222503.png" alt="黑焰火炬" loading="lazy"><span>黑焰火炬</span></li>
+                        <li><img src="assets/lol/item/223089.png" alt="死亡之帽" loading="lazy"><span>死亡之帽</span></li>
+                        <li><img src="assets/lol/item/223157.png" alt="中婭沙漏" loading="lazy"><span>中婭沙漏</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>Q 消耗、E 魅惑帶節奏；R 三段位移可進可退，永遠留一段當逃生。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="下路" data-name="吉茵珂絲 暴走重砲">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Jinx.jpg" alt="吉茵珂絲" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>吉茵珂絲 <small>暴走重砲</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">下路</span>
+                            <span class="tag">射手</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Jinx_Passive.png" alt="狂躁！" loading="lazy">
+                            <div><b>被動｜狂躁！</b><p>每當吉茵珂絲參與擊殺一名敵方英雄、一個史詩級野怪或摧毀一個建築物，她獲得大量提升的跑速和攻速。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JinxQ.png" alt="鬼靈精怪！" loading="lazy">
+                            <div><b>Q｜鬼靈精怪！</b><p>吉茵珂絲會調整普攻使用武器，她的砰砰鏈砲和惡鯊會互相切換，使用砰砰攻擊會增加攻速，使用惡鯊攻擊則會造成區域傷害、消耗魔力、獲得額外攻擊範圍並且會攻擊得更慢。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JinxW.png" alt="咻咻！" loading="lazy">
+                            <div><b>W｜咻咻！</b><p>吉茵珂絲使用她的衝擊槍發射一道衝擊波對第一個擊中的敵人造成緩速、傷害效果並且現形。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JinxE.png" alt="咬咬手榴彈！" loading="lazy">
+                            <div><b>E｜咬咬手榴彈！</b><p>吉茵珂絲丟出一排咬咬手榴彈陷阱，在 5 秒後引爆，將手榴彈所在區域點火，著火的敵人每秒會承受魔法傷害，這些咬咬手榴彈在敵人經過的時候將會狠咬敵人一口，並且將其定身在原地。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/JinxR.png" alt="超威能死亡火箭！" loading="lazy">
+                            <div><b>R｜超威能死亡火箭！</b><p>吉茵珂絲發射一發橫越地圖的超級火箭，飛行距離越遠傷害越高。火箭將會在衝撞到敵方英雄時爆炸，對該名英雄與其附近的敵人根據他們所剩生命來造成傷害。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_LethalTempo_LethalTempoTemp.png" alt="致命節奏" loading="lazy">
+                        <div>
+                            <b>致命節奏</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>對敵方英雄進行普攻可增加攻速，最多6層。滿層時，進行普攻可造成額外適性傷害。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7200_Domination.png" alt="">副樹：<b>征服</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223006.png" alt="狂戰士護脛" loading="lazy"><span>狂戰士護脛</span></li>
+                        <li><img src="assets/lol/item/222523.png" alt="海克斯光學C44" loading="lazy"><span>海克斯光學C44</span></li>
+                        <li><img src="assets/lol/item/223085.png" alt="芮蘭颶風箭" loading="lazy"><span>芮蘭颶風箭</span></li>
+                        <li><img src="assets/lol/item/223031.png" alt="無盡之刃" loading="lazy"><span>無盡之刃</span></li>
+                        <li><img src="assets/lol/item/223036.png" alt="多明尼克的問候" loading="lazy"><span>多明尼克的問候</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>被動疊起來後攻速爆走，團戰靠走位站位；E 陷阱自保，R 收殘血與搶龍。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="下路" data-name="法洛士 懲戒之箭">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Varus.jpg" alt="法洛士" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>法洛士 <small>懲戒之箭</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">下路</span>
+                            <span class="tag">射手</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：簡單</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/VarusPassive.png" alt="復仇怒火" loading="lazy">
+                            <div><b>被動｜復仇怒火</b><p>擊殺敵軍或助攻時，法洛士會暫時增加物理攻擊與魔法攻擊。若目標是英雄，則增加的幅度會更大。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VarusQ.png" alt="破甲箭" loading="lazy">
+                            <div><b>Q｜破甲箭</b><p>法洛士匯聚能量射出一發極強力的箭擊，根據聚氣的時間來決定額外增加的射程與傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VarusW.png" alt="荒蕪箭袋" loading="lazy">
+                            <div><b>W｜荒蕪箭袋</b><p>被動：法洛士的普攻額外造成魔法傷害並附加衰竭效果。法洛士的其他技能可觸發衰竭效果，根據目標的最大生命造成魔法傷害。主動：法洛士強化他下一次的破甲箭。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VarusE.png" alt="腐敗箭雨" loading="lazy">
+                            <div><b>E｜腐敗箭雨</b><p>法洛士對目標地點施放箭雨，造成物理傷害並褻瀆該區域。遭受污染的區域將會降低敵人的跑速、自我治療與生命恢復能力。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/VarusR.png" alt="墮落連鎖" loading="lazy">
+                            <div><b>R｜墮落連鎖</b><p>法洛士發射出捲鬚般的墮落能量，纏繞住首個命中的敵方英雄，使其受到硬控場效果影響，此效果同時再擴散至周圍尚未受到感染的英雄。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_PressTheAttack_PressTheAttack.png" alt="強攻" loading="lazy">
+                        <div>
+                            <b>強攻</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>連續擊中敵方英雄3次會造成額外傷害，並強化你的傷害，直到脫離與英雄的戰鬥為止。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">副樹：<b>巫術</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223020.png" alt="法師之靴" loading="lazy"><span>法師之靴</span></li>
+                        <li><img src="assets/lol/item/223115.png" alt="納什之牙" loading="lazy"><span>納什之牙</span></li>
+                        <li><img src="assets/lol/item/223124.png" alt="鬼索的狂暴之刃" loading="lazy"><span>鬼索的狂暴之刃</span></li>
+                        <li><img src="assets/lol/item/223085.png" alt="芮蘭颶風箭" loading="lazy"><span>芮蘭颶風箭</span></li>
+                        <li><img src="assets/lol/item/226653.png" alt="黎安卓的苦楚" loading="lazy"><span>黎安卓的苦楚</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>AP 攻速流普攻附帶魔法傷害，W 主動強化爆發；R 綁人開團或反開都很強。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="下路" data-name="凱莎 虛空之女">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Kaisa.jpg" alt="凱莎" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>凱莎 <small>虛空之女</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">下路</span>
+                            <span class="tag">射手</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Kaisa_Passive.png" alt="二階蟲甲" loading="lazy">
+                            <div><b>被動｜二階蟲甲</b><p>凱莎的普攻會累加電漿印記，造成逐漸提高的額外魔法傷害。友軍的硬控場效果也會累加電漿印記的層數。此外，凱莎能透過她購買的道具來進化她的基礎技能，以獲得更多強力的效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KaisaQ.png" alt="伊卡西亞魔雨" loading="lazy">
+                            <div><b>Q｜伊卡西亞魔雨</b><p>凱莎發射出一大批導彈，並找尋附近的目標。｜｜生物兵器：伊卡西亞魔雨射出更多飛彈。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KaisaW.png" alt="虛空探索者" loading="lazy">
+                            <div><b>W｜虛空探索者</b><p>凱莎發射出長距離的飛彈，利用她的被動標記敵人。｜｜生物兵器：虛空探索者累加更多電漿印記，擊中敵方英雄後會減少部分冷卻時間。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KaisaE.png" alt="極速充能" loading="lazy">
+                            <div><b>E｜極速充能</b><p>凱莎暫時提升跑速，接著提高她的攻速。｜｜生物兵器：極速充能會使凱莎短暫進入潛隱狀態。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KaisaR.png" alt="殺手本能" loading="lazy">
+                            <div><b>R｜殺手本能</b><p>凱莎衝向敵方英雄的附近。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_LethalTempo_LethalTempoTemp.png" alt="致命節奏" loading="lazy">
+                        <div>
+                            <b>致命節奏</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>對敵方英雄進行普攻可增加攻速，最多6層。滿層時，進行普攻可造成額外適性傷害。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7200_Domination.png" alt="">副樹：<b>征服</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223006.png" alt="狂戰士護脛" loading="lazy"><span>狂戰士護脛</span></li>
+                        <li><img src="assets/lol/item/223124.png" alt="鬼索的狂暴之刃" loading="lazy"><span>鬼索的狂暴之刃</span></li>
+                        <li><img src="assets/lol/item/223115.png" alt="納什之牙" loading="lazy"><span>納什之牙</span></li>
+                        <li><img src="assets/lol/item/223153.png" alt="殞落王者之劍" loading="lazy"><span>殞落王者之劍</span></li>
+                        <li><img src="assets/lol/item/223089.png" alt="死亡之帽" loading="lazy"><span>死亡之帽</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>靠堆疊被動觸發電漿爆發，進化後期傷害驚人；R 進場要算好護盾與隊友位置。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="下路" data-name="伊澤瑞爾 探險家">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Ezreal.jpg" alt="伊澤瑞爾" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>伊澤瑞爾 <small>探險家</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">下路</span>
+                            <span class="tag">射手</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Ezreal_RisingSpellForce.png" alt="咒能高漲" loading="lazy">
+                            <div><b>被動｜咒能高漲</b><p>伊澤瑞爾的技能每次命中目標時都會使自身攻速提升，最多可堆積 5 次。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/EzrealQ.png" alt="祕術射擊" loading="lazy">
+                            <div><b>Q｜祕術射擊</b><p>伊澤瑞爾發射一枚能量彈，成功命中一名敵方單位時所有技能都將縮短些許冷卻時間。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/EzrealW.png" alt="精華躍動" loading="lazy">
+                            <div><b>W｜精華躍動</b><p>伊澤瑞爾發射一顆能量球，其會附著在首位擊中的敵方英雄或地圖物件。若伊澤瑞爾攻擊被能量球附著的單位，能量球將引爆並對該目標造成傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/EzrealE.png" alt="奧術躍遷" loading="lazy">
+                            <div><b>E｜奧術躍遷</b><p>伊澤瑞爾傳送至鄰近區域並向最近的敵方單位發射魔法箭。會優先鎖定身上有精華躍動印記的單位。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/EzrealR.png" alt="精準彈幕" loading="lazy">
+                            <div><b>R｜精準彈幕</b><p>伊澤瑞爾吟唱後發射強大的能量波，對路徑上的敵方單位造成大量傷害 (對士兵和非史詩級野怪造成的傷害減少)。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Precision_PressTheAttack_PressTheAttack.png" alt="強攻" loading="lazy">
+                        <div>
+                            <b>強攻</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7201_Precision.png" alt="">主樹：精準</span>
+                            <p>連續擊中敵方英雄3次會造成額外傷害，並強化你的傷害，直到脫離與英雄的戰鬥為止。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223158.png" alt="愛歐尼亞之靴" loading="lazy"><span>愛歐尼亞之靴</span></li>
+                        <li><img src="assets/lol/item/223078.png" alt="三相之力" loading="lazy"><span>三相之力</span></li>
+                        <li><img src="assets/lol/item/223004.png" alt="魔劍正宗" loading="lazy"><span>魔劍正宗</span></li>
+                        <li><img src="assets/lol/item/226675.png" alt="那歐閃刃" loading="lazy"><span>那歐閃刃</span></li>
+                        <li><img src="assets/lol/item/223146.png" alt="海克斯科技槍刃" loading="lazy"><span>海克斯科技槍刃</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>Q 命中疊攻速，E 既是位移也是保命；裝備成形後爆發與拉扯能力都極高。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="輔助" data-name="卡瑪 魂之啟者">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Karma.jpg" alt="卡瑪" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>卡瑪 <small>魂之啟者</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">輔助</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">輔助</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Karma_Passive.png" alt="炎靈融合" loading="lazy">
+                            <div><b>被動｜炎靈融合</b><p>卡瑪的傷害性技能可減少真言符印的冷卻時間。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KarmaQ.png" alt="輪迴怒火" loading="lazy">
+                            <div><b>Q｜輪迴怒火</b><p>卡瑪發出一道精神能量光束，命中目標時會自行引爆對敵人造成傷害。｜｜真言符印：除了原有的技能效果外，可以提高輪迴怒火造成的傷害，同時再創造一個災禍空間，經過短暫的延遲後對其中的敵人造成傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KarmaSpiritBind.png" alt="特化鏈結" loading="lazy">
+                            <div><b>W｜特化鏈結</b><p>卡瑪創造一條能量鎖鏈連結自身與目標敵人，對目標造成傷害並顯示其位置。若能量鎖鏈未被破壞，敵人會被定身並再次受到傷害。｜｜真言符印：強化連結的效果，回復卡瑪生命並延長禁錮時間。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KarmaSolKimShield.png" alt="靈能啟示" loading="lazy">
+                            <div><b>E｜靈能啟示</b><p>卡瑪召喚有防禦效果的護盾給友軍，可以吸收受到的傷害並提升跑速。｜｜真言符印： 能量自目標向外溢散，強化初始護盾並對附近的友方英雄附加靈能啟示效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/KarmaMantra.png" alt="真言符印" loading="lazy">
+                            <div><b>R｜真言符印</b><p>卡瑪的下一個技能受到真言的祝福，可以造成額外的特殊效果。真言符印於等級 1 時不需分配技能點就可使用。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Sorcery_SummonAery_SummonAery.png" alt="召喚艾莉" loading="lazy">
+                        <div>
+                            <b>召喚艾莉</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">主樹：巫術</span>
+                            <p>你的普攻和技能會將艾莉送至目標身上，傷害敵人或保護友軍。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223158.png" alt="愛歐尼亞之靴" loading="lazy"><span>愛歐尼亞之靴</span></li>
+                        <li><img src="assets/lol/item/226620.png" alt="希利亞的迴響" loading="lazy"><span>希利亞的迴響</span></li>
+                        <li><img src="assets/lol/item/223222.png" alt="米凱的祝福" loading="lazy"><span>米凱的祝福</span></li>
+                        <li><img src="assets/lol/item/223050.png" alt="錫柯的聚合之力" loading="lazy"><span>錫柯的聚合之力</span></li>
+                        <li><img src="assets/lol/item/223190.png" alt="日輪的加冕" loading="lazy"><span>日輪的加冕</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>R 強化 Q 消耗或 E 給盾，對線期壓制力強；Q 減速配合射手換血最有效。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="輔助" data-name="娜米 海潮之音">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Nami.jpg" alt="娜米" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>娜米 <small>海潮之音</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">輔助</span>
+                            <span class="tag">輔助</span>
+                            <span class="tag">法師</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/NamiPassive.png" alt="疾速波濤" loading="lazy">
+                            <div><b>被動｜疾速波濤</b><p>當娜米的技能命中友方英雄時，他們會提高跑速一小段時間。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/NamiQ.png" alt="禁錮水牢" loading="lazy">
+                            <div><b>Q｜禁錮水牢</b><p>施放一個大水泡到目標區域，被擊中的敵人造成傷害和擊暈效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/NamiW.png" alt="跳躍水柱" loading="lazy">
+                            <div><b>W｜跳躍水柱</b><p>放出一道跳躍的水柱在友方和敵方英雄間彈跳，回復友方生命和對敵方造成傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/NamiE.png" alt="深海恩賜" loading="lazy">
+                            <div><b>E｜深海恩賜</b><p>在短時間內強化一名友方英雄。該名友軍的基礎攻擊與技能會造成額外魔法傷害並對目標造成緩速效果。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/NamiR.png" alt="驚滔駭浪" loading="lazy">
+                            <div><b>R｜驚滔駭浪</b><p>呼喚一道巨大的海潮衝向敵人，把敵人擊飛，同時對敵人造成緩速和傷害。擊中友軍則有雙倍的疾速波濤效果。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Sorcery_SummonAery_SummonAery.png" alt="召喚艾莉" loading="lazy">
+                        <div>
+                            <b>召喚艾莉</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7202_Sorcery.png" alt="">主樹：巫術</span>
+                            <p>你的普攻和技能會將艾莉送至目標身上，傷害敵人或保護友軍。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223158.png" alt="愛歐尼亞之靴" loading="lazy"><span>愛歐尼亞之靴</span></li>
+                        <li><img src="assets/lol/item/226617.png" alt="月之石再生裝置" loading="lazy"><span>月之石再生裝置</span></li>
+                        <li><img src="assets/lol/item/223222.png" alt="米凱的祝福" loading="lazy"><span>米凱的祝福</span></li>
+                        <li><img src="assets/lol/item/222065.png" alt="蘇瑞亞的戰歌" loading="lazy"><span>蘇瑞亞的戰歌</span></li>
+                        <li><img src="assets/lol/item/223190.png" alt="日輪的加冕" loading="lazy"><span>日輪的加冕</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>W 彈跳換血兼治療，Q 氣泡命中決定團戰；E 附魔給射手強化普攻，R 大範圍開團。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="輔助" data-name="雷歐娜 黎明之光">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Leona.jpg" alt="雷歐娜" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>雷歐娜 <small>黎明之光</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">輔助</span>
+                            <span class="tag">坦克</span>
+                            <span class="tag">輔助</span>
+                            <span class="tag">難度：簡單</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/LeonaSunlight.png" alt="烈陽之力" loading="lazy">
+                            <div><b>被動｜烈陽之力</b><p>雷歐娜的魔法攻擊，讓敵方單位被太陽的力量標記 1.5 秒。當我軍英雄攻擊該目標時，可以利用太陽之力造成額外魔法傷害。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LeonaShieldOfDaybreak.png" alt="拂曉盾擊" loading="lazy">
+                            <div><b>Q｜拂曉盾擊</b><p>雷歐娜於下次基礎攻擊中使用盾牌衝撞，造成額外的魔法傷害並且暈眩敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LeonaSolarBarrier.png" alt="日蝕" loading="lazy">
+                            <div><b>W｜日蝕</b><p>雷歐娜舉起盾牌，獲得傷害減免、物理防禦與魔法防禦。當技能時間第一次結束時周圍還有敵人，則敵人受到魔法傷害並且延長增益效果時間。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LeonaZenithBlade.png" alt="太陽聖劍" loading="lazy">
+                            <div><b>E｜太陽聖劍</b><p>雷歐娜發出劍氣，對路徑上所有敵方造成魔法傷害。當劍氣淡去後，雷歐娜會停頓後衝往最後一位被擊中、暫時受到硬控場影響的敵方英雄。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/LeonaSolarFlare.png" alt="日輪聖芒" loading="lazy">
+                            <div><b>R｜日輪聖芒</b><p>雷歐娜呼喚擁有太陽力量的光炮，對範圍內敵人造成傷害。位於範圍正中心的敵人會被暈眩，而範圍外側的敵人會被緩速。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Resolve_VeteranAftershock_VeteranAftershock.png" alt="裂地衝擊" loading="lazy">
+                        <div>
+                            <b>裂地衝擊</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">主樹：意志</span>
+                            <p>硬控場一名敵方英雄後獲得防禦加成，接著對你周圍敵人造成大量魔法傷害。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/3174.png" alt="裝甲戰靴" loading="lazy"><span>裝甲戰靴</span></li>
+                        <li><img src="assets/lol/item/223109.png" alt="騎士誓願" loading="lazy"><span>騎士誓願</span></li>
+                        <li><img src="assets/lol/item/223050.png" alt="錫柯的聚合之力" loading="lazy"><span>錫柯的聚合之力</span></li>
+                        <li><img src="assets/lol/item/223190.png" alt="日輪的加冕" loading="lazy"><span>日輪的加冕</span></li>
+                        <li><img src="assets/lol/item/226665.png" alt="千變萬化之賈克修" loading="lazy"><span>千變萬化之賈克修</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>E 進場接 Q 暈眩，W 減傷扛傷；R 中心命中會暈眩，配合射手強開最有效。</p>
+                </section>
+            </article>
+            <article class="db-card" data-role="輔助" data-name="瑟雷西 鍊魂獄長">
+                <header class="db-card__head">
+                    <img class="db-card__avatar" src="assets/lol/champ/Thresh.jpg" alt="瑟雷西" loading="lazy">
+                    <div class="db-card__id">
+                        <h2>瑟雷西 <small>鍊魂獄長</small></h2>
+                        <div class="db-card__tags">
+                            <span class="tag tag--role">輔助</span>
+                            <span class="tag">輔助</span>
+                            <span class="tag">坦克</span>
+                            <span class="tag">難度：中等</span>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="build-block">
+                    <h3>技能圖示與簡介</h3>
+                    <ul class="ability-list">
+                        <li>
+                            <img src="assets/lol/ability/Thresh_Passive.png" alt="靈魂饗宴" loading="lazy">
+                            <div><b>被動｜靈魂饗宴</b><p>瑟雷西可以採集周圍死亡敵人的靈魂，永久提高自身的防禦和魔法攻擊。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ThreshQ.png" alt="死亡宣告" loading="lazy">
+                            <div><b>Q｜死亡宣告</b><p>使用技能時，瑟雷西用鎖鏈綁定一位敵人，將他拖回自身所在的位置。此時再次使用技能的話，可以讓瑟雷西飛到目標的身邊。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ThreshW.png" alt="鬼影燈籠" loading="lazy">
+                            <div><b>W｜鬼影燈籠</b><p>瑟雷西投擲出手中的燈籠，提供護盾保護周圍的友方英雄。如果點擊放置在地面的燈籠，友方英雄可以立即飛回瑟雷西所在的位置。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ThreshE.png" alt="懾魂掃蕩" loading="lazy">
+                            <div><b>E｜懾魂掃蕩</b><p>瑟雷西越久沒發動攻擊，他的傷害就越高。當技能啟動時，瑟雷西揮舞並且拋出他的鎖鏈，擊退路徑上命中的敵人。</p></div>
+                        </li>
+                        <li>
+                            <img src="assets/lol/ability/ThreshRPenta.png" alt="惡靈領域" loading="lazy">
+                            <div><b>R｜惡靈領域</b><p>創造一個禁錮的空間，對試圖穿越的敵人造成傷害和緩速效果。</p></div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="build-block">
+                    <h3>建議符文</h3>
+                    <div class="rune-keystone">
+                        <img src="assets/lol/rune/perk-images_Styles_Resolve_VeteranAftershock_VeteranAftershock.png" alt="裂地衝擊" loading="lazy">
+                        <div>
+                            <b>裂地衝擊</b>
+                            <span class="rune-tree"><img src="assets/lol/rune/perk-images_Styles_7204_Resolve.png" alt="">主樹：意志</span>
+                            <p>硬控場一名敵方英雄後獲得防禦加成，接著對你周圍敵人造成大量魔法傷害。</p>
+                        </div>
+                    </div>
+                    <p class="rune-sub">
+                        <img src="assets/lol/rune/perk-images_Styles_7203_Whimsy.png" alt="">副樹：<b>啟示</b>
+                        <span class="rune-note">符文請依對局與對手調整，這裡是當前主流方向。</span>
+                    </p>
+                </section>
+
+                <section class="build-block">
+                    <h3>核心裝備</h3>
+                    <ul class="item-row">
+                        <li><img src="assets/lol/item/223158.png" alt="愛歐尼亞之靴" loading="lazy"><span>愛歐尼亞之靴</span></li>
+                        <li><img src="assets/lol/item/223109.png" alt="騎士誓願" loading="lazy"><span>騎士誓願</span></li>
+                        <li><img src="assets/lol/item/223050.png" alt="錫柯的聚合之力" loading="lazy"><span>錫柯的聚合之力</span></li>
+                        <li><img src="assets/lol/item/223190.png" alt="日輪的加冕" loading="lazy"><span>日輪的加冕</span></li>
+                        <li><img src="assets/lol/item/223143.png" alt="蘭頓之兆" loading="lazy"><span>蘭頓之兆</span></li>
+                    </ul>
+                </section>
+
+                <section class="build-block build-block--note">
+                    <h3>戰術解析</h3>
+                    <p>Q 鉤中決定開戰節奏，W 燈籠救人與位移；E 拉回或推走都能改變戰局。</p>
+                </section>
+            </article>
         </div>
 
-        <table class="item-table">
-            <thead>
-                <tr>
-                    <th style="width:56px;">#</th>
-                    <th style="width:190px;">英雄</th>
-                    <th style="width:110px;">位置</th>
-                    <th style="width:210px;">符文（主系基石）</th>
-                    <th style="width:290px;">核心裝備</th>
-                    <th>AI 戰術解析</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Garen.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=G'" alt="Garen"><div><div class="name">蓋倫</div><div class="en">GAREN</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=靴'" alt="狂戰士脛甲"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6631.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=挺'" alt="挺進破壞者"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3046.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=幻'" alt="幻影之舞"></div></td>
-                    <td class="cell-desc">征服者搭配 E 技能持續疊層，挺進破壞者提供進場與減速，幻影之舞強化單帶與生存。</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Aatrox.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Aatrox"><div><div class="name">暗裔劍魔</div><div class="en">AATROX</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3047.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鐵'" alt="鐵板靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6692.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=星'" alt="星蝕"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3161.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=焚'" alt="焚天"></div></td>
-                    <td class="cell-desc">星蝕提供換血護盾與移速，焚天強化 Q 技能爆發與清線，是當前主流先手路徑。</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Kalista.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=K'" alt="Kalista"><div><div class="name">卡莉絲塔</div><div class="en">KALISTA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png" onerror="this.style.display='none'" alt="Lethal Tempo"><span class="rune-text">致命節奏</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電刃"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3072.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=九'" alt="貪欲九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3124.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鬼'" alt="鬼索的狂暴之刃"></div></td>
-                    <td class="cell-desc">上路卡莉絲塔以普攻壓制為主，電刃提供清線與爆發，鬼索強化持續輸出。</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Ambessa.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Ambessa"><div><div class="name">鐵血狼母</div><div class="en">AMBESSA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>上路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6698.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=瀆'" alt="褻瀆九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3047.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鐵'" alt="鐵板靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3153.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電震渦流劍"></div></td>
-                    <td class="cell-desc">褻瀆九頭蛇強化清線與技能穿插，電震渦流劍提供爆發與技能急速。</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Chogath.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=C'" alt="Cho'Gath"><div><div class="name">科加斯</div><div class="en">CHO'GATH</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/HailOfBlades/HailOfBlades.png" onerror="this.style.display='none'" alt="Hail of Blades"><span class="rune-text">叢刃</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3084.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=雄'" alt="雄心之鋼"></div></td>
-                    <td class="cell-desc">26.19 打野 T0，勝率 53.6%，94% 玩家使用叢刃；雄心之鋼配合 R 技能永久疊加生命。</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/JarvanIV.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=J'" alt="Jarvan IV"><div><div class="name">德瑪西亞皇子</div><div class="en">JARVAN IV</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3161.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=焚'" alt="焚天"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3111.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=水'" alt="水銀之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3071.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=黑'" alt="黑色切割者"></div></td>
-                    <td class="cell-desc">焚天強化 EQ 連招爆發，黑切削甲為團隊創造輸出空間，是節奏型打野標準路徑。</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Ambessa.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Ambessa"><div><div class="name">鐵血狼母</div><div class="en">AMBESSA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6698.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=瀆'" alt="褻瀆九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3047.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鐵'" alt="鐵板靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3153.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電震渦流劍"></div></td>
-                    <td class="cell-desc">打野位以快速清野與 Gank 為主，褻瀆九頭蛇提供清線與續航，電震渦流劍強化單抓。</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Lillia.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=L'" alt="Lillia"><div><div class="name">莉莉亞</div><div class="en">LILLIA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>打野</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/Conqueror/Conqueror.png" onerror="this.style.display='none'" alt="Conqueror"><span class="rune-text">征服者 / 風暴狂涌</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3157.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=中'" alt="中婭沙漏"></div></td>
-                    <td class="cell-desc">中婭沙漏讓莉莉亞在進場後安全等待技能冷卻，是團戰進場的核心保命裝。</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Vladimir.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=V'" alt="Vladimir"><div><div class="name">猩紅收割者</div><div class="en">VLADIMIR</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/StormraidersSurge/StormraidersSurge.png" onerror="this.style.display='none'" alt="Stormraider's Surge"><span class="rune-text">風暴狂涌</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3158.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=明'" alt="明朗之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3152.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=風'" alt="風暴狂涌"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3089.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=帽'" alt="死亡之帽"></div></td>
-                    <td class="cell-desc">勝率 51.1%；風暴狂涌提供進場移速與爆發，死亡之帽最大化後期 AP 收益。</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Galio.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=G'" alt="Galio"><div><div class="name">加里歐</div><div class="en">GALIO</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Guardian/Guardian.png" onerror="this.style.display='none'" alt="Aftershock"><span class="rune-text">餘震</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3001.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=深'" alt="深淵面具"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3157.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=中'" alt="中婭沙漏"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/4401.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=自'" alt="自然之力"></div></td>
-                    <td class="cell-desc">中單勝率 52.7%；深淵面具強化進場後的魔抗與 AP，自然之力對抗法傷陣容。</td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Mel.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=M'" alt="Mel"><div><div class="name">梅爾</div><div class="en">MEL</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/ArcaneComet/ArcaneComet.png" onerror="this.style.display='none'" alt="Arcane Comet"><span class="rune-text">奧術彗星</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6655.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=盧'" alt="盧登的回聲"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3020.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=法'" alt="法師之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/4645.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=闇'" alt="暗影之焰"></div></td>
-                    <td class="cell-desc">遠程消耗型法師，盧登提供清線與爆發，暗影之焰強化對低血量目標的擊殺。</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Ambessa.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=A'" alt="Ambessa"><div><div class="name">鐵血狼母</div><div class="en">AMBESSA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>中路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Domination/Electrocute/Electrocute.png" onerror="this.style.display='none'" alt="Electrocute"><span class="rune-text">電刑</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6698.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=瀆'" alt="褻瀆九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3153.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電震渦流劍"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6333.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=死'" alt="死亡之舞"></div></td>
-                    <td class="cell-desc">中路以電刑強化單殺爆發，死亡之舞提供團戰生存與延遲傷害。</td>
-                </tr>
-                <tr>
-                    <td>13</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Jinx.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=J'" alt="Jinx"><div><div class="name">吉茵珂絲</div><div class="en">JINX</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>下路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png" onerror="this.style.display='none'" alt="Lethal Tempo"><span class="rune-text">致命節奏</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6672.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=海'" alt="海克斯光學C44"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=狂'" alt="狂戰士護脛"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3085.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=芮'" alt="芮蘭颶風箭"></div></td>
-                    <td class="cell-desc">勝率 52.3%；致命節奏搭配颶風箭強化團戰多目標輸出，是當前最穩定的 ADC 路徑。</td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Kalista.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=K'" alt="Kalista"><div><div class="name">卡莉絲塔</div><div class="en">KALISTA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>下路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/LethalTempo/LethalTempoTemp.png" onerror="this.style.display='none'" alt="Lethal Tempo"><span class="rune-text">致命節奏</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3006.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=電'" alt="電刃"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3072.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=九'" alt="貪欲九頭蛇"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3124.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鬼'" alt="鬼索的狂暴之刃"></div></td>
-                    <td class="cell-desc">下路卡莉絲塔以 R 技能保護輔助進場，鬼索提供混合傷害與持續輸出。</td>
-                </tr>
-                <tr>
-                    <td>15</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Varus.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=V'" alt="Varus"><div><div class="name">韋魯斯</div><div class="en">VARUS</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>下路</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Precision/PressTheAttack/PressTheAttack.png" onerror="this.style.display='none'" alt="Press the Attack"><span class="rune-text">強攻</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3115.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=納'" alt="納什之牙"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3124.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=鬼'" alt="鬼索的狂暴之刃"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3085.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=颶'" alt="盧安娜的颶風"></div></td>
-                    <td class="cell-desc">AP 攻速流，納什之牙強化 W 被動傷害，鬼索讓普攻附帶魔法傷害，是當前主流韋魯斯路徑。</td>
-                </tr>
-                <tr>
-                    <td>16</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Karma.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=K'" alt="Karma"><div><div class="name">卡瑪</div><div class="en">KARMA</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>輔助</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png" onerror="this.style.display='none'" alt="Summon Aery"><span class="rune-text">召喚艾莉</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6620.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=夢'" alt="夢境締造者"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3158.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=明'" alt="艾歐尼亞明晰之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6621.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=赫'" alt="赫利亞的回響"></div></td>
-                    <td class="cell-desc">勝率 48.8%；艾莉強化消耗與護盾，赫利亞的回響提供團隊治療與續航。</td>
-                </tr>
-                <tr>
-                    <td>17</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Galio.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=G'" alt="Galio"><div><div class="name">加里歐</div><div class="en">GALIO</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>輔助</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Resolve/Guardian/Guardian.png" onerror="this.style.display='none'" alt="Aftershock"><span class="rune-text">餘震</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3190.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=烈'" alt="鋼鐵烈陽之匣"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3109.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=騎'" alt="騎士之誓"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3050.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=基'" alt="基克的聚合"></div></td>
-                    <td class="cell-desc">輔助位登場率漲幅最高；烈陽之匣提供團隊護盾，騎士之誓保護核心輸出。</td>
-                </tr>
-                <tr>
-                    <td>18</td>
-                    <td><div class="cell-champ"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/champion/Malzahar.png" onerror="this.src='https://placehold.co/52/101922/c8aa6e?text=M'" alt="Malzahar"><div><div class="name">馬爾札哈</div><div class="en">MALZAHAR</div></div></div></td>
-                    <td><span class="cell-role"><span class="dot"></span>輔助</span></td>
-                    <td><div class="cell-rune"><img src="https://ddragon.leagueoflegends.com/cdn/img/perk-images/Styles/Sorcery/SummonAery/SummonAery.png" onerror="this.style.display='none'" alt="Summon Aery"><span class="rune-text">召喚艾莉</span></div></td>
-                    <td><div class="cell-items"><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3020.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=法'" alt="法師之靴"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/6653.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=黎'" alt="黎安卓的折磨"><span class="arrow">→</span><img src="https://ddragon.leagueoflegends.com/cdn/16.19.1/img/item/3118.png" onerror="this.src='https://placehold.co/38/101922/c8aa6e?text=薩'" alt="薩茲薩克的領域之刺"></div></td>
-                    <td class="cell-desc">以 R 技能壓制關鍵目標，黎安卓的折磨強化持續傷害與清線能力。</td>
-                </tr>
-            </tbody>
-        </table>
+        <section class="section dark" style="margin-top: 40px;">
+            <div class="heading">
+                <small>PRESETS DIRECTION</small>
+                <h2>版本玩法方向盤</h2>
+                <p>不知道從哪開始？先挑一個方向，再回到上面的卡片找對應英雄。</p>
+            </div>
+            <div class="build-grid" id="buildGrid" style="margin-top: 20px;"></div>
+        </section>
 
-        <p style="margin-top: 14px; color: #76838d; font-size: 13px;">
-            📌 數據基於 Patch 26.19 公開統計，涵蓋翡翠以上段位。實際對局請根據敵方陣容與自身熟練度調整。
-        </p>
-
-        <div class="heading" style="margin-top: 50px;">
-            <small>PRESETS DIRECTION</small>
-            <h2>版本玩法方向盤</h2>
+        <div class="notice">
+            📌 <b>資料說明：</b> 英雄、技能、符文與裝備資料及圖片皆取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），
+            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。符文為目前主流建議方向，實際請依對局、對手與版本調整。
         </div>
-        <div class="build-grid" id="buildGrid" style="margin-top: 20px;"></div>
     </main>
 
     <div class="toast" id="toast"></div>
     <footer>
-        <div>&copy; 2026 LOL 攻略站 · 數據基於 Patch 26.19 · 僅供參考</div>
+        <div>&copy; 2026 LOL 攻略站 &middot; 資料基於 Patch 16.20.1 &middot; 僅供參考</div>
     </footer>
 
     <script src="script.js"></script>
     <script src="state.js" defer></script>
+    <script>
+        // 路線篩選 + 名稱搜尋（純前端，重新整理後由 state.js 還原）
+        document.addEventListener('DOMContentLoaded', function () {
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.db-card'));
+            var tabs = Array.prototype.slice.call(document.querySelectorAll('#roleFilters .tab'));
+            var box = document.getElementById('champFilter');
+            var count = document.getElementById('itemsCount');
+            var role = '全部';
+
+            function apply() {
+                var q = (box && box.value || '').toLowerCase().trim();
+                var shown = 0;
+                cards.forEach(function (card) {
+                    var okRole = (role === '全部' || card.dataset.role === role);
+                    var okText = !q || (card.dataset.name || '').toLowerCase().indexOf(q) >= 0;
+                    var on = okRole && okText;
+                    card.hidden = !on;
+                    if (on) shown++;
+                });
+                if (count) count.textContent = '顯示 ' + shown + ' 位英雄';
+            }
+
+            tabs.forEach(function (tab) {
+                tab.addEventListener('click', function () {
+                    tabs.forEach(function (t) { t.classList.remove('active'); });
+                    tab.classList.add('active');
+                    role = tab.dataset.role;
+                    apply();
+                });
+            });
+            if (box) box.addEventListener('input', apply);
+            apply();
+        });
+    </script>
 </body>
 </html>
