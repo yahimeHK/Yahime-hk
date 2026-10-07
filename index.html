@@ -5,25 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOL 攻略站 V5.1 - 完整資料庫</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-  /* 手機版強制顯示導航（保險用） */
-  @media(max-width:1000px){
-    .topbar nav{
-      display:flex !important;
-      gap:14px !important;
-      overflow-x:auto !important;
-      flex-wrap:nowrap !important;
-    }
-    .topbar nav a{
-      font-size:13px !important;
-      white-space:nowrap !important;
-    }
-  }
-  @media(max-width:700px){
-    .brand{font-size:15px !important}
-    .topbar nav{gap:12px !important}
-  }
-</style>
+    <!-- 全域設定 Referrer Policy，確保 YouTube 嵌入正常 -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
     <header class="topbar">
@@ -68,9 +51,7 @@
         <div class="hero-scroll">SCROLL FOR MORE<i></i></div>
     </main>
 
-    <div class="notice">
-        
-            <!-- ===== YouTube 官方影片區 ===== -->
+    <!-- ===== 官方影片精選區 ===== -->
     <section class="video-section">
         <div class="heading">
             <small>OFFICIAL MEDIA</small>
@@ -78,46 +59,63 @@
             <p>收錄 Riot Games 官方頻道的賽季動畫、英雄 spotlight 與賽事精華。</p>
         </div>
         <div class="video-grid">
+            <!-- 影片 1：2026 賽季開幕動畫《救贖》 -->
             <div class="video-card">
                 <div class="video-wrapper">
                     <iframe
-                      <!-- 第一個：2026 賽季開幕動畫《救贖》 -->
-<iframe
-    src="https://www.youtube.com/embed/e3D7Fj1PsWk?rel=0&modestbranding=1"
-    title="2026 賽季開幕動畫《救贖》"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    loading="lazy">
-</iframe>
-    
+                        src="https://www.youtube.com/embed/e3D7Fj1PsWk?rel=0&modestbranding=1"
+                        title="2026 賽季開幕動畫《救贖》"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin">
                     </iframe>
-                <!-- 第二個：Worlds 2026 主題曲《Know My Name》預告 -->
-<iframe
-    src="https://www.youtube.com/embed/m9Sru146PtI?rel=0&modestbranding=1"
-    title="Worlds 2026 主題曲《Know My Name》"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    loading="lazy">
-</iframe>>
+                </div>
+                <h3>2026 賽季開幕動畫《救贖》</h3>
+                <p>以蒂瑪西亞為主題的官方動畫，揭開新賽季序幕。</p>
+            </div>
+
+            <!-- 影片 2：Worlds 2026 主題曲《Know My Name》預告 -->
+            <div class="video-card">
+                <div class="video-wrapper">
                     <iframe
-                        <!-- 第三個：英雄 Spotlight（以 Ezreal 為例，可自行替換） -->
-<iframe
-    src="https://www.youtube.com/embed/GfeNQ_dbPvE?rel=0&modestbranding=1"
-    title="英雄 Spotlight"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    loading="lazy">
-</iframe>      
+                        src="https://www.youtube.com/embed/m9Sru146PtI?rel=0&modestbranding=1"
+                        title="Worlds 2026 主題曲《Know My Name》"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
+                </div>
+                <h3>Worlds 2026 主題曲《Know My Name》</h3>
+                <p>True Damage 回歸，紀念 Faker 與 T1 的傳奇旅程。</p>
+            </div>
+
+            <!-- 影片 3：英雄 Spotlight 精選（以 Ezreal 為例） -->
+            <div class="video-card">
+                <div class="video-wrapper">
+                    <iframe
+                        src="https://www.youtube.com/embed/GfeNQ_dbPvE?rel=0&modestbranding=1"
+                        title="英雄 Spotlight 精選"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="strict-origin-when-cross-origin">
+                    </iframe>
                 </div>
                 <h3>英雄 Spotlight 精選</h3>
                 <p>最新英雄技能與玩法介紹。</p>
             </div>
         </div>
     </section>
-   
+
+    <div class="notice">
+        📌 <b>資料說明：</b> 本版本所有主頁背景素材均已放置於 assets/ 目錄中，開啟 index.html 時不需要外部網路連線，避開了 YouTube 或外部 CDN 的依賴。
+    </div>
+
     <section class="section stats-section">
         <div class="heading">
             <small>CHAMPION DATABASE</small>
