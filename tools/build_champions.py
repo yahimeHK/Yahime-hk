@@ -397,7 +397,7 @@ def write_html(count):
             <a href="index.html">首頁</a>
             <a href="champions.html" style="color: #00d9ff; font-weight: 800;">英雄攻略</a>
             <a href="items.html">裝備攻略</a>
-            <a href="guides.html">戰術商城</a>
+            <a href="guides.html">裝備合成</a>
         </nav>
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>

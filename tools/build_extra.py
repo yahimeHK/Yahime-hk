@@ -428,7 +428,7 @@ def write_pages(base):
             <a href="index.html">首頁</a>
             <a href="champions.html">英雄攻略</a>
             <a href="items.html">裝備攻略</a>
-            <a href="guides.html">戰術商城</a>
+            <a href="guides.html">裝備合成</a>
         </nav>
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
@@ -836,7 +836,7 @@ def write_js():
         { img: 'assets/bg-home.jpg', name: '首頁桌布（蒂瑪西亞）' },
         { img: 'assets/bg-champions.jpg', name: '英雄攻略桌布' },
         { img: 'assets/bg-items.jpg', name: '裝備攻略桌布' },
-        { img: 'assets/bg-guides.jpg', name: '戰術商城桌布' }
+        { img: 'assets/bg-guides.jpg', name: '裝備合成桌布' }
       ].map(function (w) {
         return '<div class="wall-card" data-kind="桌布" data-name="' + esc(w.name) + '"><img src="' + esc(w.img) + '" alt="' + esc(w.name) + '" loading="lazy">' +
           '<span>' + esc(w.name) + '<a class="ex-dl" href="' + esc(w.img) + '" download>下載</a></span></div>';

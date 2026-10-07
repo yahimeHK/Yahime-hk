@@ -322,7 +322,7 @@ def write_html(cards):
             <a href="index.html">首頁</a>
             <a href="champions.html">英雄攻略</a>
             <a href="items.html" style="color: #00d9ff; font-weight: 800;">裝備攻略</a>
-            <a href="guides.html">戰術商城</a>
+            <a href="guides.html">裝備合成</a>
         </nav>
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
