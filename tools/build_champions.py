@@ -493,6 +493,9 @@ def write_css():
    由 _build_champions.py 產生，圖片全部來自本機 assets/lol/。
    ========================================================================== */
 
+/* 篩選用：.db-champ 有 display:grid，會蓋掉 [hidden]，所以這裡強制生效 */
+[hidden] { display: none !important; }
+
 .champ-wrap { width: min(1200px, 90%); margin: 30px auto 0; }
 
 .champ-hero {

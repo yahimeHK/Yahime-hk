@@ -2,6 +2,9 @@
    LOL 攻略站 — 七個分類分頁（由 tools/build_extra.py 產生）
    ========================================================================== */
 
+/* 篩選用：卡片有 display:flex／grid，會蓋掉 [hidden]，所以這裡強制生效 */
+[hidden] { display: none !important; }
+
 .ex-wrap { width: min(1200px, 90%); margin: 30px auto 0; }
 
 .ex-hero {

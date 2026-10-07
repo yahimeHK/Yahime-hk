@@ -461,6 +461,9 @@ def write_css():
    LOL 攻略站 — 七個分類分頁（由 tools/build_extra.py 產生）
    ========================================================================== */
 
+/* 篩選用：卡片有 display:flex／grid，會蓋掉 [hidden]，所以這裡強制生效 */
+[hidden] { display: none !important; }
+
 .ex-wrap { width: min(1200px, 90%); margin: 30px auto 0; }
 
 .ex-hero {
@@ -802,6 +805,11 @@ def write_js():
         var on = okRole && okQ;
         b.hidden = !on;
         if (on) shown++;
+      });
+    } else if (MODE === 'maps') {      // 地圖頁只算地圖卡，縮圖不算一筆
+      shown = 0;
+      Array.prototype.forEach.call(document.querySelectorAll('.map-card'), function (cd) {
+        if (!cd.hidden) shown++;
       });
     } else if (MODE === 'runes') {     // 符文頁以「符文樹」為單位（樹內文字都算）
       var trees = document.querySelectorAll('.rune-tree-block');

@@ -45,7 +45,7 @@
   function sText(c, extra) {
     if (!c) return String(extra || '');
     return [c.champ || c.name || '', c.en || '', c.title || '',
-      (c.aliases || []).join(' '), (c.tags || []).join(' '), extra || ''].join(' ').replace(/\s+/g, ' ').trim();
+      (c.aliases || []).join(' '), (c.tags || []).join(' '), extra || ''].join(' ').replace(/[ ]+/g, ' ').trim();
   }
 
   /* ---------------------------------------------------------------- 各頁卡片 */
@@ -175,6 +175,11 @@
         var on = okRole && okQ;
         b.hidden = !on;
         if (on) shown++;
+      });
+    } else if (MODE === 'maps') {      // 地圖頁只算地圖卡，縮圖不算一筆
+      shown = 0;
+      Array.prototype.forEach.call(document.querySelectorAll('.map-card'), function (cd) {
+        if (!cd.hidden) shown++;
       });
     } else if (MODE === 'runes') {     // 符文頁以「符文樹」為單位（樹內文字都算）
       var trees = document.querySelectorAll('.rune-tree-block');
