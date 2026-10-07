@@ -23,13 +23,14 @@
         <section class="items-hero">
             <small>BUILD LAB &middot; PATCH 16.20.1</small>
             <h1>符文 ＆ 核心裝備 <em>數據庫</em></h1>
-            <p>每位英雄一張卡：角色頭像、技能圖示與簡介、建議基石（含符文說明）、核心裝備與戰術解析。
-               資料與圖片全部來自 Riot 官方 Data Dragon <b>16.20.1</b>，並已下載到本機，離線也看得到。</p>
+            <p>每位英雄一張卡：角色頭像、技能圖示與簡介、建議基石（含符文說明）、技能加點、召喚師技能、
+               核心裝備、對線重點與戰術解析。資料與圖片取自 Riot 官方 Data Dragon <b>16.20.1</b> 並已下載到本機，離線可用。</p>
             <div class="items-hero__pills">
                 <span>20 位英雄</span>
                 <span>100 個技能圖示</span>
                 <span>100 件核心裝備</span>
                 <span>5 條路線</span>
+                <span>附即時數據連結</span>
             </div>
         </section>
 
@@ -42,13 +43,13 @@
                 <button type="button" class="tab" data-role="下路">下路 <b>4</b></button>
                 <button type="button" class="tab" data-role="輔助">輔助 <b>4</b></button>
             </div>
-            <input type="search" id="champFilter" placeholder="搜尋英雄名稱或稱號…" aria-label="搜尋英雄">
+            <input type="search" id="champFilter" placeholder="搜尋英雄名稱、稱號或職業…" aria-label="搜尋英雄">
         </div>
 
         <p class="items-count" id="itemsCount">顯示 20 位英雄</p>
 
         <div class="db-cards" id="buildCards">
-            <article class="db-card" data-role="上路" data-name="蓋倫 蒂瑪西亞之力">
+            <article class="db-card" data-role="上路" data-name="蓋倫 蒂瑪西亞之力 鬥士 坦克">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Garen.jpg" alt="蓋倫" loading="lazy">
                     <div class="db-card__id">
@@ -89,6 +90,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; E &gt; Q &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 點燃（也可帶傳送）</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>一級用 Q 上前換血、E 轉圈清線；被遠程角壓時先補防禦，靠被動回血慢慢耗。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
@@ -115,12 +125,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>用 E 疊征服者，Q 沉默後接 R 收頭；分推時留意對手控場，別把 W 減傷提前交掉。</p>
+                    <p class="tactic">用 E 疊征服者，Q 沉默後接 R 收頭；分推時留意對手控場，別把 W 減傷提前交掉。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/garen/top" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/garen/top" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/garen" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E8%93%8B%E5%80%AB">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="上路" data-name="厄薩斯 冥血劍魔">
+            <article class="db-card" data-role="上路" data-name="厄薩斯 冥血劍魔 鬥士">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Aatrox.jpg" alt="厄薩斯" loading="lazy">
                     <div class="db-card__id">
@@ -160,6 +181,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 傳送</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>前期用 Q1／Q2 消耗，Q3 命中才進場；注意 W 的施放距離，被動印記是換血本錢。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
@@ -186,12 +216,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>Q 邊緣命中才有擊飛與增傷，E 位移用來修正 Q2／Q3 落點；被動印記在換血時會回血。</p>
+                    <p class="tactic">Q 邊緣命中才有擊飛與增傷，E 位移用來修正 Q2／Q3 落點；被動印記在換血時會回血。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/aatrox/top" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/aatrox/top" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/aatrox" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%8E%84%E8%96%A9%E6%96%AF">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="上路" data-name="安比薩 鐵血狼母">
+            <article class="db-card" data-role="上路" data-name="安比薩 鐵血狼母 鬥士 刺客">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Ambessa.jpg" alt="安比薩" loading="lazy">
                     <div class="db-card__id">
@@ -232,6 +273,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 傳送</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>用位移吃兵兼消耗，能量不夠就退開；被壓時用 W 檔招，等六級再找反打機會。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
@@ -258,12 +308,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>靠位移疊層與能量管理打消耗，W 檔招、E 拉開距離；R 留給殘血追擊或強開。</p>
+                    <p class="tactic">靠位移疊層與能量管理打消耗，W 檔招、E 拉開距離；R 留給殘血追擊或強開。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/ambessa/top" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/ambessa/top" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/ambessa" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%AE%89%E6%AF%94%E8%96%A9">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="上路" data-name="克黎思妲 復仇之矛">
+            <article class="db-card" data-role="上路" data-name="克黎思妲 復仇之矛 射手">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Kalista.jpg" alt="克黎思妲" loading="lazy">
                     <div class="db-card__id">
@@ -303,6 +364,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; E &gt; Q &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 治癒</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>普攻疊矛逼對手退，E 引爆要算斬殺線；R 可配合綁定的輔助硬開或救人。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_LethalTempo_LethalTempoTemp.png" alt="致命節奏" loading="lazy">
@@ -329,12 +399,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>普攻疊矛再 E 引爆，對線壓制力極強；R 能救被綁定的隊友，也能直接開團。</p>
+                    <p class="tactic">普攻疊矛再 E 引爆，對線壓制力極強；R 能救被綁定的隊友，也能直接開團。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/kalista/top" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/kalista/top" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/kalista" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%85%8B%E9%BB%8E%E6%80%9D%E5%A6%B2">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="打野" data-name="科加斯 虛空恐懼">
+            <article class="db-card" data-role="打野" data-name="科加斯 虛空恐懼 坦克 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Chogath.jpg" alt="科加斯" loading="lazy">
                     <div class="db-card__id">
@@ -375,6 +456,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; W &gt; E</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 重擊</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>以 Q 命中為主再進場，六級後 R 吃龍與疊層；對線型對手先出防禦再考慮傷害。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Resolve_GraspOfTheUndying_GraspOfTheUndying.png" alt="不死之握" loading="lazy">
@@ -401,12 +491,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>R 疊層永久增加生命，後期坦度驚人；Q 命中後接 W 沉默再進場，避免空大。</p>
+                    <p class="tactic">R 疊層永久增加生命，後期坦度驚人；Q 命中後接 W 沉默再進場，避免空大。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/cho-gath/jungle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/cho-gath/jungle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/chogath" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E7%A7%91%E5%8A%A0%E6%96%AF">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="打野" data-name="嘉文四世 蒂瑪西亞楷模">
+            <article class="db-card" data-role="打野" data-name="嘉文四世 蒂瑪西亞楷模 鬥士 坦克">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/JarvanIV.jpg" alt="嘉文四世" loading="lazy">
                     <div class="db-card__id">
@@ -447,6 +548,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 重擊</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>三級後找機會 EQ 進場，配合線上隊友拿首殺；沒 Gank 就做河道視野與河蟹。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
@@ -473,12 +583,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>EQ 連段是開團核心，R 圈住對面關鍵輸出；前期節奏靠 Gank 與河道控制建立。</p>
+                    <p class="tactic">EQ 連段是開團核心，R 圈住對面關鍵輸出；前期節奏靠 Gank 與河道控制建立。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/jarvan-iv/jungle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/jarvan-iv/jungle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/jarvaniv" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%98%89%E6%96%87%E5%9B%9B%E4%B8%96">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="打野" data-name="莉莉亞 羞赧綻華">
+            <article class="db-card" data-role="打野" data-name="莉莉亞 羞赧綻華 鬥士 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Lillia.jpg" alt="莉莉亞" loading="lazy">
                     <div class="db-card__id">
@@ -519,6 +640,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; W &gt; E</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 重擊</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>清野速度快，用 Q 疊層換血；W 中心命中是關鍵，對手有位移先用 E 減速。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
@@ -545,12 +675,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>W 中心命中傷害最高，靠被動移速拉扯；R 睡到多人再開團，Q 疊層別中斷。</p>
+                    <p class="tactic">W 中心命中傷害最高，靠被動移速拉扯；R 睡到多人再開團，Q 疊層別中斷。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/lillia/jungle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/lillia/jungle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/lillia" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E8%8E%89%E8%8E%89%E4%BA%9E">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="打野" data-name="維爾戈 殞落王者">
+            <article class="db-card" data-role="打野" data-name="維爾戈 殞落王者 鬥士 刺客">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Viego.jpg" alt="維爾戈" loading="lazy">
                     <div class="db-card__id">
@@ -591,6 +732,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 重擊</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>用 Q 消耗搭配 E 進出，六級後 R 進場收割；注意被動佔據的時機與血量。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_Conqueror_Conqueror.png" alt="征服者" loading="lazy">
@@ -617,12 +767,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>擊殺後佔據對手身體重置技能，團戰要挑時機進場收割；E 潛行繞後找關鍵目標。</p>
+                    <p class="tactic">擊殺後佔據對手身體重置技能，團戰要挑時機進場收割；E 潛行繞後找關鍵目標。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/viego/jungle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/viego/jungle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/viego" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E7%B6%AD%E7%88%BE%E6%88%88">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="中路" data-name="弗拉迪米爾 血色收割者">
+            <article class="db-card" data-role="中路" data-name="弗拉迪米爾 血色收割者 法師 鬥士">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Vladimir.jpg" alt="弗拉迪米爾" loading="lazy">
                     <div class="db-card__id">
@@ -663,6 +824,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 傳送</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>用 Q 換血，紅怒 Q 才上前；W 不要隨意交，留給對面的關鍵技能。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Sorcery_PhaseRush_StormraidersSurgeRuneIcon2.png" alt="風暴浪湧" loading="lazy">
@@ -689,12 +859,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>紅怒 Q 換血、W 既是保命也是進場；R 先手放大隊友傷害，注意血量換傷害的節奏。</p>
+                    <p class="tactic">紅怒 Q 換血、W 既是保命也是進場；R 先手放大隊友傷害，注意血量換傷害的節奏。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/vladimir/middle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/vladimir/middle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/vladimir" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%BC%97%E6%8B%89%E8%BF%AA%E7%B1%B3%E7%88%BE">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="中路" data-name="加里歐 禦國巨像">
+            <article class="db-card" data-role="中路" data-name="加里歐 禦國巨像 坦克 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Galio.jpg" alt="加里歐" loading="lazy">
                     <div class="db-card__id">
@@ -735,6 +916,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; W &gt; E</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 傳送</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>Q 清線兼消耗，W 嘲諷配合打野；R 全圖支援邊線，出手前先看隊友位置。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Resolve_VeteranAftershock_VeteranAftershock.png" alt="裂地衝擊" loading="lazy">
@@ -761,12 +951,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>W 嘲諷是開團核心，R 可全球支援；對線用 Q 清線兼消耗，被動普攻範圍傷害別浪費。</p>
+                    <p class="tactic">W 嘲諷是開團核心，R 可全球支援；對線用 Q 清線兼消耗，被動普攻範圍傷害別浪費。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/galio/middle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/galio/middle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/galio" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%8A%A0%E9%87%8C%E6%AD%90">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="中路" data-name="梅爾 映魂祕使">
+            <article class="db-card" data-role="中路" data-name="梅爾 映魂祕使 法師 輔助">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Mel.jpg" alt="梅爾" loading="lazy">
                     <div class="db-card__id">
@@ -807,6 +1008,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 點燃</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>遠程消耗為主，W 反彈對面關鍵技能；保持距離，別讓近戰貼上身。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Sorcery_ArcaneComet_ArcaneComet.png" alt="奧術彗星" loading="lazy">
@@ -833,12 +1043,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>遠程消耗型法師，W 反彈技能要抓時機；保持距離疊加被動，靠 Q 持續騷擾。</p>
+                    <p class="tactic">遠程消耗型法師，W 反彈技能要抓時機；保持距離疊加被動，靠 Q 持續騷擾。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/mel/middle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/mel/middle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/mel" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E6%A2%85%E7%88%BE">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="中路" data-name="阿璃 九尾妖狐">
+            <article class="db-card" data-role="中路" data-name="阿璃 九尾妖狐 法師 刺客">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Ahri.jpg" alt="阿璃" loading="lazy">
                     <div class="db-card__id">
@@ -879,6 +1100,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; W &gt; E</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 點燃</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>Q 兩段消耗，E 命中後接 QW 打爆發；R 進場或撤退都行，但別一次用完。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Sorcery_ArcaneComet_ArcaneComet.png" alt="奧術彗星" loading="lazy">
@@ -905,12 +1135,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>Q 消耗、E 魅惑帶節奏；R 三段位移可進可退，永遠留一段當逃生。</p>
+                    <p class="tactic">Q 消耗、E 魅惑帶節奏；R 三段位移可進可退，永遠留一段當逃生。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/ahri/middle" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/ahri/middle" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/ahri" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E9%98%BF%E7%92%83">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="下路" data-name="吉茵珂絲 暴走重砲">
+            <article class="db-card" data-role="下路" data-name="吉茵珂絲 暴走重砲 射手">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Jinx.jpg" alt="吉茵珂絲" loading="lazy">
                     <div class="db-card__id">
@@ -950,6 +1191,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; W &gt; E</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 治癒</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>前期用火箭筒騷擾，E 陷阱放自己腳下防近戰；六級後 R 可遠距離收頭。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_LethalTempo_LethalTempoTemp.png" alt="致命節奏" loading="lazy">
@@ -976,12 +1226,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>被動疊起來後攻速爆走，團戰靠走位站位；E 陷阱自保，R 收殘血與搶龍。</p>
+                    <p class="tactic">被動疊起來後攻速爆走，團戰靠走位站位；E 陷阱自保，R 收殘血與搶龍。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/jinx/adc" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/jinx/adc" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/jinx" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%90%89%E8%8C%B5%E7%8F%82%E7%B5%B2">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="下路" data-name="法洛士 懲戒之箭">
+            <article class="db-card" data-role="下路" data-name="法洛士 懲戒之箭 射手 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Varus.jpg" alt="法洛士" loading="lazy">
                     <div class="db-card__id">
@@ -1022,6 +1283,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 治癒</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>普攻疊被動換血，E 減治療對抗吸血角；R 綁人配合打野最穩。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_PressTheAttack_PressTheAttack.png" alt="強攻" loading="lazy">
@@ -1048,12 +1318,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>AP 攻速流普攻附帶魔法傷害，W 主動強化爆發；R 綁人開團或反開都很強。</p>
+                    <p class="tactic">AP 攻速流普攻附帶魔法傷害，W 主動強化爆發；R 綁人開團或反開都很強。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/varus/adc" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/varus/adc" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/varus" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E6%B3%95%E6%B4%9B%E5%A3%AB">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="下路" data-name="凱莎 虛空之女">
+            <article class="db-card" data-role="下路" data-name="凱莎 虛空之女 射手 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Kaisa.jpg" alt="凱莎" loading="lazy">
                     <div class="db-card__id">
@@ -1094,6 +1375,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 治癒</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>用 Q 清兵兼疊被動，進化後再積極換血；R 留給隊友開戰時進場。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_LethalTempo_LethalTempoTemp.png" alt="致命節奏" loading="lazy">
@@ -1120,12 +1410,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>靠堆疊被動觸發電漿爆發，進化後期傷害驚人；R 進場要算好護盾與隊友位置。</p>
+                    <p class="tactic">靠堆疊被動觸發電漿爆發，進化後期傷害驚人；R 進場要算好護盾與隊友位置。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/kaisa/adc" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/kaisa/adc" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/kaisa" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%87%B1%E8%8E%8E">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="下路" data-name="伊澤瑞爾 探險家">
+            <article class="db-card" data-role="下路" data-name="伊澤瑞爾 探險家 射手 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Ezreal.jpg" alt="伊澤瑞爾" loading="lazy">
                     <div class="db-card__id">
@@ -1166,6 +1467,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 治癒</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>Q 命中疊攻速兼消耗，E 不要隨意交；對線偏保守，等核心裝成形再發力。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Precision_PressTheAttack_PressTheAttack.png" alt="強攻" loading="lazy">
@@ -1192,12 +1502,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>Q 命中疊攻速，E 既是位移也是保命；裝備成形後爆發與拉扯能力都極高。</p>
+                    <p class="tactic">Q 命中疊攻速，E 既是位移也是保命；裝備成形後爆發與拉扯能力都極高。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/ezreal/adc" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/ezreal/adc" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/ezreal" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E4%BC%8A%E6%BE%A4%E7%91%9E%E7%88%BE">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="輔助" data-name="卡瑪 魂之啟者">
+            <article class="db-card" data-role="輔助" data-name="卡瑪 魂之啟者 法師 輔助">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Karma.jpg" alt="卡瑪" loading="lazy">
                     <div class="db-card__id">
@@ -1238,6 +1559,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 點燃</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>R+Q 消耗、E 給盾換血；對線期是卡瑪最強的階段，前期就要打出優勢。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Sorcery_SummonAery_SummonAery.png" alt="召喚艾莉" loading="lazy">
@@ -1264,12 +1594,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>R 強化 Q 消耗或 E 給盾，對線期壓制力強；Q 減速配合射手換血最有效。</p>
+                    <p class="tactic">R 強化 Q 消耗或 E 給盾，對線期壓制力強；Q 減速配合射手換血最有效。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/karma/support" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/karma/support" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/karma" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%8D%A1%E7%91%AA">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="輔助" data-name="娜米 海潮之音">
+            <article class="db-card" data-role="輔助" data-name="娜米 海潮之音 輔助 法師">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Nami.jpg" alt="娜米" loading="lazy">
                     <div class="db-card__id">
@@ -1310,6 +1651,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; W &gt; E &gt; Q</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 治癒</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>W 彈跳換血兼治療，Q 氣泡配合射手；E 附魔讓射手普攻更痛。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Sorcery_SummonAery_SummonAery.png" alt="召喚艾莉" loading="lazy">
@@ -1336,12 +1686,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>W 彈跳換血兼治療，Q 氣泡命中決定團戰；E 附魔給射手強化普攻，R 大範圍開團。</p>
+                    <p class="tactic">W 彈跳換血兼治療，Q 氣泡命中決定團戰；E 附魔給射手強化普攻，R 大範圍開團。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/nami/support" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/nami/support" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/nami" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E5%A8%9C%E7%B1%B3">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="輔助" data-name="雷歐娜 黎明之光">
+            <article class="db-card" data-role="輔助" data-name="雷歐娜 黎明之光 坦克 輔助">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Leona.jpg" alt="雷歐娜" loading="lazy">
                     <div class="db-card__id">
@@ -1382,6 +1743,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; W &gt; E &gt; Q</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 點燃</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>一級靠被動配合射手換血，E 進場接 Q 暈眩；W 先開再進場才能減傷。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Resolve_VeteranAftershock_VeteranAftershock.png" alt="裂地衝擊" loading="lazy">
@@ -1408,12 +1778,23 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>E 進場接 Q 暈眩，W 減傷扛傷；R 中心命中會暈眩，配合射手強開最有效。</p>
+                    <p class="tactic">E 進場接 Q 暈眩，W 減傷扛傷；R 中心命中會暈眩，配合射手強開最有效。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/leona/support" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/leona/support" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/leona" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E9%9B%B7%E6%AD%90%E5%A8%9C">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
-            <article class="db-card" data-role="輔助" data-name="瑟雷西 鍊魂獄長">
+            <article class="db-card" data-role="輔助" data-name="瑟雷西 鍊魂獄長 輔助 坦克">
                 <header class="db-card__head">
                     <img class="db-card__avatar" src="assets/lol/champ/Thresh.jpg" alt="瑟雷西" loading="lazy">
                     <div class="db-card__id">
@@ -1454,6 +1835,15 @@
                 </section>
 
                 <section class="build-block">
+                    <h3>技能加點 ＆ 召喚師技能</h3>
+                    <div class="quick-grid">
+                        <div class="quick"><span>技能加點順序</span><b>R &gt; Q &gt; E &gt; W</b></div>
+                        <div class="quick"><span>召喚師技能</span><b>閃現 ＋ 點燃</b></div>
+                    </div>
+                    <p class="lane-tip"><b>對線重點</b>Q 鉤中後 E 拉回，W 燈籠給隊友撤退或進攻；普攻騷擾但不要硬換。</p>
+                </section>
+
+                <section class="build-block">
                     <h3>建議符文</h3>
                     <div class="rune-keystone">
                         <img src="assets/lol/rune/perk-images_Styles_Resolve_VeteranAftershock_VeteranAftershock.png" alt="裂地衝擊" loading="lazy">
@@ -1480,9 +1870,20 @@
                     </ul>
                 </section>
 
-                <section class="build-block build-block--note">
+                <section class="build-block">
                     <h3>戰術解析</h3>
-                    <p>Q 鉤中決定開戰節奏，W 燈籠救人與位移；E 拉回或推走都能改變戰局。</p>
+                    <p class="tactic">Q 鉤中決定開戰節奏，W 燈籠救人與位移；E 拉回或推走都能改變戰局。</p>
+                </section>
+
+                <section class="build-block build-block--links">
+                    <h3>即時數據 ＆ 更多資料</h3>
+                    <div class="ext-links">
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/runes/thresh/support" target="_blank" rel="noopener">📊 LeagueOfGraphs 符文勝率</a>
+                        <a class="ext-link" href="https://www.leagueofgraphs.com/champions/counters/thresh/support" target="_blank" rel="noopener">⚔ LeagueOfGraphs 對局</a>
+                        <a class="ext-link" href="https://lanelore.com/champions/thresh" target="_blank" rel="noopener">🧭 LaneLore 出裝與符文</a>
+                        <a class="ext-link ext-link--local" href="champions.html#champ=%E7%91%9F%E9%9B%B7%E8%A5%BF">📚 站內：克制／稱呼／技能</a>
+                    </div>
+                    <p class="ext-note">勝率、選用率等即時統計請看上面兩個外部網站（本站既有的資料來源）；本頁提供的是整理後的建議方向。</p>
                 </section>
             </article>
         </div>
@@ -1498,7 +1899,8 @@
 
         <div class="notice">
             📌 <b>資料說明：</b> 英雄、技能、符文與裝備資料及圖片皆取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），
-            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。符文為目前主流建議方向，實際請依對局、對手與版本調整。
+            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。技能加點、召喚師技能、對線重點與戰術解析為整理後的建議方向；
+            即時勝率與對局統計請點各卡片下方的 <b>LeagueOfGraphs</b> 與 <b>LaneLore</b> 連結。
         </div>
     </main>
 
@@ -1510,9 +1912,8 @@
     <script src="script.js"></script>
     <script src="state.js" defer></script>
     <script>
-        // 路線篩選 + 名稱搜尋（純前端，重新整理後由 state.js 還原）
         document.addEventListener('DOMContentLoaded', function () {
-            var cards = Array.prototype.slice.call(document.querySelectorAll('.db-card'));
+            var cards = Array.prototype.slice.call(document.querySelectorAll('#buildCards .db-card'));
             var tabs = Array.prototype.slice.call(document.querySelectorAll('#roleFilters .tab'));
             var box = document.getElementById('champFilter');
             var count = document.getElementById('itemsCount');
