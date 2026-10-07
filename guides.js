@@ -5,8 +5,8 @@
   function $(id) { return document.getElementById(id); }
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
-  var byName = {};
-  ITEMS.forEach(function (it) { byName[it.n] = it; });
+  var byName = {}, byId = {};
+  ITEMS.forEach(function (it) { byName[it.n] = it; byId[it.id] = it; });
 
   function card(it) {
     var picked = plan.indexOf(it.id) >= 0;
@@ -70,16 +70,16 @@
   function renderPlan() {
     var slots = [];
     for (var i = 0; i < 6; i++) {
-      var it = plan[i] ? byName[plan[i]] : null;
+      var it = plan[i] ? byId[plan[i]] : null;
       slots.push('<div class="gb-slot' + (it ? ' filled' : '') + '">' +
         (it ? '<button type="button" data-remove="' + esc(it.id) + '" title="移除"><img src="' + esc(it.icon) + '" alt="' + esc(it.n) + '"></button>' : (i + 1)) + '</div>');
     }
     $('gbSlots').innerHTML = slots.join('');
     $('gbPlanCount').textContent = plan.length + '／6';
-    var total = plan.reduce(function (n, id) { return n + (byName[id] ? byName[id].gold : 0); }, 0);
+    var total = plan.reduce(function (n, id) { return n + (byId[id] ? byId[id].gold : 0); }, 0);
     $('gbTotal').textContent = total;
     var paths = plan.map(function (id) {
-      var it = byName[id];
+      var it = byId[id];
       if (!it) return '';
       var from = (it.from || []);
       var parts = from.length
