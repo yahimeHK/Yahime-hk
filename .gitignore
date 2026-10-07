@@ -7,3 +7,10 @@ desktop.ini
 *.tmp
 *.bak
 *~
+
+# 開發／測試用的臨時檔案，不要上傳到網站
+_t_*.html
+_selftest*.html
+_*.py
+_build_*.py
+*.log
