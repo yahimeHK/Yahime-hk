@@ -460,7 +460,7 @@ __CLASSOPS__
     </footer>
 
     <script src="ui.js"></script>
-    <script src="nav.js" defer></script>`n    <script src="fx.js" defer></script>`n    <script src="state.js" defer></script>
+    <script src="nav.js" defer></script>`n    <script src="fx.js" defer></script>`n    <script src="i18n.js" defer></script>`n    <script src="state.js" defer></script>
     <script src="champions-db.js" defer></script>
 </body>
 </html>

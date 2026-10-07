@@ -34,6 +34,33 @@
     + '.subnav a,.role-filters .tab,.ghost-btn,.gold-btn,.ac-card__foot .ext-link,'
     + '.db-link,.download-btn,.readArticle,.product-card';
 
+
+  /* ---------- 框架層：所有區塊與卡片的一致外框（靜態，不受特效開關影響） ---------- */
+  var PANELS = '.section,.video-section,.notice,.items-hero,.champ-hero,.ex-hero,.shop-hero,'
+    + '.bottom-visual-content,.modal-box,.ex-modal__box,.db-modal__box,.stats,.allchamp';
+
+  var CARDS2 = '.db-card,.ac-card,.skin-card,.ability-card,.gear-card,.tac-card,.art-card,'
+    + '.map-card,.rune-card,.db-champ,.video-thumb,.quick,.counter-card,.product-card,'
+    + '.map-gal__item,.wall-card,.ac-rune,.ability,.item,.post,.article,.card';
+
+  var FRAME = [
+    /* 大區塊：一圈細框＋頂部高光＋柔和外陰影 */
+    ':is(' + PANELS + '){border-color:rgba(98,170,190,.22);',
+    'box-shadow:0 0 0 1px rgba(98,170,190,.16),inset 0 1px 0 rgba(255,255,255,.045),0 26px 60px -40px rgba(0,0,0,.95)}',
+    /* 卡片：統一框線顏色與內光 */
+    ':is(' + CARDS2 + '){border-color:rgba(98,170,190,.17);',
+    'box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}',
+    /* 條列／表格類：左側金色細線，與網站主色一致 */
+    ':is(.rune-card,.ac-rune,.ability,.item){border-color:rgba(98,170,190,.17)}',
+    /* 頁首、分類列、頁尾：一致的細分隔線 */
+    '.topbar,.subnav{border-bottom:1px solid rgba(98,170,190,.16)}',
+    'footer{border-top:1px solid rgba(98,170,190,.14)}',
+    /* 標籤與膠囊：統一外框 */
+    ':is(.tag,.badge,.hero-pills span,.champ-hero__pills span,.items-hero__pills span,.ex-hero__pills span){',
+    'border:1px solid rgba(98,170,190,.22)}',
+    '@media (max-width:700px){:is(' + PANELS + '){box-shadow:0 0 0 1px rgba(98,170,190,.16),0 14px 32px -24px rgba(0,0,0,.9)}}'
+  ].join('');
+
   var CSS = [
     /* ---------- 滑鼠移動：整頁聚光 ---------- */
     '#lol-fx-spot{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0;transition:opacity .5s ease;',
@@ -98,7 +125,7 @@
     if (document.getElementById('lol-fx-style')) return;
     var st = document.createElement('style');
     st.id = 'lol-fx-style';
-    st.textContent = CSS;
+    st.textContent = FRAME + CSS;
     document.head.appendChild(st);
   }
 

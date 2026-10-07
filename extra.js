@@ -62,7 +62,8 @@
     if (!keys.length) { sel.hidden = true; return; }
     var shown = keys.slice(0, 40);                     // 選項太多時只列前 40 個（其餘仍可用搜尋）
     sel.hidden = false;
-    sel.innerHTML = '<option value="all">' + esc(cfg.label) + '（' + keys.length + '）</option>' +
+    var allLabel = (window.LOLi18n && LOLi18n.t) ? LOLi18n.t(cfg.label) : cfg.label;
+    sel.innerHTML = '<option value="all">' + esc(allLabel) + '（' + keys.length + '）</option>' +
       shown.map(function (k) {
         return '<option value="' + esc(k) + '">' + esc(k) + '（' + counts[k] + '）</option>';
       }).join('') +
@@ -341,6 +342,15 @@
         bind();
         var sel = $('exSelect');
         if (sel) sel.addEventListener('change', function () { state.sel = sel.value; apply(); });
+        // 切換語言時重建下拉選項（標籤要跟著翻），並保留原本的選擇
+        window.addEventListener('lol:lang', function () {
+          var box = $('exSelect');
+          if (!box) return;
+          var keep = box.value;
+          buildFilter();
+          if (keep) { box.value = keep; state.sel = keep; }
+          apply();
+        });
       })
       .catch(function (err) {
         $('exCount').textContent = '資料載入失敗：' + err.message;
