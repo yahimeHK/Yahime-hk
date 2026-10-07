@@ -1,0 +1,9 @@
+# 作業系統 / 編輯器產生的雜項檔案
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 暫存與備份
+*.tmp
+*.bak
+*~
