@@ -174,6 +174,7 @@ def main():
     items = json.loads(ddragon('%s/data/zh_TW/item.json' % VER, 'item_%s.json' % VER))['data']
     trees = json.loads(ddragon('%s/data/zh_TW/runesReforged.json' % VER, 'runes_%s.json' % VER))
     en = json.loads(ddragon('%s/data/en_US/champion.json' % VER, 'champEn_%s.json' % VER))['data']
+    item_en = json.loads(ddragon('%s/data/en_US/item.json' % VER, 'itemEn_%s.json' % VER))['data']
 
     # 既有資料：位置與戰術解析沿用 build_champions.py 產生的 champions.json
     champ_json = os.path.join(ASSETS, 'champions.json')
@@ -197,7 +198,9 @@ def main():
                              'img': img,
                              'big': 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/%s_%d.jpg' % (key, s['num'])})
         if rows:
-            skins_out.append({'key': key, 'champ': c['name'], 'role': (base_by_key.get(key) or {}).get('role', ''),
+            base_info = base_by_key.get(key) or {}
+            skins_out.append({'key': key, 'champ': c['name'], 'role': base_info.get('role', ''),
+                              'en': base_info.get('en', key), 'aliases': base_info.get('aliases', []),
                               'skins': rows})
     write_json('skins.json', {'version': VER, 'champions': skins_out})
     print('  角色造型：%d 位英雄 / %d 張縮圖' % (len(skins_out), sum(len(x['skins']) for x in skins_out)))
@@ -208,8 +211,10 @@ def main():
         img = save_image('https://ddragon.leagueoflegends.com/cdn/img/champion/loading/%s_0.jpg' % key,
                          os.path.join('art', '%s.jpg' % key), width_px=ART_PX)
         if img:
+            base_info = base_by_key.get(key) or {}
             art_out.append({'key': key, 'champ': c['name'], 'title': c.get('title', ''),
-                            'role': (base_by_key.get(key) or {}).get('role', ''), 'img': img,
+                            'role': base_info.get('role', ''), 'en': base_info.get('en', key),
+                            'aliases': base_info.get('aliases', []), 'img': img,
                             'big': 'https://ddragon.leagueoflegends.com/cdn/img/champion/splash/%s_0.jpg' % key})
     write_json('gallery.json', {'version': VER, 'champions': art_out})
     print('  圖片：%d 張讀取圖' % len(art_out))
@@ -326,7 +331,8 @@ def main():
         if not icon:
             continue
         gear_out.append({
-            'id': iid, 'name': it['name'], 'icon': icon, 'gold': gold.get('total', 0),
+            'id': iid, 'name': it['name'], 'en': (item_en.get(iid) or {}).get('name', ''),
+            'icon': icon, 'gold': gold.get('total', 0),
             'tags': [TAG_ZH.get(x, x) for x in (it.get('tags') or [])],
             'desc': clean(it.get('plaintext') or it.get('description') or '', 170),
             'from': [items[str(x)]['name'] for x in (it.get('from') or []) if str(x) in items],
@@ -407,7 +413,12 @@ def write_pages(base):
 
         <div class="ex-toolbar">
             <div class="role-filters" id="exRoles" hidden></div>
-            <input type="search" id="exSearch" placeholder="搜尋…" aria-label="搜尋">
+            <div class="ex-searchbox">
+                <span class="ex-searchbox__icon" aria-hidden="true">🔍</span>
+                <input type="search" id="exSearch" placeholder="輸入關鍵字（中文或英文都可以）" aria-label="搜尋" autocomplete="off">
+                <button type="button" id="exFind" class="ex-find">搜尋</button>
+                <button type="button" id="exReset" class="ex-reset" title="清除關鍵字" aria-label="清除關鍵字">✕</button>
+            </div>
             <select id="exSelect" hidden></select>
             <span class="ex-count" id="exCount">載入中…</span>
         </div>
@@ -471,11 +482,34 @@ def write_css():
 }
 
 .ex-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 20px 0 8px; }
-.ex-toolbar input[type="search"], .ex-toolbar select {
+.ex-toolbar select {
   flex: 0 1 260px; min-width: 180px; padding: 11px 14px; color: #e8e4d9;
   background: #080e14; border: 1px solid #2b3a45; border-radius: 10px;
 }
-.ex-toolbar input[type="search"] { flex: 1 1 260px; }
+/* 搜尋框：圖示＋輸入＋搜尋鈕＋清除鈕 */
+.ex-searchbox {
+  flex: 1 1 320px; display: flex; align-items: center; gap: 6px;
+  padding: 4px 4px 4px 12px; background: #080e14;
+  border: 1px solid #2b3a45; border-radius: 12px; transition: border-color .18s, box-shadow .18s;
+}
+.ex-searchbox:focus-within { border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0, 217, 255, .12); }
+.ex-searchbox__icon { font-size: 14px; opacity: .75; }
+.ex-searchbox input[type="search"] {
+  flex: 1 1 auto; min-width: 0; padding: 8px 2px; color: #e8e4d9;
+  background: transparent; border: 0; outline: none; font: inherit;
+}
+.ex-searchbox input[type="search"]::-webkit-search-cancel-button { display: none; }
+.ex-searchbox .ex-find {
+  flex: 0 0 auto; padding: 8px 16px; font-size: 13px; font-weight: 800; color: #071016;
+  background: linear-gradient(180deg, #d8bd80, #c8aa6e); border: 0; border-radius: 9px; cursor: pointer;
+}
+.ex-searchbox .ex-find:hover { filter: brightness(1.08); }
+.ex-searchbox .ex-reset {
+  flex: 0 0 auto; display: none; padding: 8px 10px; font-size: 13px; color: #9da9b2;
+  background: #111d26; border: 1px solid #2b3a45; border-radius: 9px; cursor: pointer;
+}
+.ex-searchbox.has-query .ex-reset { display: inline-block; }
+.ex-searchbox .ex-reset:hover { color: #fff; border-color: #00d9ff; }
 .ex-count { margin-left: auto; color: #8e9aa4; font-size: 13px; }
 .ex-empty { text-align: center; padding: 30px; color: #76838d; }
 
@@ -611,7 +645,7 @@ def write_js():
     abilities: { file: 'champions.json', pick: function (d) { return d.champions; },
       intro: '全英雄的被動與 Q/W/E/R 圖示與官方技能說明，可用英雄、位置或技能名稱搜尋。',
       pills: function (d) { return [d.champions.length + ' 位英雄', sum(d.champions, 'ability') + ' 個技能']; } },
-    maps: { file: 'maps.json', noSearch: true, pick: function (d) { return d.maps; },
+    maps: { file: 'maps.json', pick: function (d) { return d.maps; },
       intro: '官方遊戲內地圖素材（小地圖與各地形變化）與戰術重點：目標時間、地形、視野，點縮圖可放大。',
       pills: function (d) { return [d.maps.length + ' 張地圖', 'Patch ' + d.version]; } },
     runes: { file: 'runes.json', pick: function (d) { return d.trees; },
@@ -634,6 +668,13 @@ def write_js():
 
   function role(name) { return name ? '<span class="tag tag--role">' + esc(name) + '</span>' : ''; }
 
+  // 搜尋索引：中文名、英文名、稱號、玩家稱呼、職業、額外文字都會被搜到
+  function sText(c, extra) {
+    if (!c) return String(extra || '');
+    return [c.champ || c.name || '', c.en || '', c.title || '',
+      (c.aliases || []).join(' '), (c.tags || []).join(' '), extra || ''].join(' ').replace(/[ ]+/g, ' ').trim();
+  }
+
   /* ---------------------------------------------------------------- 各頁卡片 */
   function cardSkins(c) {
     var imgs = c.skins.map(function (s) {
@@ -641,19 +682,19 @@ def write_js():
         '<img src="' + esc(s.img) + '" alt="' + esc(s.name) + '" loading="lazy">' +
         '<span>' + esc(s.name) + '</span></button>';
     }).join('');
-    return '<section class="skin-champ" data-role="' + esc(c.role) + '" data-name="' + esc(c.champ + ' ' + c.skins.map(function (s) { return s.name; }).join(' ')) + '">' +
+    return '<section class="skin-champ" data-role="' + esc(c.role) + '" data-name="' + esc(sText(c, c.skins.map(function (s) { return s.name; }).join(' '))) + '">' +
       '<div class="skin-champ__head"><b>' + esc(c.champ) + '</b>' + role(c.role) +
       '<span>' + c.skins.length + ' 個造型</span></div><div class="skin-grid">' + imgs + '</div></section>';
   }
 
   function cardArt(c) {
-    return '<figure class="art-card" data-big="' + esc(c.big) + '" data-name="' + esc(c.champ + ' ' + c.title) + '">' +
+    return '<figure class="art-card" data-big="' + esc(c.big) + '" data-name="' + esc(sText(c)) + '">' +
       '<img src="' + esc(c.img) + '" alt="' + esc(c.champ) + '" loading="lazy">' +
       '<span>' + esc(c.champ) + ' <small>' + esc(c.title) + '</small></span></figure>';
   }
 
   function cardAbility(c, a) {
-    return '<article class="ability-card" data-name="' + esc(c.name + ' ' + a.n + ' ' + a.k) + '">' +
+    return '<article class="ability-card" data-name="' + esc(sText(c, a.n + ' ' + a.k + ' ' + a.d)) + '">' +
       '<img src="' + esc(a.i) + '" alt="' + esc(a.n) + '" loading="lazy">' +
       '<div><small>' + esc(c.name) + ' · ' + esc(a.k) + '</small>' +
       '<b>' + esc(a.n) + '</b><p>' + esc(a.d) + '</p></div></article>';
@@ -664,7 +705,7 @@ def write_js():
       return '<button type="button" class="map-gal__item" data-big="' + esc(g.img) + '" data-name="' + esc(m.name + ' ' + g.name) + '">' +
         '<img src="' + esc(g.img) + '" alt="' + esc(g.name) + '" loading="lazy"><span>' + esc(g.name) + '</span></button>';
     }).join('') + '</div>' : '';
-    return '<article class="map-card"><div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
+    return '<article class="map-card" data-name="' + esc(m.name + ' ' + m.sub + ' ' + (m.notes || []).join(' ')) + '"><div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
       '<div><h2>' + esc(m.name) + '</h2><small>' + esc(m.sub) + '</small><ul>' +
       m.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' + gal + '</div></article>';
   }
@@ -685,7 +726,7 @@ def write_js():
   function cardGear(it) {
     var tags = (it.tags || []).map(function (x) { return '<span class="tag">' + esc(x) + '</span>'; }).join('');
     var path = (it.from && it.from.length) ? '<p>合成：' + esc(it.from.join(' + ')) + '</p>' : '';
-    return '<article class="gear-card" data-tags="' + esc((it.tags || []).join(' ')) + '" data-name="' + esc(it.name + ' ' + it.desc) + '">' +
+    return '<article class="gear-card" data-tags="' + esc((it.tags || []).join(' ')) + '" data-name="' + esc([it.name, it.en || '', it.desc, (it.tags || []).join(' ')].join(' ')) + '">' +
       '<img src="' + esc(it.icon) + '" alt="' + esc(it.name) + '" loading="lazy">' +
       '<div><b>' + esc(it.name) + '</b><span class="gold">' + it.gold + ' 金幣</span>' +
       '<p>' + esc(it.desc) + '</p>' + path + '<div class="tags">' + tags + '</div></div></article>';
@@ -696,7 +737,7 @@ def write_js():
     var tips = (t.tips || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     var enemy = (t.enemy || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     var weak = (t.weak || []).join('、'), strong = (t.strong || []).join('、');
-    return '<article class="tac-card" data-role="' + esc(c.role) + '" data-name="' + esc(c.name + ' ' + c.title + ' ' + c.tags.join(' ')) + '">' +
+    return '<article class="tac-card" data-role="' + esc(c.role) + '" data-name="' + esc(sText(c, (c.tactic || {}).style)) + '">' +
       '<div class="tac-card__head"><img src="' + esc(c.avatar) + '" alt="' + esc(c.name) + '" loading="lazy">' +
       '<div><b>' + esc(c.name) + '</b><small>' + esc(c.title) + ' · ' + esc(c.role) + '</small></div></div>' +
       '<div class="box box--gold">' + esc(t.style || '') + '</div>' +
@@ -734,13 +775,15 @@ def write_js():
     else if (MODE === 'gear') body.innerHTML = DATA.map(cardGear).join('');
     else if (MODE === 'tactics') body.innerHTML = DATA.map(cardTactic).join('');
 
-    ITEMS = [].slice.call(body.querySelectorAll('[data-name]'));
+    ITEMS = [].slice.call(body.querySelectorAll('[data-name]')).filter(function (el) { return !el.classList.contains('rune-card'); });
     apply();
   }
 
   function apply() {
-    var q = (state.q || '').toLowerCase().trim();
+    var raw = state.q || '';
+    var q = raw.toLowerCase().trim();
     var shown = 0;
+
     ITEMS.forEach(function (el) {
       var okRole = (state.role === '全部' || el.dataset.role === state.role || !el.dataset.role);
       var okSel = (state.sel === 'all' || (el.dataset.tags || '').indexOf(state.sel) >= 0 || !el.dataset.tags);
@@ -749,7 +792,8 @@ def write_js():
       el.hidden = !on;
       if (on) shown++;
     });
-    if (MODE === 'skins') {   // 造型頁以「英雄區塊」為單位過濾
+
+    if (MODE === 'skins') {           // 造型頁以「英雄區塊」為單位
       var blocks = document.querySelectorAll('.skin-champ');
       shown = 0;
       Array.prototype.forEach.call(blocks, function (b) {
@@ -759,30 +803,46 @@ def write_js():
         b.hidden = !on;
         if (on) shown++;
       });
-      $('exCount').textContent = '顯示 ' + shown + ' 位英雄的造型';
-    } else if (MODE === 'runes') {
+    } else if (MODE === 'runes') {     // 符文頁以「符文樹」為單位（樹內文字都算）
       var trees = document.querySelectorAll('.rune-tree-block');
-      var n = 0;
-      Array.prototype.forEach.call(trees, function (t) {
-        var ok = !q || (t.dataset.name || '').toLowerCase().indexOf(q) >= 0 || t.textContent.toLowerCase().indexOf(q) >= 0;
-        t.hidden = !ok;
-        if (ok) n++;
+      shown = 0;
+      Array.prototype.forEach.call(trees, function (tr) {
+        var ok = !q || (tr.textContent || '').toLowerCase().indexOf(q) >= 0;
+        tr.hidden = !ok;
+        if (ok) shown++;
       });
-      $('exCount').textContent = '顯示 ' + n + ' 條符文樹（共 ' + trees.length + ' 條）';
-    } else {
-      if (MODE === 'maps') $('exCount').textContent = '共 ' + DATA.length + ' 張地圖';
-      else $('exCount').textContent = '顯示 ' + shown + ' 筆資料';
     }
-    $('exEmpty').hidden = (MODE === 'skins' || MODE === 'runes') ? true : shown !== 0;
-  }
 
+    var suffix = q ? '（關鍵字：' + raw.trim() + '）' : '';
+    if (MODE === 'skins') $('exCount').textContent = '顯示 ' + shown + ' 位英雄的造型' + suffix;
+    else if (MODE === 'runes') $('exCount').textContent = '顯示 ' + shown + ' 條符文樹（共 ' + DATA.length + ' 條）' + suffix;
+    else if (MODE === 'maps') $('exCount').textContent = '顯示 ' + shown + ' / 共 ' + DATA.length + ' 張地圖' + suffix;
+    else $('exCount').textContent = '顯示 ' + shown + ' 筆資料（共 ' + DATA.length + ' 筆）' + suffix;
+
+    $('exEmpty').hidden = shown !== 0;
+    var sbox = document.querySelector('.ex-searchbox');
+    if (sbox) sbox.classList.toggle('has-query', !!raw.trim());
+  }
   /* ------------------------------------------------------------------ 事件 */
   function bind() {
     var box = $('exSearch');
-    if (box) {
-      if (CFG[MODE].noSearch) box.hidden = true;
-      box.addEventListener('input', function () { state.q = box.value; apply(); });
+    function run() {
+      state.q = box ? box.value : '';
+      apply();
     }
+    if (box) {
+      box.addEventListener('input', run);                       // 打字即時篩選
+      box.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') { e.preventDefault(); run(); focusFirst(); }
+        if (e.key === 'Escape') { box.value = ''; run(); }
+      });
+    }
+    if ($('exFind')) $('exFind').addEventListener('click', function () { run(); focusFirst(); });
+    if ($('exReset')) $('exReset').addEventListener('click', function () {
+      if (box) { box.value = ''; box.focus(); }
+      state.q = '';
+      apply();
+    });
     var sel = $('exSelect');
     if (sel) sel.addEventListener('change', function () { state.sel = sel.value; apply(); });
     var modal = $('exModal');
@@ -801,6 +861,17 @@ def write_js():
     if ($('exClose')) $('exClose').addEventListener('click', closeModal);
     if (modal) modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+  }
+
+  // 按下搜尋後捲到第一筆結果，讓使用者馬上看到變化
+  function focusFirst() {
+    var list = document.querySelectorAll('#exBody [data-name]');
+    for (var i = 0; i < list.length; i++) {
+      if (!list[i].hidden) {
+        if (list[i].scrollIntoView) list[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+    }
   }
   function closeModal() {
     $('exModal').classList.remove('show');
