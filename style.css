@@ -404,35 +404,3 @@ body {
   .hero-content, .bottom-visual-content { width: min(1320px, 92%); }
   .section, .video-section, .notice, footer { width: min(1320px, 92%); }
 }
-
-/* ===== 分類導覽列（七個分類分頁） ===== */
-.subnav {
-  position: sticky; top: 64px; z-index: 45;
-  background: rgba(5, 8, 13, .92);
-  border-bottom: 1px solid #1d2a33;
-  backdrop-filter: blur(12px);
-}
-.subnav__inner {
-  width: min(1200px, 90%); margin: 0 auto;
-  display: flex; align-items: center; gap: 6px;
-  padding: 8px 0; overflow-x: auto; flex-wrap: nowrap;
-  scrollbar-width: none;
-}
-.subnav__inner::-webkit-scrollbar { display: none; }
-.subnav__label {
-  flex: 0 0 auto; margin-right: 6px; font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
-  color: #00d9ff; text-transform: uppercase;
-}
-.subnav a {
-  flex: 0 0 auto; padding: 6px 12px; font-size: 13px; color: #aab4be;
-  border: 1px solid transparent; border-radius: 999px; white-space: nowrap;
-  transition: color .18s, background .18s, border-color .18s;
-}
-.subnav a:hover { color: #fff; background: #111d26; border-color: #2a4a58; }
-.subnav a.is-here { color: #071016; background: #c8aa6e; border-color: #c8aa6e; font-weight: 800; }
-@media (max-width: 700px) {
-  .subnav { top: 56px; }
-  .subnav__inner { width: 94%; gap: 4px; padding: 6px 0; }
-  .subnav a { padding: 5px 10px; font-size: 12px; }
-  .subnav__label { display: none; }
-}

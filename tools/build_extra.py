@@ -808,87 +808,14 @@ def write_js():
 
 
 def write_nav():
-    """分類導覽列：由 JS 注入，所有頁面共用（含手機可橫向捲動）。"""
-    js = '''/* ==========================================================================
-   LOL 攻略站 — 分類導覽列（七個分類分頁）
-   注入在 topbar 之後，所有頁面共用；目前頁面會自動標記。
-   ========================================================================== */
-(function () {
-  'use strict';
-  var PAGES = [
-    ['skins.html', '角色造型'],
-    ['gallery.html', '圖片'],
-    ['abilities.html', '技能圖片'],
-    ['maps.html', '地圖'],
-    ['runes.html', '符文'],
-    ['gear.html', '核心裝備'],
-    ['tactics.html', '戰術解析']
-  ];
-  function build() {
-    if (document.querySelector('.subnav')) return;
-    var top = document.querySelector('.topbar');
-    if (!top) return;
-    var here = location.pathname.split('/').pop() || 'index.html';
-    var links = PAGES.map(function (p) {
-      var on = (p[0] === here) ? ' class="is-here"' : '';
-      return '<a href="' + p[0] + '"' + on + '>' + p[1] + '</a>';
-    }).join('');
-    var nav = document.createElement('nav');
-    nav.className = 'subnav';
-    nav.setAttribute('aria-label', '分類資料庫');
-    nav.innerHTML = '<div class="subnav__inner"><span class="subnav__label">分類資料庫</span>' + links + '</div>';
-    top.parentNode.insertBefore(nav, top.nextSibling);
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
-  else build();
-})();
-'''
-    with open(os.path.join(SITE, 'nav.js'), 'w', encoding='utf-8', newline='\n') as fh:
-        fh.write(js)
-
-    # 分類導覽列樣式（附加到 style.css，只加一次）
-    css_path = os.path.join(SITE, 'style.css')
-    with open(css_path, encoding='utf-8') as fh:
-        css = fh.read()
-    if '.subnav' not in css:
-        css += '''
-
-/* ===== 分類導覽列（七個分類分頁） ===== */
-.subnav {
-  position: sticky; top: 64px; z-index: 45;
-  background: rgba(5, 8, 13, .92);
-  border-bottom: 1px solid #1d2a33;
-  backdrop-filter: blur(12px);
-}
-.subnav__inner {
-  width: min(1200px, 90%); margin: 0 auto;
-  display: flex; align-items: center; gap: 6px;
-  padding: 8px 0; overflow-x: auto; flex-wrap: nowrap;
-  scrollbar-width: none;
-}
-.subnav__inner::-webkit-scrollbar { display: none; }
-.subnav__label {
-  flex: 0 0 auto; margin-right: 6px; font-size: 11px; font-weight: 800; letter-spacing: 1.6px;
-  color: #00d9ff; text-transform: uppercase;
-}
-.subnav a {
-  flex: 0 0 auto; padding: 6px 12px; font-size: 13px; color: #aab4be;
-  border: 1px solid transparent; border-radius: 999px; white-space: nowrap;
-  transition: color .18s, background .18s, border-color .18s;
-}
-.subnav a:hover { color: #fff; background: #111d26; border-color: #2a4a58; }
-.subnav a.is-here { color: #071016; background: #c8aa6e; border-color: #c8aa6e; font-weight: 800; }
-@media (max-width: 700px) {
-  .subnav { top: 56px; }
-  .subnav__inner { width: 94%; gap: 4px; padding: 6px 0; }
-  .subnav a { padding: 5px 10px; font-size: 12px; }
-  .subnav__label { display: none; }
-}
-'''
-        with open(css_path, 'w', encoding='utf-8', newline='\n') as fh:
-            fh.write(css)
-    print('  已寫入 nav.js 與 .subnav 樣式')
-
+    """分類導覽列（nav.js）已經改成手動維護：樣式內嵌在 nav.js 裡，
+    避免瀏覽器快取舊的 style.css 時導覽列變成沒有間距的純文字。
+    這裡只確認檔案存在，不覆蓋它。"""
+    nav = os.path.join(SITE, 'nav.js')
+    if not os.path.exists(nav):
+        print('   ! 找不到 nav.js（分類導覽列），請確認檔案存在', file=sys.stderr)
+    else:
+        print('  nav.js 存在（樣式內嵌，不覆蓋）')
 
 if __name__ == '__main__':
     sys.exit(main())
