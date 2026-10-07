@@ -215,36 +215,82 @@ def main():
     print('  圖片：%d 張讀取圖' % len(art_out))
 
     # ---------------------------------------------------- 3) 地圖
-    maps_meta = [
-        ('map11', '召喚峽谷', '5 對 5 經典模式', [
-            '三條路線＋野區，地圖目標決定勝負節奏。',
-            '小龍 5:00 出生，之後每 5 分鐘重生；擊殺 4 條可獲得龍魂。',
-            '預示者 8:00 出生、14:00 前要打完，可召喚撞塔。',
-            '巴龍 20:00 出生，重生間隔 6 分鐘；拿到巴龍是推進與結束比賽的關鍵。',
-            '視野重點：河道草叢、三角草、龍／巴龍區入口。',
-        ]),
-        ('map12', '嚎哭深淵', 'ARAM 單線大亂鬥', [
-            '單線擠壓、無法回城，只能靠死亡或隊友治療補給。',
-            '開場就是團戰，選角以消耗、開戰與清線能力為主。',
-            '雪球（標記）是唯一的進場位移手段，請善用。',
-            '血量低於一定程度才能買裝，記得把錢花在刀口上。',
-        ]),
-        ('map22', '競技場', 'Arena 雙人組合', [
-            '多隊輪替對戰，回合制節奏。',
-            '強化符文（Augment）決定流派走向，先看抽到的再決定買裝。',
-            '與隊友的組合搭配比單卡強度重要。',
-        ]),
-        ('map30', '其他地圖', '特殊模式素材', [
-            '官方輪替模式（如無限死鬥、終極法書等）會使用不同地圖素材。',
-            '模式規則以遊戲內公告為準。',
-        ]),
+    # 地圖素材改用 CommunityDragon 的遊戲原始檔（Data Dragon 的 map22／map30 其實是空樣板圖）
+    CD = 'https://raw.communitydragon.org/latest/game/assets/maps/info/'
+
+    def cd_image(folder, fname, local):
+        return save_image(CD + folder + '/' + fname, os.path.join('map', local))
+
+    MAP_DEFS = [
+        {
+            'id': 'map11', 'name': '召喚峽谷', 'sub': '5 對 5 經典模式（map11）',
+            'main': ('map11', '2dlevelminimap_base_baron1.png', 'sr-summoners-rift.png'),
+            'notes': [
+                '三條路線＋野區，地圖目標決定勝負節奏。',
+                '小龍 5:00 出生，之後每 5 分鐘重生；擊殺 4 條可獲得龍魂。',
+                '預示者 8:00 出生、14:00 前要打完，可召喚撞塔。',
+                '巴龍 20:00 出生，重生間隔 6 分鐘；拿到巴龍是推進與結束比賽的關鍵。',
+                '拿到元素龍之後地形會改變（下方五張就是各地形的小地圖）。',
+                '視野重點：河道草叢、三角草、龍／巴龍區入口。',
+            ],
+            'gallery': [
+                ('雲龍（風）地形', 'map11', '2dlevelminimap_cloud_baron1.png', 'sr-cloud.png'),
+                ('海龍（水）地形', 'map11', '2dlevelminimap_ocean_baron1.png', 'sr-ocean.png'),
+                ('山龍（地）地形', 'map11', '2dlevelminimap_mountain_baron1.png', 'sr-mountain.png'),
+                ('火龍地形', 'map11', '2dlevelminimap_infernal_baron1.png', 'sr-infernal.png'),
+                ('海克斯龍地形', 'map11', '2dlevelminimap_hextech_baron1.png', 'sr-hextech.png'),
+            ],
+        },
+        {
+            'id': 'map12', 'name': '嚎哭深淵', 'sub': 'ARAM 單線大亂鬥（map12）',
+            'main': ('map12', '2dlevelminimap.png', 'aram-howling-abyss.png'),
+            'notes': [
+                '單線擠壓、無法回城，只能靠死亡或隊友治療補給。',
+                '開場就是團戰，選角以消耗、開戰與清線能力為主。',
+                '雪球（標記）是唯一的進場位移手段，請善用。',
+                '血量低於一定程度才能買裝，記得把錢花在刀口上。',
+                '活動期間地圖會有不同主題（下方為歷來的主題版本）。',
+            ],
+            'gallery': [
+                ('綻放主題', 'map12', '2dlevelminimap_bloom.png', 'aram-bloom.png'),
+                ('節慶主題', 'map12', '2dlevelminimap_crepe.png', 'aram-crepe.png'),
+                ('比爾吉沃特主題', 'map12', '2dlevelminimap_bilgewater2.png', 'aram-bilgewater.png'),
+            ],
+        },
+        {
+            'id': 'map30', 'name': '競技場', 'sub': 'Arena 雙人組合（map30）',
+            'main': ('map30', 'map_ringsofwrath_arenaa_frostbitethicket.png', 'arena-frostbite.png'),
+            'notes': [
+                '多隊輪替對戰、回合制節奏，每回合會在不同場地進行。',
+                '強化符文（Augment）決定流派走向，先看抽到的再決定買裝。',
+                '與隊友的組合搭配比單卡強度重要。',
+                '場地會影響走位與開戰方式，圓環邊緣與草叢是關鍵。',
+                '下方是全部八個場地（點圖可放大）。',
+            ],
+            'gallery': [
+                ('先祖之林', 'map30', 'map_ringsofwrath_arenab_ancestralwoods.png', 'arena-ancestral.png'),
+                ('沙漠綠洲', 'map30', 'map_ringsofwrath_arenac_desertoasis.png', 'arena-desert.png'),
+                ('熔岩密室', 'map30', 'map_ringsofwrath_arenad_magmachamber.png', 'arena-magma.png'),
+                ('錦鯉池', 'map30', 'map_ringsofwrath_arenae_koiponds.png', 'arena-koi.png'),
+                ('審判之坑', 'map30', 'map_ringsofwrath_arenaf_reckonerpit.png', 'arena-reckoner.png'),
+                ('灰白之林', 'map30', 'map_ringsofwrath_arenag_petricitegrove.png', 'arena-petricite.png'),
+            ],
+        },
     ]
+
     maps_out = []
-    for mid, name, sub, notes in maps_meta:
-        img = save_image('https://ddragon.leagueoflegends.com/cdn/%s/img/map/%s.png' % (VER, mid),
-                         os.path.join('map', '%s.png' % mid))
-        if img:
-            maps_out.append({'id': mid, 'name': name, 'sub': sub, 'img': img, 'notes': notes})
+    for m in MAP_DEFS:
+        folder, fname, local = m['main']
+        img = cd_image(folder, fname, local)
+        if not img:
+            continue
+        gallery = []
+        for label, gfolder, gfname, glocal in m.get('gallery', []):
+            gi = cd_image(gfolder, gfname, glocal)
+            if gi:
+                gallery.append({'name': label, 'img': gi})
+        maps_out.append({'id': m['id'], 'name': m['name'], 'sub': m['sub'], 'img': img,
+                         'notes': m['notes'], 'gallery': gallery})
     write_json('maps.json', {'version': VER, 'maps': maps_out})
     print('  地圖：%d 張' % len(maps_out))
 
@@ -371,7 +417,8 @@ def write_pages(base):
 
         <div class="notice">
             📌 <b>資料說明：</b> 內容與圖片取自 Riot 官方 Data Dragon <b>__VER__</b>（zh_TW），
-            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。分類頁面由 <b>tools/build_extra.py</b> 產生，可重複更新。
+            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外；地圖的小地圖素材取自 CommunityDragon 的遊戲原始檔（版權屬 Riot Games）。
+            分類頁面由 <b>tools/build_extra.py</b> 產生，可重複更新。
         </div>
     </main>
 
@@ -468,6 +515,12 @@ def write_css():
 .map-card h2 { margin: 0 0 4px; font-size: 22px; color: #f0eadb; }
 .map-card small { display: block; margin-bottom: 10px; color: #00d9ff; font-weight: 700; letter-spacing: 1px; font-size: 11.5px; }
 .map-card ul { margin: 0; padding-left: 18px; color: #c0c8cf; font-size: 13px; line-height: 1.75; }
+.map-gal { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; margin-top: 14px; }
+.map-gal__item { padding: 0; border: 1px solid #253540; border-radius: 10px; overflow: hidden; background: #0d151d; cursor: pointer; transition: .2s; }
+.map-gal__item:hover { transform: translateY(-3px); border-color: #00d9ff; }
+.map-gal__item img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.map-gal__item span { display: block; padding: 6px 8px; font-size: 11.5px; color: #c0c8cf; text-align: left; }
+@media (max-width: 700px) { .map-gal { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* ---- 符文 ---- */
 .rune-tree-block { margin-bottom: 26px; }
@@ -559,7 +612,7 @@ def write_js():
       intro: '全英雄的被動與 Q/W/E/R 圖示與官方技能說明，可用英雄、位置或技能名稱搜尋。',
       pills: function (d) { return [d.champions.length + ' 位英雄', sum(d.champions, 'ability') + ' 個技能']; } },
     maps: { file: 'maps.json', noSearch: true, pick: function (d) { return d.maps; },
-      intro: '官方地圖素材與各地圖的戰術重點（目標時間、地形與視野）。',
+      intro: '官方遊戲內地圖素材（小地圖與各地形變化）與戰術重點：目標時間、地形、視野，點縮圖可放大。',
       pills: function (d) { return [d.maps.length + ' 張地圖', 'Patch ' + d.version]; } },
     runes: { file: 'runes.json', pick: function (d) { return d.trees; },
       intro: '五條符文樹的完整符文清單：圖示、名稱與官方符文說明（shortDesc／longDesc）。',
@@ -607,9 +660,13 @@ def write_js():
   }
 
   function cardMap(m) {
+    var gal = (m.gallery && m.gallery.length) ? '<div class="map-gal">' + m.gallery.map(function (g) {
+      return '<button type="button" class="map-gal__item" data-big="' + esc(g.img) + '" data-name="' + esc(m.name + ' ' + g.name) + '">' +
+        '<img src="' + esc(g.img) + '" alt="' + esc(g.name) + '" loading="lazy"><span>' + esc(g.name) + '</span></button>';
+    }).join('') + '</div>' : '';
     return '<article class="map-card"><div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
       '<div><h2>' + esc(m.name) + '</h2><small>' + esc(m.sub) + '</small><ul>' +
-      m.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul></div></article>';
+      m.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' + gal + '</div></article>';
   }
 
   function cardRuneTree(t) {

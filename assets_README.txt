@@ -101,3 +101,8 @@ tactics.html    戰術解析：173 位英雄的玩法定位、位置重點、Rio
 
 造型縮圖（144px）與讀取圖（260px 寬）由 Pillow 縮小後才存入 assets，原始大圖只留在快取，
 所以 2,737 張圖片總共只有約 27 MB。
+
+地圖素材來源補充：
+maps.html 的小地圖與地形圖（召喚峽谷＋五種元素龍地形、嚎哭深淵＋活動主題、競技場八個場地）
+取自 CommunityDragon（raw.communitydragon.org）的遊戲原始檔，版權屬 Riot Games；
+Data Dragon 的 img/map/map22.png 與 map30.png 其實是相同的空樣板圖，已不再使用。

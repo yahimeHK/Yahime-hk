@@ -19,7 +19,7 @@
       intro: '全英雄的被動與 Q/W/E/R 圖示與官方技能說明，可用英雄、位置或技能名稱搜尋。',
       pills: function (d) { return [d.champions.length + ' 位英雄', sum(d.champions, 'ability') + ' 個技能']; } },
     maps: { file: 'maps.json', noSearch: true, pick: function (d) { return d.maps; },
-      intro: '官方地圖素材與各地圖的戰術重點（目標時間、地形與視野）。',
+      intro: '官方遊戲內地圖素材（小地圖與各地形變化）與戰術重點：目標時間、地形、視野，點縮圖可放大。',
       pills: function (d) { return [d.maps.length + ' 張地圖', 'Patch ' + d.version]; } },
     runes: { file: 'runes.json', pick: function (d) { return d.trees; },
       intro: '五條符文樹的完整符文清單：圖示、名稱與官方符文說明（shortDesc／longDesc）。',
@@ -67,9 +67,13 @@
   }
 
   function cardMap(m) {
+    var gal = (m.gallery && m.gallery.length) ? '<div class="map-gal">' + m.gallery.map(function (g) {
+      return '<button type="button" class="map-gal__item" data-big="' + esc(g.img) + '" data-name="' + esc(m.name + ' ' + g.name) + '">' +
+        '<img src="' + esc(g.img) + '" alt="' + esc(g.name) + '" loading="lazy"><span>' + esc(g.name) + '</span></button>';
+    }).join('') + '</div>' : '';
     return '<article class="map-card"><div><img src="' + esc(m.img) + '" alt="' + esc(m.name) + '" loading="lazy"></div>' +
       '<div><h2>' + esc(m.name) + '</h2><small>' + esc(m.sub) + '</small><ul>' +
-      m.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul></div></article>';
+      m.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' + gal + '</div></article>';
   }
 
   function cardRuneTree(t) {
