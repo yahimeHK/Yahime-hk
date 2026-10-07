@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
-    <title>LOL 攻略站 V6.0 - 戰術商城（AI 協作計算）</title>
+    <title>LOL 攻略站 V6.0 - 戰術商城（攻略包試算）</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="shop.css">
 </head>
@@ -23,9 +23,9 @@
 
     <main class="shop-wrap">
         <section class="shop-hero">
-            <small>AI TACTICAL STORE</small>
-            <h1>AI 特製實戰攻略包 <em>訂購區</em></h1>
-            <p>選一個你現在最想修練的方向、輸入數量，系統會即時試算金額並發放數位序號。滿 1000 RP 另外解鎖 AI 加贈的『峽谷心理戰小冊』。</p>
+            <small>TACTICAL STORE</small>
+            <h1>實戰攻略包 <em>訂購區</em></h1>
+            <p>選一個你現在最想修練的方向、輸入數量，系統會即時試算金額並發放數位序號。滿 1000 RP 另外贈送『峽谷心理戰小冊』。</p>
             <div class="shop-hero__pills">
                 <span>3 種戰術包</span>
                 <span>滿 1000 RP 送贈品</span>
@@ -114,7 +114,7 @@
             <div class="perk">
                 <div class="ico">🎁</div>
                 <b>滿額贈品</b>
-                <p>總額滿 1000 RP 就解鎖 AI 加贈的『峽谷心理戰小冊』，序號會一起給你。</p>
+                <p>總額滿 1000 RP 就贈送『峽谷心理戰小冊』，序號會一起給你。</p>
             </div>
             <div class="perk">
                 <div class="ico">🔒</div>
@@ -125,7 +125,7 @@
 
         <div class="heading" style="margin-top: 50px;">
             <small>GUIDE ARTICLES</small>
-            <h2>AI 推薦文摘</h2>
+            <h2>推薦文摘</h2>
             <p>下單前先看幾篇，挑一個最符合你現在瓶頸的方向。</p>
         </div>
         <div class="article-grid" id="articleGrid" style="margin-top: 20px;"></div>
@@ -135,6 +135,7 @@
     <footer>
         <div>&copy; 2026 LOL 攻略站。LOL 攻略站是在 Riot Games 的「法律通則」方針下利用該公司擁有的資產所製作。Riot Games 不為此專案提供背書或贊助。</div>
         <div>資料基於 Patch 16.20.1（Riot 官方 Data Dragon）· 僅供遊戲參考 · 非官方粉絲網站</div>
+        <div>本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。</div>
     </footer>
 
     <script src="script.js"></script>
@@ -225,7 +226,7 @@
                 const code = 'SG-' + new Date().getFullYear() + '-' +
                              Math.random().toString(36).slice(2, 6).toUpperCase();
                 const bonus = total >= GOAL
-                    ? '<div class="shop-bonus-line">🎁 滿額觸發：解鎖 AI 加贈的『峽谷心理戰小冊』！</div>'
+                    ? '<div class="shop-bonus-line">🎁 滿額觸發：贈送『峽谷心理戰小冊』！</div>'
                     : '<div class="shop-bonus-line shop-bonus-line--dim">💡 再購買 ' + (GOAL - total) + ' RP 即可獲得贈品！</div>';
 
                 out.className = 'is-ok';

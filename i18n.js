@@ -90,6 +90,7 @@
     '核心對線': ['Matchup lab', 'マッチアップラボ', '맞라인 연구소'],
     '前往戰術商城與分析 ⚔': ['Open tactics store ⚔', 'タクティクスへ ⚔', '전술 상점으로 ⚔'],
     // 提示
+    '本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。': ['This is a static guide database. It does not use the Riot API and provides no live match or rank lookup.', '本サイトは静的な攻略データベースです。Riot API は使用しておらず、リアルタイムの戦績やランク検索は提供していません。', '이 사이트는 정적 공략 데이터베이스입니다. Riot API를 사용하지 않으며 실시간 전적이나 랭크 조회를 제공하지 않습니다.'],
     '© 2026 LOL 攻略站。LOL 攻略站是在 Riot Games 的「法律通則」方針下利用該公司擁有的資產所製作。Riot Games 不為此專案提供背書或贊助。': [
         '© 2026 LOL Guide Site. LOL Guide Site was created under Riot Games\' "Legal Jibber Jabber" policy using assets owned by Riot Games. Riot Games does not endorse or sponsor this project.',
         '© 2026 LOL 攻略サイト。LOL 攻略サイトは Riot Games の「Legal Jibber Jabber」ポリシーに基づき、Riot Games が所有するアセットを使用して制作されています。Riot Games は本プロジェクトを推奨または後援していません。',
@@ -113,7 +114,7 @@
     '輸入你的對手英雄，網站會從站內整理的克制資料與定位／玩法標籤，整理出一組「對線思考方向」，並附上 LeagueOfGraphs 與 LaneLore 的即時對局連結，讓你在載入畫面時就建立下一場的思路。': ['Enter your lane opponent and the site builds a “laning game plan” from its curated counter data and role/playstyle tags, plus live matchup links from LeagueOfGraphs and LaneLore.', '対面チャンピオンを入力すると、サイト内のカウンター情報とロール／プレイスタイルから「レーニングの考え方」を整理し、LeagueOfGraphs と LaneLore の最新マッチアップへのリンクも表示します。', '상대 챔피언을 입력하면 사이트의 카운터 데이터와 포지션/플레이스타일 태그로 “라인전 사고 방향”을 정리하고 LeagueOfGraphs·LaneLore 실시간 링크를 함께 보여줍니다.'],
     '選一個你現在最想修練的方向、輸入數量，系統會即時試算金額並發放數位序號。滿 1000 RP 另外解鎖 AI 加贈的『峽谷心理戰小冊』。': ['Pick the area you most want to improve and set a quantity — the total is calculated instantly and a digital code is issued. Orders of 1000 RP or more also unlock the bonus booklet.', '伸ばしたい分野を選んで数量を入力すると、金額を即時計算してデジタルコードを発行します。1000 RP 以上で特典冊子も解放。', '키우고 싶은 분야를 고르고 수량을 입력하면 금액이 즉시 계산되고 디지털 코드가 발급됩니다. 1000 RP 이상은 보너스 소책자도 해금됩니다.'],
     '改數量、換貨物，總額與滿額進度條立刻跟著變，不用按任何按鈕。': ['Change the quantity or the item — the total and the progress bar update instantly, no button needed.', '数量や商品を変えると、合計と進捗バーが即座に更新されます（ボタン不要）。', '수량이나 상품을 바꾸면 합계와 진행 바가 즉시 바뀝니다(버튼 불필요).'],
-    '總額滿 1000 RP 就解鎖 AI 加贈的『峽谷心理戰小冊』，序號會一起給你。': ['Reach 1000 RP and the bonus booklet unlocks — the code is included.', '合計 1000 RP で特典冊子が解放され、コードも一緒に発行されます。', '합계 1000 RP를 넘기면 보너스 소책자가 해금되고 코드도 함께 제공됩니다.'],
+    '總額滿 1000 RP 就贈送『峽谷心理戰小冊』，序號會一起給你。': ['Reach 1000 RP and the bonus booklet unlocks — the code is included.', '合計 1000 RP で特典冊子が解放され、コードも一緒に発行されます。', '합계 1000 RP를 넘기면 보너스 소책자가 해금되고 코드도 함께 제공됩니다.'],
     '所有計算都在你的瀏覽器完成，不會送出任何資料，離線也能用。': ['All calculation happens in your browser — nothing is sent anywhere, and it works offline.', '計算はすべてブラウザ内で完結し、データは送信されません。オフラインでも使えます。', '모든 계산은 브라우저에서 이루어지며 아무 데이터도 전송되지 않습니다. 오프라인에서도 동작합니다.'],
     '下單前先看幾篇，挑一個最符合你現在瓶頸的方向。': ['Read a few before ordering, and pick the one that fits your current bottleneck.', '注文前にいくつか読んで、今の課題に合うものを選びましょう。', '주문 전에 몇 편 읽고 지금 병목에 맞는 방향을 고르세요.'],
     '再購買 500 RP 即可獲得贈品！': ['Buy 500 RP more to unlock the bonus!', 'あと 500 RP で特典が解放されます！', '500 RP만 더 구매하면 보너스가 해금됩니다!'],
@@ -145,7 +146,7 @@
     '頁面桌布（1920×1080）': ['Page wallpapers (1920×1080)', 'ページ壁紙（1920×1080）', '페이지 배경화면 (1920×1080)'],
     '下載': ['Download', 'ダウンロード', '다운로드'],
     '英雄讀取圖': ['Champion loading art', 'チャンピオン読込画像', '챔피언 로딩 아트'],
-    'AI 推薦文摘': ['AI reading picks', 'AI おすすめ記事', 'AI 추천 글'],
+    '推薦文摘': ['AI reading picks', 'AI おすすめ記事', 'AI 추천 글'],
     '對線重點': ['Laning notes', 'レーニングの要点', '라인전 포인트'],
     '玩法定位': ['Playstyle', 'プレイスタイル', '플레이 스타일'],
     '賽季核心數據': ['Season stats', 'シーズン統計', '시즌 통계'],
