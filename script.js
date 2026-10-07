@@ -1,4 +1,4 @@
-/* LOL攻略網站 V5 data layer - Patch 26.19 / Data Dragon 16.19.1 */
+/* LOL攻略網站 V6 data layer - Patch 26.19 / Data Dragon 16.19.1 */
 const DDragonVersion = '16.19.1';
 const DDragonBase = `https://ddragon.leagueoflegends.com/cdn/${DDragonVersion}/data/zh_TW`;
 const DDragonEnglish = `https://ddragon.leagueoflegends.com/cdn/${DDragonVersion}/data/en_US`;

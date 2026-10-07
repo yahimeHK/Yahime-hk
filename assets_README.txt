@@ -1,4 +1,4 @@
-LOL攻略站 V4｜完全離線版素材
+LOL攻略站 V6.0｜完全離線版素材
 
 本版本所有主頁背景素材均已放在 assets/，開啟 index.html 時不需要網絡。
 
@@ -15,7 +15,7 @@ assets/home-bottom.jpg
 
 注意：上一版使用 Riot/YouTube 外部素材；因目前執行環境無法直接取得外網二進位檔案，今次離線包改用本機素材，確保真正斷網都能開啟。Riot Data Dragon 官方文件確認 Champion Splash Assets 可供第三方開發者使用；如日後你想換回指定 Riot 官方圖片，可把對應圖片下載後覆蓋上述 JPG。
 
-=== V5.1 追加說明 ===
+=== V5.1 追加說明（現為 V6.0）===
 
 首頁「官方影片精選」主打開幕動畫卡片已改用自訂播放器（player.js / player.css）：
 - 可拖曳時間軸並即時預覽時間、鍵盤快捷鍵（Space、←→、J/L、↑↓、M、F、0–9）
@@ -53,3 +53,13 @@ assets/lol/rune/     符文樹與基石圖示（13 張）
     python _build_items.py
 它會抓最新版本的 Data Dragon 資料與圖片，重新產生 items.html 與 items.css。
 （英雄清單、建議符文與核心裝備的配置寫在 _build_items.py 最上面的 CHAMPS 清單裡。）
+
+=== V6.0 ===
+
+版本號更新為 V6.0，並補強各裝置（手機／平板／桌機／超寬螢幕）的顯示：
+- 瀏海安全區（viewport-fit=cover + safe-area-inset）
+- 平板直立時背景圖改用 scroll（避免行動瀏覽器 fixed 背景異常）
+- 手機／小手機（<=700 / <=400）版面、彈窗、卡片與按鈕尺寸調整
+- 橫向手機（高度 <=520）縮短首頁高度
+- 觸控裝置取消 hover 位移效果
+- 超寬螢幕（>=1600）內容寬度由 1200 放大到 1320

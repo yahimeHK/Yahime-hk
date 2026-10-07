@@ -605,3 +605,16 @@
 @media (max-width: 700px) {
   .video-thumbs { grid-template-columns: 1fr; gap: 12px; }
 }
+
+/* ===== 裝置相容（V6.0） ===== */
+@media (hover: none) {
+  .salvation-player .video-thumb:hover { transform: none; }
+}
+@media (max-width: 400px) {
+  .salvation-player .ctl { width: 34px; height: 34px; }
+  .salvation-player .ctl--play { width: 40px; height: 40px; }
+  .salvation-player .stage__bar { padding: 10px 12px; }
+  .salvation-player .now__label { display: none; }
+  .video-thumb__title { font-size: 14px; }
+  .video-thumb__desc { font-size: 12px; }
+}

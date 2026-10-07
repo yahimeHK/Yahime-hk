@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>PENDING</title>
+<style>
+  html,body{margin:0;background:#111}
+  iframe{border:0;display:block;background:#05080d}
+</style>
+</head>
+<body>
+<div id="host"></div>
+<script>
+(async () => {
+  const log = [];
+  const show = () => { document.title = 'RESULT| ' + log.join(' | '); };
+  const wait = (ms) => new Promise(r => setTimeout(r, ms));
+  const pages = ['index.html', 'champions.html', 'items.html', 'guides.html'];
+  const sizes = [
+    { w: 390,  h: 844,  name: '手機390' },
+    { w: 768,  h: 1024, name: '平板768' },
+    { w: 1440, h: 900,  name: '桌機1440' }
+  ];
+  const host = document.getElementById('host');
+
+  function loadFrame(url, w, h) {
+    return new Promise((res) => {
+      const f = document.createElement('iframe');
+      f.style.width = w + 'px';
+      f.style.height = h + 'px';
+      f.addEventListener('load', () => res(f), { once: true });
+      f.src = url;
+      host.appendChild(f);
+    });
+  }
+
+  function audit(doc, w) {
+    const out = { overflow: 0, offenders: [] };
+    out.overflow = Math.max(0, doc.documentElement.scrollWidth - doc.documentElement.clientWidth);
+    const all = doc.querySelectorAll('body *');
+    for (let i = 0; i < all.length; i++) {
+      const el = all[i];
+      const r = el.getBoundingClientRect();
+      if (r.width > 0 && (r.right > w + 2 || r.width > w + 2)) {
+        const cls = (el.className || '').toString().split(' ').filter(Boolean)[0] || '';
+        out.offenders.push({ sel: el.tagName.toLowerCase() + (cls ? '.' + cls : ''), right: Math.round(r.right), width: Math.round(r.width) });
+      }
+    }
+    out.offenders.sort((a, b) => b.right - a.right);
+    out.offenders = out.offenders.slice(0, 2);
+    return out;
+  }
+
+  try {
+    for (const url of pages) {
+      for (const s of sizes) {
+        const f = await loadFrame(url, s.w, s.h);
+        await wait(500);
+        const doc = f.contentDocument;
+        const a = audit(doc, s.w);
+        const bad = a.overflow > 2;
+        log.push(url.replace('.html', '') + '@' + s.name + '=' + (bad ? 'OVERFLOW' + a.overflow + ' ' +
+          a.offenders.map(o => o.sel + '(' + o.width + ')').join(',') : 'OK'));
+        // 行動版關鍵行為
+        if (s.w <= 768) {
+          const nav = doc.querySelector('.topbar nav');
+          const body = doc.body;
+          const navOk = nav ? getComputedStyle(nav).overflowX : 'none';
+          log.push(url.replace('.html', '') + '@' + s.name + ' nav=' + navOk +
+            ' bgAttach=' + getComputedStyle(body).backgroundAttachment.split(',')[0]);
+        }
+        f.remove();
+        show();
+      }
+    }
+  } catch (e) {
+    log.push('ERROR ' + (e && e.name) + ': ' + (e && e.message));
+  }
+  show();
+})();
+</script>
+</body>
+</html>

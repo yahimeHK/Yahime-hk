@@ -217,3 +217,17 @@
   .product-card__price { grid-column: 2; }
   .shop-perks { grid-template-columns: 1fr; }
 }
+
+/* ===== 裝置相容（V6.0） ===== */
+@media (hover: none) {
+  .product-card:hover { transform: none; }
+}
+@media (max-width: 480px) {
+  .shop-checkout { padding: 16px; }
+  .product-card { padding: 14px; grid-template-columns: auto minmax(0, 1fr); }
+  .product-card__price { grid-column: 2; justify-self: start; }
+  .stepper { grid-template-columns: 42px minmax(0, 1fr) 42px; }
+  .shop-hero__pills span { font-size: 11px; padding: 5px 10px; }
+  .shop-total b { font-size: 22px; }
+  .shop-receipt > div { font-size: 13px; }
+}

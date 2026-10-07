@@ -334,3 +334,73 @@ body.light.bg-home, body.light.bg-champions, body.light.bg-items, body.light.bg-
   background-size: auto, cover;
   background-attachment: fixed, fixed;
 }
+
+/* ==========================================================================
+   裝置相容（V6.0）：手機 / 平板 / 橫向手機 / 觸控 / 超寬螢幕
+   ========================================================================== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* 瀏海與圓角：不讓內容被切掉（沒瀏海的裝置數值為 0，不影響） */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+.topbar {
+  padding-left: max(5%, env(safe-area-inset-left));
+  padding-right: max(5%, env(safe-area-inset-right));
+}
+
+/* 平板直立：行動瀏覽器對 fixed 背景支援不佳，改成跟著捲動 */
+@media (max-width: 820px) {
+  body.bg-home, body.bg-champions, body.bg-items, body.bg-guides { background-attachment: scroll; }
+  .section, .video-section { padding: 26px; }
+  .hero { min-height: 560px; }
+  .bottom-visual-content { padding: 46px 0; }
+}
+
+/* 手機 */
+@media (max-width: 700px) {
+  .topbar { height: auto; min-height: 56px; padding-top: 8px; padding-bottom: 8px; }
+  .section, .video-section { padding: 20px; }
+  .notice { padding: 12px 14px; }
+  .hero-title { letter-spacing: -.6px; }
+  .modal { padding: 10px; }
+  .modal-box { padding: 20px; border-radius: 14px; max-height: 90vh; }
+  .modal-box h2 { font-size: 26px; }
+  .stats b { font-size: 24px; }
+  .champ img { height: 130px; }
+}
+
+/* 小手機（iPhone SE、舊 Android） */
+@media (max-width: 400px) {
+  .brand { font-size: 14px; }
+  .brand b { font-size: 9px; margin-left: 3px; }
+  .topbar nav a { font-size: 12px; }
+  .hero-title { font-size: clamp(28px, 10vw, 40px); }
+  .hero-pills span, .tag, .badge { font-size: 11px; padding: 3px 7px; }
+  .modal { padding: 8px; }
+  .modal-box { padding: 16px; }
+  .modal-box h2 { font-size: 22px; }
+  .close { font-size: 26px; right: 10px; top: 8px; }
+  .stats { grid-template-columns: 1fr; }
+  .gold-btn, .ghost-btn, .small-btn { padding: 10px 14px; font-size: 14px; }
+}
+
+/* 橫向手機：首頁不要硬撐滿版高度 */
+@media (orientation: landscape) and (max-height: 520px) {
+  .hero { min-height: auto; padding: 64px 5% 56px; }
+  .hero-scroll { display: none; }
+  .hero-content { padding: 0; }
+}
+
+/* 觸控裝置：不要只有 hover 才有回饋，也不要位移造成誤觸 */
+@media (hover: none) {
+  .champ:hover, .article-card:hover, .counter-card:hover, .build-card:hover,
+  .style-card:hover, .comment:hover { transform: none; }
+}
+
+/* 超寬螢幕：內容放寬一點，兩側不要留白太多 */
+@media (min-width: 1600px) {
+  .hero-content, .bottom-visual-content { width: min(1320px, 92%); }
+  .section, .video-section, .notice, footer { width: min(1320px, 92%); }
+}
