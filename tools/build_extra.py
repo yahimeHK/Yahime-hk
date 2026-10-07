@@ -462,7 +462,7 @@ def write_pages(base):
     </footer>
 
     <script src="ui.js"></script>
-    <script src="nav.js" defer></script>
+    <script src="nav.js" defer></script>`n    <script src="fx.js" defer></script>
     <script src="state.js" defer></script>
     <script src="extra.js" defer></script>
 </body>

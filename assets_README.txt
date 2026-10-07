@@ -113,3 +113,12 @@ Data Dragon 的 img/map/map22.png 與 map30.png 其實是相同的空樣板圖�
   以及 index／champions／items 等頁面顯示的英雄數字（items 頁允許「20 位英雄」的深度攻略子集合）
 - script.js 的離線種子清單（championSeed）由官方英雄清單產生，共 173 位，離線時數量也一致
 - 首頁的「英雄總數」與「最新版本」由 script.js 依實際載入的資料自動填入（data-champ-count／data-ddragon-version）
+
+視覺特效層（fx.js）：
+- 框架特效：頁首面板（.items-hero／.champ-hero／.ex-hero／.shop-hero）加上流動的漸層邊框；
+  卡片（英雄卡、造型、技能、裝備、符文、地圖…）加上跟隨游標的光暈與浮起效果
+- 按鍵特效：按鈕／分頁／膠囊連結 hover 浮起＋光暈、按下縮小回饋、點擊處產生漣漪（自動清除）
+- 滑鼠移動特效：整頁跟著游標的柔光（聚光＋暖色光暈），以 CSS 變數更新
+- 右上角多一顆 ✨ 開關，狀態存在 localStorage(lolFx)；觸控裝置與系統「減少動態」預設關閉
+- 樣式由 fx.js 直接注入（不依賴外部 CSS，避免快取舊樣式）；pointermove 以 rAF／16ms 節流
+- 所有頁面都在 nav.js 之後載入這支檔案（產生器的樣板也已加入，重新產生不會掉）
