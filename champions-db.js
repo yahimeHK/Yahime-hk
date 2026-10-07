@@ -185,6 +185,12 @@
       var hit = DATA.champions.filter(function (c) { return c.name === name; })[0];
       if (hit) setTimeout(function () { open(hit.key, false); }, 120);
     }
+
+    // ?random=1：隨機抽一位英雄（首頁「隨機英雄」在資料還沒載入時會導到這裡）
+    if (/[?&]random=1/.test(location.search) && DATA.champions.length) {
+      var pick = DATA.champions[Math.floor(Math.random() * DATA.champions.length)];
+      if (pick) setTimeout(function () { open(pick.key, true); }, 150);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', function () {

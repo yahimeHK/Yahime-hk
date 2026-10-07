@@ -691,13 +691,13 @@ def write_js():
   }
 
   function cardArt(c) {
-    return '<figure class="art-card" data-big="' + esc(c.big) + '" data-name="' + esc(sText(c)) + '">' +
+    return '<figure class="art-card" data-role="' + esc(c.role) + '" data-big="' + esc(c.big) + '" data-name="' + esc(sText(c)) + '">' +
       '<img src="' + esc(c.img) + '" alt="' + esc(c.champ) + '" loading="lazy">' +
       '<span>' + esc(c.champ) + ' <small>' + esc(c.title) + '</small></span></figure>';
   }
 
   function cardAbility(c, a) {
-    return '<article class="ability-card" data-name="' + esc(sText(c, a.n + ' ' + a.k + ' ' + a.d)) + '">' +
+    return '<article class="ability-card" data-role="' + esc(c.role) + '" data-name="' + esc(sText(c, a.n + ' ' + a.k + ' ' + a.d)) + '">' +
       '<img src="' + esc(a.i) + '" alt="' + esc(a.n) + '" loading="lazy">' +
       '<div><small>' + esc(c.name) + ' · ' + esc(a.k) + '</small>' +
       '<b>' + esc(a.n) + '</b><p>' + esc(a.d) + '</p></div></article>';

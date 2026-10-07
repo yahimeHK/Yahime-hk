@@ -581,12 +581,29 @@ function pickRandomChampion() {
 
 function handleRandomHero() {
     const modal = $('modal');
-    if (modal && champions.length) {
-        const c = pickRandomChampion();
-        if (c) openChampion(c.name);
-    } else {
+    if (!modal) {
         window.location.href = 'champions.html?random=1';
+        return;
     }
+    if (!champions.length) {
+        // 資料還在載入：不要直接把使用者帶走，等載入完成再自動抽一位
+        toast('英雄資料載入中…載入完成後會自動抽一位');
+        let tries = 0;
+        const timer = setInterval(() => {
+            tries += 1;
+            if (champions.length) {
+                clearInterval(timer);
+                const c = pickRandomChampion();
+                if (c) openChampion(c.name);
+            } else if (tries > 60) {
+                clearInterval(timer);
+                window.location.href = 'champions.html?random=1';
+            }
+        }, 250);
+        return;
+    }
+    const c = pickRandomChampion();
+    if (c) openChampion(c.name);
 }
 
 async function loadGameData() {

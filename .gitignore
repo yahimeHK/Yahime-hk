@@ -14,3 +14,4 @@ _selftest*.html
 _*.py
 _build_*.py
 *.log
+_t_*.js
