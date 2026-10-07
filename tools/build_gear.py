@@ -27,7 +27,7 @@ HTML = '''<!DOCTYPE html>
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 裝備合成系統</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="guides.css">
+    <link rel="stylesheet" href="guides.css?v=6.0.2">
 </head>
 <body class="bg-items">
     <header class="topbar">
@@ -102,7 +102,7 @@ HTML = '''<!DOCTYPE html>
     <script src="fx.js" defer></script>
     <script src="i18n.js" defer></script>
     <script src="state.js" defer></script>
-    <script src="guides.js" defer></script>
+    <script src="guides.js?v=6.0.2" defer></script>
 </body>
 </html>
 '''
@@ -248,6 +248,7 @@ JS = '''/* 裝備合成系統前端（guides.html）— 由 tools/build_gear.py 
   }
 
   function toggle(id) {
+    if (!byId[id]) return;                      // 資料不存在就不加入
     var i = plan.indexOf(id);
     if (i >= 0) plan.splice(i, 1);
     else { if (plan.length >= 6) plan.shift(); plan.push(id); }
@@ -258,6 +259,8 @@ JS = '''/* 裝備合成系統前端（guides.html）— 由 tools/build_gear.py 
   }
 
   function renderPlan() {
+    // 防護：只保留查得到的道具，計數一律以實際渲染出的為準
+    plan = plan.filter(function (id) { return !!byId[id]; });
     var slots = [];
     for (var i = 0; i < 6; i++) {
       var it = plan[i] ? byId[plan[i]] : null;

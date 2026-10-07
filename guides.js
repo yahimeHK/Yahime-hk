@@ -58,6 +58,7 @@
   }
 
   function toggle(id) {
+    if (!byId[id]) return;                      // 資料不存在就不加入
     var i = plan.indexOf(id);
     if (i >= 0) plan.splice(i, 1);
     else { if (plan.length >= 6) plan.shift(); plan.push(id); }
@@ -68,6 +69,8 @@
   }
 
   function renderPlan() {
+    // 防護：只保留查得到的道具，計數一律以實際渲染出的為準
+    plan = plan.filter(function (id) { return !!byId[id]; });
     var slots = [];
     for (var i = 0; i < 6; i++) {
       var it = plan[i] ? byId[plan[i]] : null;
