@@ -571,7 +571,6 @@ function renderComments() {
     el.innerHTML = data.length ? data.map(c => `<article class="comment"><header><strong>${escapeHTML(c.name)}</strong><span>${escapeHTML(c.time)}</span></header><p>${escapeHTML(c.text)}</p></article>`).join('') : '<div class="empty">暫時未有留言，第一個留言由你開始！</div>';
 }
 
-/* ===== 隨機英雄（跨頁支援） ===== */
 function pickRandomChampion() {
     if (!champions.length) return null;
     return champions[Math.floor(Math.random() * champions.length)];

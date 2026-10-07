@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOL 攻略站 V5.1 - 完整資料庫</title>
     <link rel="stylesheet" href="style.css">
-    <!-- 全域設定 Referrer Policy，確保 YouTube 嵌入正常 -->
+    <link rel="stylesheet" href="player.css">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 <body>
@@ -51,7 +51,6 @@
         <div class="hero-scroll">SCROLL FOR MORE<i></i></div>
     </main>
 
-    <!-- ===== 官方影片精選區 ===== -->
     <section class="video-section">
         <div class="heading">
             <small>OFFICIAL MEDIA</small>
@@ -59,53 +58,169 @@
             <p>收錄 Riot Games 官方頻道的賽季動畫、英雄 spotlight 與賽事精華。</p>
         </div>
         <div class="video-grid">
-            <!-- 影片 1：2026 賽季開幕動畫《救贖》 -->
-            <div class="video-card">
-                <div class="video-wrapper">
-                    <iframe                
-    src="https://www.youtube.com/embed/e3D7Fj1PsWk?rel=0&modestbranding=1"
-    title="2026 赛季开幕动画《救赎》"
-    frameborder="0"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    loading="lazy"
-    referrerpolicy="strict-origin-when-cross-origin">
-         </iframe>
-                    </iframe>
+
+            <!-- 主打開幕動畫：使用自訂播放器（player.js / player.css） -->
+            <div class="video-card video-card--feature">
+                <div class="salvation-player">
+                    <div class="stage" id="stage">
+                        <div class="stage__frame" tabindex="0" role="region" aria-label="《救贖》影片播放器">
+                            <video
+                                id="video"
+                                class="video"
+                                src="assets/assetsvideo1.mp4"
+                                preload="metadata"
+                                playsinline
+                                controlslist="nodownload noplaybackrate"
+                                x-webkit-airplay="deny"
+                                tabindex="-1"
+                            ></video>
+
+                            <!-- 第一次播放前的中央大按鈕 -->
+                            <button class="bigplay" id="bigplay" type="button" aria-label="播放影片">
+                                <svg viewBox="0 0 72 72" aria-hidden="true">
+                                    <circle cx="36" cy="36" r="34" />
+                                    <path d="M29 23.5 52 36 29 48.5Z" />
+                                </svg>
+                            </button>
+
+                            <!-- 緩衝轉圈 -->
+                            <div class="spinner" id="spinner" aria-hidden="true"><span></span></div>
+
+                            <!-- 快捷鍵提示 -->
+                            <div class="toast" id="playerToast" role="status" aria-live="polite"></div>
+
+                            <!-- 控制列 -->
+                            <div class="controls" id="controls" data-state="hidden">
+                                <div class="scrub" id="scrub">
+                                    <div class="scrub__hover" id="scrubHover" hidden><span class="scrub__tip" id="scrubTip">0:00</span></div>
+                                    <div class="scrub__buffered" id="buffered"></div>
+                                    <div class="scrub__played" id="played"><i class="scrub__knob"></i></div>
+                                    <input
+                                        class="scrub__input"
+                                        id="seek"
+                                        type="range"
+                                        min="0" max="1000" value="0" step="1"
+                                        aria-label="調整播放進度"
+                                    />
+                                </div>
+
+                                <div class="controls__row">
+                                    <button class="ctl ctl--play" id="play" type="button" aria-label="播放">
+                                        <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5 19 12 8 18.5Z"/></svg>
+                                        <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5h2.6v14H9zM13.4 5H16v14h-2.6z"/></svg>
+                                    </button>
+
+                                    <button class="ctl" id="back10" type="button" aria-label="倒轉 10 秒" title="倒轉 10 秒 (J)">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M11.5 5.5a7 7 0 1 1-6.7 9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                                            <path d="M11.8 2.2 7.4 5.6l4.4 3.4z"/>
+                                        </svg>
+                                    </button>
+
+                                    <button class="ctl ctl--fwd10" id="fwd10" type="button" aria-label="快轉 10 秒" title="快轉 10 秒 (L)">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M12.5 5.5a7 7 0 1 0 6.7 9" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                                            <path d="M12.2 2.2l4.4 3.4-4.4 3.4z"/>
+                                        </svg>
+                                    </button>
+
+                                    <button class="ctl ctl--vol" id="mute" type="button" aria-label="靜音" title="靜音 (M)">
+                                        <svg class="i-vol" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z"/>
+                                            <path d="M15.4 9.2a4 4 0 0 1 0 5.6M18 6.8a7.6 7.6 0 0 1 0 10.4"
+                                                  fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                        </svg>
+                                        <svg class="i-mute" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M4 9.5h3.2L12 5.4v13.2L7.2 14.5H4z"/>
+                                            <path d="m16 9.8 4.4 4.4m0-4.4L16 14.2"
+                                                  fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+
+                                    <div class="volume" id="volumeWrap">
+                                        <input class="volume__input" id="volume" type="range" min="0" max="1" step="0.01" value="1"
+                                               aria-label="音量" />
+                                    </div>
+
+                                    <div class="time">
+                                        <span id="cur">0:00</span><span class="time__sep">/</span><span id="dur">0:00</span>
+                                    </div>
+
+                                    <span class="spacer"></span>
+
+                                    <button class="ctl ctl--rate" id="rate" type="button" aria-label="播放速度" title="播放速度">
+                                        <span id="rateLabel">1&times;</span>
+                                    </button>
+
+                                    <button class="ctl" id="pip" type="button" aria-label="子母畫面" title="子母畫面 (P)">
+                                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                                            <rect x="2.8" y="4.6" width="18.4" height="14.8" rx="2.4"
+                                                  fill="none" stroke="currentColor" stroke-width="1.8"/>
+                                            <rect x="12.4" y="12" width="7.2" height="5.6" rx="1.2"/>
+                                        </svg>
+                                    </button>
+
+                                    <button class="ctl" id="fs" type="button" aria-label="全螢幕" title="全螢幕 (F)">
+                                        <svg class="i-fs" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+                                                  fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                                        </svg>
+                                        <svg class="i-fs-exit" viewBox="0 0 24 24" aria-hidden="true">
+                                            <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"
+                                                  fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 影片下方的資訊列 -->
+                        <div class="stage__bar">
+                            <div class="now">
+                                <span class="now__dot" aria-hidden="true"></span>
+                                <span class="now__label">現正播放</span>
+                                <strong class="now__title" id="nowTitle">Salvation（ft. Forts）</strong>
+                            </div>
+                            <div class="stage__meta">
+                                <span class="chip">640 &times; 272</span>
+                                <span class="chip">H.264</span>
+                                <span class="chip">AAC</span>
+                                <span class="chip" id="factDur">--:--</span>
+                                <span class="chip chip--live" id="progressChip">0%</span>
+                            </div>
+                        </div>
+
+                        <p class="hint">
+                            先點一下播放器或把滑鼠移上去，快捷鍵才會生效：
+                            <kbd>Space</kbd> 播放 &middot; <kbd>&larr;</kbd><kbd>&rarr;</kbd> 前後 5 秒 &middot;
+                            <kbd>J</kbd><kbd>L</kbd> 前後 10 秒 &middot; <kbd>&uarr;</kbd><kbd>&darr;</kbd> 音量 &middot;
+                            <kbd>M</kbd> 靜音 &middot; <kbd>F</kbd> 全螢幕 &middot; <kbd>0</kbd>&ndash;<kbd>9</kbd> 跳到百分比位置
+                        </p>
+
+                        <!-- 只有在真的出錯，或以 file:// 開啟導致無法 seek 時才顯示 -->
+                        <div class="note" id="playerNote" role="status" hidden></div>
+                    </div>
                 </div>
                 <h3>2026 賽季開幕動畫《救贖》</h3>
-                <p>以蒂瑪西亞為主題的官方動畫，揭開新賽季序幕。</p>
+                <p>以蒂瑪西亞為主題的官方動畫，揭開新賽季序幕。這張卡片搭載自訂播放器：可拖曳時間軸預覽、鍵盤快捷鍵、0.5&times;–2&times; 變速、子母畫面與全螢幕，並記住上次的觀看進度。</p>
             </div>
 
-            <!-- 影片 2：Worlds 2026 主題曲《Know My Name》預告 -->
             <div class="video-card">
                 <div class="video-wrapper">
-                    <iframe
-                        src="https://www.youtube.com/embed/m9Sru146PtI?rel=0&modestbranding=1"
-                        title="Worlds 2026 主題曲《Know My Name》"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        loading="lazy"
-                        referrerpolicy="strict-origin-when-cross-origin">
-                    </iframe>
+                    <video controls preload="metadata" playsinline>
+                        <source src="assets/assetsvideo2.mp4" type="video/mp4">
+                        你的瀏覽器不支援 HTML5 影片播放。
+                    </video>
                 </div>
                 <h3>Worlds 2026 主題曲《Know My Name》</h3>
                 <p>True Damage 回歸，紀念 Faker 與 T1 的傳奇旅程。</p>
             </div>
-
-            <!-- 影片 3：英雄 Spotlight 精選（以 Ezreal 為例） -->
             <div class="video-card">
                 <div class="video-wrapper">
-                    <iframe
-                        src="https://www.youtube.com/embed/GfeNQ_dbPvE?rel=0&modestbranding=1"
-                        title="英雄 Spotlight 精選"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        loading="lazy"
-                        referrerpolicy="strict-origin-when-cross-origin">
-                    </iframe>
+                    <video controls preload="metadata" playsinline>
+                        <source src="assets/assetsvideo3.mp4" type="video/mp4">
+                        你的瀏覽器不支援 HTML5 影片播放。
+                    </video>
                 </div>
                 <h3>英雄 Spotlight 精選</h3>
                 <p>最新英雄技能與玩法介紹。</p>
@@ -114,7 +229,7 @@
     </section>
 
     <div class="notice">
-        📌 <b>資料說明：</b> 本版本所有主頁背景素材均已放置於 assets/ 目錄中，開啟 index.html 時不需要外部網路連線，避開了 YouTube 或外部 CDN 的依賴。
+        📌 <b>資料說明：</b> 本版本所有主頁背景素材均已放置於 assets/ 目錄中，開啟 index.html 時不需要外部網路連線，避開了 YouTube 或外部 CDN 的依賴。主打開幕動畫改用自訂播放器；若直接以 file:// 開啟，拖曳時間軸會受限，建議在本資料夾執行 <b>python serve.py</b> 後開 http://127.0.0.1:8099/ 。
     </div>
 
     <section class="section stats-section">
@@ -147,5 +262,6 @@
     </footer>
 
     <script src="script.js"></script>
+    <script src="player.js" defer></script>
 </body>
 </html>
