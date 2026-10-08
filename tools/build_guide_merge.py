@@ -71,7 +71,6 @@ if 'champions-db.css' not in guide:
 # ---------------------------------------------------------------- 編排整合：區塊切換列
 SWITCH = '''<div class="guide-switch" id="guideSwitch">
         <a href="#champSection" data-sec="champSection">&#9876;&#65039; 英雄攻略</a>
-        <a href="#itemsSection" data-sec="itemsSection">&#127890; 裝備攻略</a>
     </div>
     <style>
     .guide-switch{position:sticky;top:0;z-index:60;display:flex;gap:8px;justify-content:center;padding:10px;
@@ -92,6 +91,7 @@ SWITCH = '''<div class="guide-switch" id="guideSwitch">
     (function () {
       var bar = document.getElementById('guideSwitch');
       if (!bar) return;
+      if (bar.querySelectorAll('a').length < 2) { bar.style.display = 'none'; return; }   // 只剩一個按鈕就沒有切換意義
       var secs = ['champSection', 'itemsSection'];
       function update() {
         var y = window.scrollY + 160, best = secs[0];

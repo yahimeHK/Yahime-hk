@@ -6,12 +6,11 @@
     <title>LOL 攻略站 V6.0 - 攻略</title>
     <link rel="stylesheet" href="style.css?v=edc69e60b9">
     <link rel="stylesheet" href="items.css?v=e5dfd4398b">
-    <link rel="stylesheet" href="champions-db.css">
+    <link rel="stylesheet" href="champions-db.css?v=c552231cd3">
 </head>
 <body class="bg-items">
     <div class="guide-switch" id="guideSwitch">
         <a href="#champSection" data-sec="champSection">&#9876;&#65039; 英雄攻略</a>
-        <a href="#itemsSection" data-sec="itemsSection">&#127890; 裝備攻略</a>
     </div>
     <style>
     .guide-switch{position:sticky;top:0;z-index:60;display:flex;gap:8px;justify-content:center;padding:10px;
@@ -32,6 +31,7 @@
     (function () {
       var bar = document.getElementById('guideSwitch');
       if (!bar) return;
+      if (bar.querySelectorAll('a').length < 2) { bar.style.display = 'none'; return; }   // 只剩一個按鈕就沒有切換意義
       var secs = ['champSection', 'itemsSection'];
       function update() {
         var y = window.scrollY + 160, best = secs[0];
@@ -2045,7 +2045,7 @@
     </footer>
 
     <script src="script.js?v=223fd8d6fd"></script>
-    <script src="nav.js?v=6384fbb55f" defer></script>`n    <script src="fx.js?v=ac2fd662e5" defer></script>`n    <script src="i18n.js?v=507c7afb1f" defer></script>`n    <script src="champions-db.js?v=1" defer></script>
+    <script src="nav.js?v=6384fbb55f" defer></script>`n    <script src="fx.js?v=ac2fd662e5" defer></script>`n    <script src="i18n.js?v=507c7afb1f" defer></script>`n    <script src="champions-db.js?v=3009f3a66f" defer></script>
     <script src="state.js?v=51487b7398" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
