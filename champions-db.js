@@ -130,7 +130,7 @@
     var counts = { '全部': DATA.count };
     DATA.roles.forEach(function (r) { counts[r] = 0; });
     DATA.champions.forEach(function (c) { counts[c.role] = (counts[c.role] || 0) + 1; });
-    Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab, #champRoleFilters .tab'), function (tab) {
+    Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab'), function (tab) {
       var b = tab.querySelector('b');
       if (b) b.textContent = counts[tab.dataset.role] || 0;
     });
@@ -141,9 +141,9 @@
     });
 
     // 篩選
-    Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab, #champRoleFilters .tab'), function (tab) {
+    Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab'), function (tab) {
       tab.addEventListener('click', function () {
-        Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab, #champRoleFilters .tab'), function (t) { t.classList.remove('active'); });
+        Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab'), function (t) { t.classList.remove('active'); });
         tab.classList.add('active');
         state.role = tab.dataset.role;
         apply();
@@ -164,7 +164,7 @@
       var c1 = $('dbClass'); if (c1) c1.value = 'all';
       var c2 = $('dbDiff'); if (c2) c2.value = 'all';
       state = { role: '全部', cls: 'all', diff: 'all', q: '' };
-      Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab, #champRoleFilters .tab'), function (t) {
+      Array.prototype.forEach.call(document.querySelectorAll('#roleFilters .tab'), function (t) {
         t.classList.toggle('active', t.dataset.role === '全部');
       });
       apply();
