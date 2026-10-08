@@ -242,6 +242,31 @@ if 'cb-spells' not in guide:
     guide = guide.replace('</body>', CARD_JS2 + '\n</body>', 1)
     print('  已加入卡片擴充（重試機制）＋ 召喚師技能')
 
+# ---------------------------------------------------------------- 移除殘留的深度攻略卡區塊
+HIDE_JS = """<script>
+    (function () {
+      function hideByHeading(text) {
+        var nodes = document.querySelectorAll('h1, h2, h3, .db-heading, .heading, small, b');
+        Array.prototype.forEach.call(nodes, function (el) {
+          var t = (el.textContent || '').trim();
+          if (!t || t.indexOf(text) < 0 || t.length > 40) return;   // 只比對標題本身，不誤抓整個容器
+          var node = el, guard = 0;
+          while (node.parentElement && node.parentElement !== document.body && guard++ < 10) {
+            var par = node.parentElement;
+            if (par.tagName === 'MAIN' || (par.classList && (par.classList.contains('items-wrap') || par.classList.contains('champ-wrap')))) break;
+            node = par;
+          }
+          if (node !== document.body) node.style.display = 'none';
+        });
+      }
+      ['深度攻略卡', '版本玩法方向盤'].forEach(hideByHeading);
+    })();
+    </script>"""
+
+if 'hideByHeading' not in guide:
+    guide = guide.replace('</body>', HIDE_JS + '\n</body>', 1)
+    print('  已加入移除深度攻略卡與版本玩法方向盤的腳本')
+
 write('guide.html', guide)
 print('  已寫入 guide.html（%.1f KB）' % (len(guide.encode('utf-8')) / 1024))
 

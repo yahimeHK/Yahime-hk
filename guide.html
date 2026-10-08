@@ -2304,5 +2304,24 @@
       })['catch'](function () {});
     })();
     </script>
+<script>
+    (function () {
+      function hideByHeading(text) {
+        var nodes = document.querySelectorAll('h1, h2, h3, .db-heading, .heading, small, b');
+        Array.prototype.forEach.call(nodes, function (el) {
+          var t = (el.textContent || '').trim();
+          if (!t || t.indexOf(text) < 0 || t.length > 40) return;   // 只比對標題本身，不誤抓整個容器
+          var node = el, guard = 0;
+          while (node.parentElement && node.parentElement !== document.body && guard++ < 10) {
+            var par = node.parentElement;
+            if (par.tagName === 'MAIN' || (par.classList && (par.classList.contains('items-wrap') || par.classList.contains('champ-wrap')))) break;
+            node = par;
+          }
+          if (node !== document.body) node.style.display = 'none';
+        });
+      }
+      ['深度攻略卡', '版本玩法方向盤'].forEach(hideByHeading);
+    })();
+    </script>
 </body>
 </html>
