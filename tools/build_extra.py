@@ -349,13 +349,25 @@ def main():
     print('  符文：%d 條樹 / %d 個符文' % (len(runes_out), sum(len(s['runes']) for t in runes_out for s in t['slots'])))
 
     # ---------------------------------------------------- 5) 核心裝備
+    # 方案 B：同名去重（保留短 ID，排除 32xxxx／66xxxx 模式變體）
+    _keep = {}
+    for _iid, _it in items.items():
+        _g = _it.get('gold') or {}
+        if not _g.get('purchasable') or not _g.get('total') or not (_it.get('maps') or {}).get('11'):
+            continue
+        _n = _it['name']
+        if _n not in _keep or len(_iid) < len(_keep[_n]):
+            _keep[_n] = _iid
+    _keep_ids = set(_keep.values())
     gear_out = []
     for iid, it in items.items():
+        if iid not in _keep_ids:
+            continue
         gold = it.get('gold') or {}
         if not gold.get('purchasable') or not gold.get('total'):
             continue
-        if it.get('maps', {}).get('11') is False and it.get('maps', {}).get('12') is False:
-            continue
+        if not (it.get('maps') or {}).get('11'):
+            continue   # 方案 B：只保留召喚峽谷現行裝備
         icon = save_image('https://ddragon.leagueoflegends.com/cdn/%s/img/item/%s.png' % (VER, iid),
                           os.path.join('gear', '%s.png' % iid))
         if not icon:
@@ -369,6 +381,16 @@ def main():
             'into': [items[str(x)]['name'] for x in (it.get('into') or []) if str(x) in items][:4],
         })
     gear_out.sort(key=lambda x: (x['gold'], x['name']))
+    # 方案 B：合成路徑只保留仍在清單中的道具
+
+    gear_keep_names = set(g['name'] for g in gear_out)
+
+    for g in gear_out:
+
+        g['from'] = [x for x in g.get('from', []) if x in gear_keep_names]
+
+        g['into'] = [x for x in g.get('into', []) if x in gear_keep_names]
+
     write_json('gear.json', {'version': VER, 'items': gear_out})
     print('  核心裝備：%d 件' % len(gear_out))
 

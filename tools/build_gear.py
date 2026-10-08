@@ -198,15 +198,15 @@ JS = '''/* 裝備合成系統前端（guides.html）— 由 tools/build_gear.py 
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   var byName = {}, byId = {};
-  ITEMS.forEach(function (it) { byName[it.n] = it; byId[it.id] = it; });
+  ITEMS.forEach(function (it) { byName[(it.name || it.n)] = it; byId[it.id] = it; });
 
   function card(it) {
     var picked = plan.indexOf(it.id) >= 0;
     return '<button type="button" class="gb-item' + (picked ? ' is-picked' : '') + '" data-id="' + esc(it.id) + '"' +
-      ' data-name="' + esc(it.n + ' ' + (it.en || '') + ' ' + it.desc + ' ' + (it.tags || []).join(' ')) + '"' +
+      ' data-name="' + esc((it.name || it.n) + ' ' + (it.en || '') + ' ' + it.desc + ' ' + (it.tags || []).join(' ')) + '"' +
       ' data-tags="' + esc((it.tags || []).join(' ')) + '" data-gold="' + it.gold + '">' +
-      '<img src="' + esc(it.icon) + '" alt="' + esc(it.n) + '" loading="lazy">' +
-      '<span><b>' + esc(it.n) + '</b><span class="gold">' + it.gold + ' 金幣</span>' +
+      '<img src="' + esc(it.icon) + '" alt="' + esc(it.name || it.n) + '" loading="lazy">' +
+      '<span><b>' + esc(it.name || it.n) + '</b><span class="gold">' + it.gold + ' 金幣</span>' +
       '<p>' + esc(it.desc) + '</p>' +
       '<span class="tags">' + (it.tags || []).map(function (t) { return '<span class="tag">' + esc(t) + '</span>'; }).join('') + '</span>' +
       '</span></button>';
@@ -235,7 +235,7 @@ JS = '''/* 裝備合成系統前端（guides.html）— 由 tools/build_gear.py 
     var type = $('gbType').value;
     var sort = $('gbSort').value;
     var list = ITEMS.filter(function (it) {
-      var okQ = !q || (it.n + ' ' + (it.en || '') + ' ' + it.desc + ' ' + (it.tags || []).join(' ')).toLowerCase().indexOf(q) >= 0;
+      var okQ = !q || ((it.name || it.n) + ' ' + (it.en || '') + ' ' + it.desc + ' ' + (it.tags || []).join(' ')).toLowerCase().indexOf(q) >= 0;
       var okT = type === 'all' || (it.tags || []).indexOf(type) >= 0;
       return okQ && okT;
     });
@@ -267,7 +267,7 @@ JS = '''/* 裝備合成系統前端（guides.html）— 由 tools/build_gear.py 
     for (var i = 0; i < 6; i++) {
       var it = plan[i] ? byId[plan[i]] : null;
       slots.push('<div class="gb-slot' + (it ? ' filled' : '') + '">' +
-        (it ? '<button type="button" data-remove="' + esc(it.id) + '" title="移除"><img src="' + esc(it.icon) + '" alt="' + esc(it.n) + '"></button>' : (i + 1)) + '</div>');
+        (it ? '<button type="button" data-remove="' + esc(it.id) + '" title="移除"><img src="' + esc(it.icon) + '" alt="' + esc(it.name || it.n) + '"></button>' : (i + 1)) + '</div>');
     }
     $('gbSlots').innerHTML = slots.join('');
     $('gbPlanCount').textContent = plan.length + '／6';
@@ -280,7 +280,7 @@ JS = '''/* 裝備合成系統前端（guides.html）— 由 tools/build_gear.py 
       var parts = from.length
         ? from.map(function (n) { var c = byName[n]; return '<span>' + (c ? '<img src="' + esc(c.icon) + '" alt="">' : '') + esc(n) + '</span>'; }).join('<i>＋</i>')
         : '<span class="none">此道具沒有合成組件（可直接購買）</span>';
-      return '<div class="gb-path"><b>' + esc(it.n) + '（' + it.gold + '）</b><div class="parts">' + parts + '</div></div>';
+      return '<div class="gb-path"><b>' + esc(it.name || it.n) + '（' + it.gold + '）</b><div class="parts">' + parts + '</div></div>';
     }).join('');
     $('gbPaths').innerHTML = paths;
   }
