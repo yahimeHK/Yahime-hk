@@ -117,6 +117,67 @@ if 'guide-switch' not in guide:
         guide = guide.replace('<main class="items-wrap"', '<main class="items-wrap" id="itemsSection"', 1)
     print('  已加入區塊切換列（英雄攻略／裝備攻略）')
 
+# ---------------------------------------------------------------- 統一網格（方案 A）
+HIDE_CSS = '''<style>
+    #itemsSection .items-hero,
+    #itemsSection .items-toolbar,
+    #itemsSection .items-count,
+    #itemsSection #allchampSection,
+    #itemsSection #allchamp,
+    #itemsSection .build-block,
+    #itemsSection #buildCards,
+    #itemsSection #buildGrid { display: none !important; }
+    .card-build { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px;
+      padding-top: 8px; border-top: 1px solid rgba(98,170,190,.18); }
+    .card-build .cb-rune { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; font-size: 11.5px;
+      font-weight: 700; color: #ffd98a; background: rgba(200,170,110,.10);
+      border: 1px solid rgba(200,170,110,.45); border-radius: 999px; }
+    .card-build .cb-rune img { width: 18px; height: 18px; border-radius: 50%; }
+    .card-build .cb-items { display: inline-flex; gap: 4px; }
+    .card-build .cb-items img { width: 26px; height: 26px; border-radius: 6px;
+      border: 1px solid rgba(98,170,190,.45); background: #0a1016; }
+    .card-build .cb-items img:hover { border-color: #00d9ff; }
+    @media (max-width:430px) { .card-build .cb-items img { width: 22px; height: 22px; } }
+    </style>'''
+
+CARD_JS = '''<script>
+    (function () {
+      var host = document.getElementById('champSection');
+      if (!host) return;
+      fetch('assets/lol/champions.json').then(function (r) { return r.json(); }).then(function (d) {
+        var byKey = {};
+        (d.champions || []).forEach(function (c) { byKey[c.key] = c; });
+        var n = 0;
+        Array.prototype.forEach.call(host.querySelectorAll('.db-champ'), function (card) {
+          if (card.querySelector('.card-build')) return;
+          var im = card.querySelector('img');
+          if (!im) return;
+          var file = (im.getAttribute('src') || '').split('/').pop().split('?')[0].replace('.jpg', '');
+          var c = byKey[file];
+          if (!c) return;
+          var r = c.rune || {}, its = c.items || [];
+          var html = '<div class="card-build">';
+          if (r.keystone) {
+            html += '<span class="cb-rune" title="' + (r.desc || '') + '">' +
+              (r.icon ? '<img src="' + r.icon + '" alt="">' : '') + r.keystone + '</span>';
+          }
+          if (its.length) {
+            html += '<span class="cb-items">' + its.map(function (it) {
+              return '<img src="' + it.i + '" alt="' + it.n + '" title="' + it.n + ' · ' + it.g + ' 金幣">';
+            }).join('') + '</span>';
+          }
+          html += '</div>';
+          card.insertAdjacentHTML('beforeend', html);
+          n++;
+        });
+      })['catch'](function () {});
+    })();
+    </script>'''
+
+if 'card-build' not in guide:
+    guide = guide.replace('</body>', HIDE_CSS + '\n    ' + CARD_JS + '\n</body>', 1)
+    print('  已加入統一網格（隱藏重複區塊 ＋ 卡片顯示基石符文與核心裝備）')
+
 write('guide.html', guide)
 print('  已寫入 guide.html（%.1f KB）' % (len(guide.encode('utf-8')) / 1024))
 
