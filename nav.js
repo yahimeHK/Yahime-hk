@@ -156,3 +156,30 @@
 
   window.LOLNav = { open: open, close: close };
 })();
+
+
+/* ================= 品牌字做成「回到首頁」按鈕 ================= */
+(function () {
+  var brand = document.querySelector('.topbar .brand');
+  if (!brand || brand.tagName === 'A') return;
+  var a = document.createElement('a');
+  a.className = (brand.className || '') + ' brand--link';
+  a.href = 'index.html';
+  a.title = 'Home';
+  a.setAttribute('aria-label', 'Home');
+  a.innerHTML = brand.innerHTML;
+  brand.parentNode.replaceChild(a, brand);
+
+  var st = document.createElement('style');
+  st.textContent = [
+    '.brand--link{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;text-decoration:none;cursor:pointer;',
+    'border:1px solid rgba(98,170,190,.35);border-radius:10px;background:rgba(12,20,27,.6);',
+    '-webkit-tap-highlight-color:rgba(0,217,255,.15);transition:background .18s ease,box-shadow .18s ease,border-color .18s ease}',
+    '.brand--link:hover{background:rgba(0,217,255,.12);border-color:#00d9ff;box-shadow:0 0 18px -8px rgba(0,217,255,.7)}',
+    '.brand--link:active{transform:translateY(1px)}',
+    '.brand--link:focus-visible{outline:2px solid #00d9ff;outline-offset:2px}',
+    '@media (max-width:430px){.brand--link{padding:5px 8px;gap:5px}}',
+    '@media (prefers-reduced-motion:reduce){.brand--link{transition:none}}'
+  ].join('');
+  document.head.appendChild(st);
+})();

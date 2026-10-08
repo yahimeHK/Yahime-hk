@@ -477,7 +477,7 @@ def write_pages(base):
     </footer>
 
     <script src="ui.js?v=d39d73f5a8"></script>
-    <script src="nav.js?v=d4ca84ce42" defer></script>
+    <script src="nav.js?v=6b471edace" defer></script>
     <script src="fx.js?v=1754a5f26d" defer></script>
     <script src="i18n.js?v=dfd29133cb" defer></script>
     <script src="state.js?v=51487b7398" defer></script>
@@ -1038,7 +1038,7 @@ def write_nav():
     """分類導覽列（nav.js）已經改成手動維護：樣式內嵌在 nav.js 裡，
     避免瀏覽器快取舊的 style.css 時導覽列變成沒有間距的純文字。
     這裡只確認檔案存在，不覆蓋它。"""
-    nav = os.path.join(SITE, 'nav.js?v=d4ca84ce42')
+    nav = os.path.join(SITE, 'nav.js?v=6b471edace')
     if not os.path.exists(nav):
         print('   ! 找不到 nav.js（分類導覽列），請確認檔案存在', file=sys.stderr)
     else:

@@ -462,7 +462,7 @@ __CLASSOPS__
     </footer>
 
     <script src="ui.js?v=d39d73f5a8"></script>
-    <script src="nav.js?v=d4ca84ce42" defer></script>`n    <script src="fx.js?v=1754a5f26d" defer></script>`n    <script src="i18n.js?v=dfd29133cb" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
+    <script src="nav.js?v=6b471edace" defer></script>`n    <script src="fx.js?v=1754a5f26d" defer></script>`n    <script src="i18n.js?v=dfd29133cb" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
     <script src="champions-db.js?v=3009f3a66f" defer></script>
 </body>
 </html>
