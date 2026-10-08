@@ -68,6 +68,55 @@ if 'champions-db.css' not in guide:
     guide = guide.replace('</head>', '    <link rel="stylesheet" href="champions-db.css">\n</head>', 1)
     print('  已加入 champions-db.css')
 
+# ---------------------------------------------------------------- 編排整合：區塊切換列
+SWITCH = '''<div class="guide-switch" id="guideSwitch">
+        <a href="#champSection" data-sec="champSection">&#9876;&#65039; 英雄攻略</a>
+        <a href="#itemsSection" data-sec="itemsSection">&#127890; 裝備攻略</a>
+    </div>
+    <style>
+    .guide-switch{position:sticky;top:0;z-index:60;display:flex;gap:8px;justify-content:center;padding:10px;
+      background:linear-gradient(180deg,rgba(5,8,13,.97),rgba(5,8,13,.78));backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(98,170,190,.25)}
+    .guide-switch a{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;font-size:14px;font-weight:700;
+      color:#c9d6dd;text-decoration:none;border:1px solid rgba(98,170,190,.35);border-radius:999px;
+      background:linear-gradient(180deg,rgba(16,25,34,.92),rgba(9,14,20,.92));
+      transition:color .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease}
+    .guide-switch a:hover{color:#fff;border-color:#00d9ff;
+      box-shadow:0 0 0 1px rgba(0,217,255,.4),0 8px 20px -12px rgba(0,217,255,.8)}
+    .guide-switch a.is-active{color:#ffd98a;border-color:rgba(200,170,110,.8);
+      background:linear-gradient(180deg,#332915,#1a140b);
+      box-shadow:inset 0 1px 0 rgba(255,231,170,.3),0 0 0 1px rgba(0,0,0,.5)}
+    @media (max-width:430px){.guide-switch{padding:8px;gap:6px}.guide-switch a{padding:7px 13px;font-size:13px}}
+    </style>
+    <script>
+    (function () {
+      var bar = document.getElementById('guideSwitch');
+      if (!bar) return;
+      var secs = ['champSection', 'itemsSection'];
+      function update() {
+        var y = window.scrollY + 160, best = secs[0];
+        secs.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (el && el.offsetTop <= y) best = id;
+        });
+        Array.prototype.forEach.call(bar.querySelectorAll('a'), function (a) {
+          a.classList.toggle('is-active', a.getAttribute('data-sec') === best);
+        });
+      }
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+    </script>
+'''
+if 'guide-switch' not in guide:
+    guide = guide.replace('<body class="bg-items">', '<body class="bg-items">\n    ' + SWITCH, 1)
+    if 'id="champSection"' not in guide:
+        guide = guide.replace('<main class="champ-wrap"', '<main class="champ-wrap" id="champSection"', 1)
+    if 'id="itemsSection"' not in guide:
+        guide = guide.replace('<main class="items-wrap"', '<main class="items-wrap" id="itemsSection"', 1)
+    print('  已加入區塊切換列（英雄攻略／裝備攻略）')
+
 write('guide.html', guide)
 print('  已寫入 guide.html（%.1f KB）' % (len(guide.encode('utf-8')) / 1024))
 
