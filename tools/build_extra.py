@@ -418,8 +418,8 @@ def write_pages(base):
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - __TITLE__</title>
-    <link rel="stylesheet" href="style.css?v=edc69e60b9">
-    <link rel="stylesheet" href="extra.css?v=430316ac4b">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="extra.css">
 </head>
 <body class="bg-champions">
     <header class="topbar">
@@ -476,14 +476,14 @@ def write_pages(base):
         <div>本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。</div>
     </footer>
 
-    <script src="ui.js?v=d39d73f5a8"></script>
-    <script src="nav.js?v=a348373bb0" defer></script>
-    <script src="fx.js?v=1754a5f26d" defer></script>
-    <script src="i18n.js?v=e9d3c6e319" defer></script>
-    <script src="state.js?v=51487b7398" defer></script>
-    <script src="extra.js?v=06bd163729" defer></script>
+    <script src="ui.js"></script>
+    <script src="nav.js" defer></script>
+    <script src="fx.js" defer></script>
+    <script src="i18n.js" defer></script>
+    <script src="state.js" defer></script>
+    <script src="extra.js" defer></script>
     <!-- 讓更新立即生效：HTML 網路優先 -->
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js?v=a5eb7979fc').catch(function(){});});}</script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
 '''.replace('__TITLE__', title).replace('__KICKER__', kicker).replace('__MODE__', mode).replace('__VER__', VER)
@@ -661,7 +661,7 @@ def write_css():
 }
 @media (hover: none) { .skin-card:hover { transform: none; } }
 '''
-    with open(os.path.join(SITE, 'extra.css?v=430316ac4b'), 'w', encoding='utf-8', newline='\n') as fh:
+    with open(os.path.join(SITE, 'extra.css'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(css)
     print('  已寫入 extra.css')
 
@@ -1031,7 +1031,7 @@ def write_js():
   });
 })();
 '''
-    with open(os.path.join(SITE, 'extra.js?v=06bd163729'), 'w', encoding='utf-8', newline='\n') as fh:
+    with open(os.path.join(SITE, 'extra.js'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(js)
     print('  已寫入 extra.js')
 
@@ -1040,7 +1040,7 @@ def write_nav():
     """分類導覽列（nav.js）已經改成手動維護：樣式內嵌在 nav.js 裡，
     避免瀏覽器快取舊的 style.css 時導覽列變成沒有間距的純文字。
     這裡只確認檔案存在，不覆蓋它。"""
-    nav = os.path.join(SITE, 'nav.js?v=a348373bb0')
+    nav = os.path.join(SITE, 'nav.js')
     if not os.path.exists(nav):
         print('   ! 找不到 nav.js（分類導覽列），請確認檔案存在', file=sys.stderr)
     else:

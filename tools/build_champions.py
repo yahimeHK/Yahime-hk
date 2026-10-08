@@ -224,7 +224,7 @@ def main():
 
     # 位置對照：沿用 script.js 的 roleGroups（英文名 -> 中文名 -> key）
     script_src = ''
-    sp = os.path.join(SITE, 'script.js?v=223fd8d6fd')
+    sp = os.path.join(SITE, 'script.js')
     if os.path.exists(sp):
         with open(sp, 'r', encoding='utf-8') as fh:
             script_src = fh.read()
@@ -387,8 +387,8 @@ def write_html(count):
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 英雄資料庫</title>
-    <link rel="stylesheet" href="style.css?v=edc69e60b9">
-    <link rel="stylesheet" href="champions-db.css?v=c552231cd3">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="champions-db.css">
 </head>
 <body class="bg-champions">
     <header class="topbar">
@@ -461,11 +461,11 @@ __CLASSOPS__
         <div>本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。</div>
     </footer>
 
-    <script src="ui.js?v=d39d73f5a8"></script>
-    <script src="nav.js?v=a348373bb0" defer></script>`n    <script src="fx.js?v=1754a5f26d" defer></script>`n    <script src="i18n.js?v=e9d3c6e319" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
-    <script src="champions-db.js?v=3009f3a66f" defer></script>
+    <script src="ui.js"></script>
+    <script src="nav.js" defer></script>`n    <script src="fx.js" defer></script>`n    <script src="i18n.js" defer></script>`n    <script src="state.js" defer></script>
+    <script src="champions-db.js" defer></script>
     <!-- 讓更新立即生效：HTML 網路優先 -->
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js?v=a5eb7979fc').catch(function(){});});}</script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
 '''
@@ -664,7 +664,7 @@ def write_css():
   .db-champ:hover { transform: none; }
 }
 '''
-    path = os.path.join(SITE, 'champions-db.css?v=c552231cd3')
+    path = os.path.join(SITE, 'champions-db.css')
     with open(path, 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(css)
     print('  已寫入 champions-db.css (%d bytes)' % os.path.getsize(path))
@@ -882,7 +882,7 @@ def write_js():
   });
 })();
 '''
-    path = os.path.join(SITE, 'champions-db.js?v=3009f3a66f')
+    path = os.path.join(SITE, 'champions-db.js')
     with open(path, 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(js)
     print('  已寫入 champions-db.js (%d bytes)' % os.path.getsize(path))
@@ -890,7 +890,7 @@ def write_js():
 
 def write_ui():
     """不載入 script.js 的頁面（英雄資料庫）用的小工具：主題切換。"""
-    path = os.path.join(SITE, 'ui.js?v=d39d73f5a8')
+    path = os.path.join(SITE, 'ui.js')
     if os.path.exists(path):
         return
     js = '''/* ==========================================================================

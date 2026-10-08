@@ -38,9 +38,7 @@ def targets(site):
     """所有要改的檔案：頁面 ＋ 產生器樣板"""
     files = [os.path.join(site, f) for f in sorted(os.listdir(site))
              if f.endswith('.html') and not f.startswith('_t_')]
-    tdir = os.path.join(site, 'tools')
-    if os.path.isdir(tdir):
-        files += [os.path.join(tdir, f) for f in sorted(os.listdir(tdir)) if f.endswith('.py')]
+    # 只處理 HTML：產生器（tools/*.py）內的 asset 字串同時用於檔名，加上 ?v= 會讓產生器崩潰
     return files
 
 

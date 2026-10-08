@@ -26,8 +26,8 @@ HTML = '''<!DOCTYPE html>
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 裝備合成系統</title>
-    <link rel="stylesheet" href="style.css?v=edc69e60b9">
-    <link rel="stylesheet" href="guides.css?v=8f96dc2fe5">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="guides.css">
 </head>
 <body class="bg-items">
     <header class="topbar">
@@ -97,14 +97,14 @@ HTML = '''<!DOCTYPE html>
         <div>本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。</div>
     </footer>
 
-    <script src="script.js?v=223fd8d6fd"></script>
-    <script src="nav.js?v=a348373bb0" defer></script>
-    <script src="fx.js?v=1754a5f26d" defer></script>
-    <script src="i18n.js?v=e9d3c6e319" defer></script>
-    <script src="state.js?v=51487b7398" defer></script>
-    <script src="guides.js?v=fdd3fd7c9c" defer></script>
+    <script src="script.js"></script>
+    <script src="nav.js" defer></script>
+    <script src="fx.js" defer></script>
+    <script src="i18n.js" defer></script>
+    <script src="state.js" defer></script>
+    <script src="guides.js" defer></script>
     <!-- 讓更新立即生效：HTML 網路優先 -->
-    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js?v=a5eb7979fc').catch(function(){});});}</script>
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
 '''
@@ -308,9 +308,9 @@ def main():
                 .replace('__RECIPES__', str(recipes)))
     with io.open(os.path.join(SITE, 'guides.html'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(html)
-    with io.open(os.path.join(SITE, 'guides.css?v=8f96dc2fe5'), 'w', encoding='utf-8', newline='\n') as fh:
+    with io.open(os.path.join(SITE, 'guides.css'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(CSS)
-    with io.open(os.path.join(SITE, 'guides.js?v=fdd3fd7c9c'), 'w', encoding='utf-8', newline='\n') as fh:
+    with io.open(os.path.join(SITE, 'guides.js'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(JS.replace('__DATA__', json.dumps(ITEMS, ensure_ascii=False, separators=(',', ':'))))
     print('  已寫入 guides.html（裝備合成系統，%d 件道具、%d 件有合成路徑）' % (len(ITEMS), recipes))
     print('  已寫入 guides.css / guides.js')
