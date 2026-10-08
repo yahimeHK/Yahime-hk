@@ -387,7 +387,7 @@ def write_html(count):
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 英雄資料庫</title>
-    <link rel="stylesheet" href="style.css?v=6.0.3">
+    <link rel="stylesheet" href="style.css?v=6.1.0">
     <link rel="stylesheet" href="champions-db.css">
 </head>
 <body class="bg-champions">
@@ -462,7 +462,7 @@ __CLASSOPS__
     </footer>
 
     <script src="ui.js"></script>
-    <script src="nav.js?v=6.0.3" defer></script>`n    <script src="fx.js?v=6.0.3" defer></script>`n    <script src="i18n.js?v=6.0.3" defer></script>`n    <script src="state.js?v=6.0.3" defer></script>
+    <script src="nav.js?v=6.1.0" defer></script>`n    <script src="fx.js?v=6.1.0" defer></script>`n    <script src="i18n.js?v=6.1.0" defer></script>`n    <script src="state.js?v=6.1.0" defer></script>
     <script src="champions-db.js" defer></script>
 </body>
 </html>
