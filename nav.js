@@ -173,3 +173,28 @@
   else group();
   [200, 600, 1500, 3000].forEach(function (ms) { setTimeout(group, ms); });
 })();
+/* ================= 分類列：外框與外框特效 ================= */
+(function () {
+  var st = document.createElement('style');
+  st.textContent = [
+    '.subnav__inner{display:flex;align-items:center;gap:8px;flex-wrap:nowrap;overflow-x:auto}',
+    '.subnav__inner a{display:inline-flex;align-items:center;gap:6px;padding:8px 13px;white-space:nowrap;',
+    'font-size:13.5px;font-weight:600;color:#c9d6dd;text-decoration:none;border:1px solid rgba(98,170,190,.30);',
+    'border-radius:999px;background:linear-gradient(180deg,rgba(16,25,34,.92),rgba(9,14,20,.92));',
+    'transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease,color .18s ease,background .18s ease}',
+    '.subnav__inner a i{font-style:normal;font-size:14px;line-height:1}',
+    /* 外框特效：hover 青色光暈 ＋ 微微上浮 */
+    '.subnav__inner a:hover{color:#fff;border-color:#00d9ff;transform:translateY(-1px);',
+    'background:linear-gradient(180deg,rgba(12,32,42,.95),rgba(8,18,24,.95));',
+    'box-shadow:0 0 0 1px rgba(0,217,255,.45),0 10px 26px -14px rgba(0,217,255,.75)}',
+    '.subnav__inner a:active{transform:translateY(0)}',
+    '.subnav__inner a:focus-visible{outline:2px solid #00d9ff;outline-offset:2px}',
+    /* 目前頁面：金色外框 ＋ 內光 */
+    '.subnav__inner a.is-current{color:#ffd98a;border-color:rgba(200,170,110,.75);',
+    'background:linear-gradient(180deg,rgba(38,31,17,.95),rgba(19,15,8,.95));',
+    'box-shadow:inset 0 0 0 1px rgba(200,170,110,.35),0 0 22px -12px rgba(200,170,110,.9)}',
+    '@media (max-width:430px){.subnav__inner{gap:6px}.subnav__inner a{padding:6px 10px;font-size:12.5px}.subnav__inner a i{font-size:13px}}',
+    '@media (prefers-reduced-motion:reduce){.subnav__inner a{transition:none}}'
+  ].join('');
+  document.head.appendChild(st);
+})();
