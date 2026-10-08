@@ -34,6 +34,15 @@ if not m_ch or not m_it:
     sys.exit(1)
 main_ch, main_it = m_ch.group(0), m_it.group(0)
 
+# 英雄頁的彈窗（#dbModal 等）位於 </main> 之後、<footer> 之前，必須一併帶過來，
+# 否則 champions-db.js 的 render() 取不到彈窗會整段失敗（實測：英雄卡 0 張）
+_tail = ch[m_ch.end():]
+_fi = _tail.find('<footer')
+if _fi >= 0:
+    _tail = _tail[:_fi]
+main_ch = main_ch + '\n' + _tail
+print('  英雄區塊 = %.1f KB（含彈窗 %.1f KB）' % (len(main_ch.encode('utf-8')) / 1024, len(_tail.encode('utf-8')) / 1024))
+
 # id 衝突：英雄區的 roleFilters 改名（items 的行內腳本仍使用原名，不能改）
 main_ch = main_ch.replace('id="roleFilters"', 'id="champRoleFilters"')
 main_ch = main_ch.replace('aria-controls="roleFilters"', 'aria-controls="champRoleFilters"')
