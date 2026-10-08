@@ -157,6 +157,12 @@
       (tips ? '<div class="box"><b>Riot 官方提示：</b><ul>' + tips + '</ul></div>' : '') +
       (enemy ? '<div class="box"><b>對手會怎麼打你：</b><ul>' + enemy + '</ul></div>' : '') +
       ((weak || strong) ? '<div class="box"><b>站內整理對局：</b>' + (weak ? '較怕：' + esc(weak) + '　' : '') + (strong ? '較好打：' + esc(strong) : '') + '</div>' : '') +
+      '<div class="box tac-video"><b>影片參考：</b>' +
+        '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' ' + (c.title || '') + ' 攻略') + '" target="_blank" rel="noopener">▶ 攻略影片</a>' +
+        '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' Champion Spotlight') + '" target="_blank" rel="noopener">▶ 官方 Spotlight</a>' +
+        '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' ' + (c.role || '') + ' guide') + '" target="_blank" rel="noopener">▶ 英文 Guide</a>' +
+        '<a href="https://www.youtube.com/@leagueoflegends" target="_blank" rel="noopener">▶ 官方頻道</a>' +
+      '</div>' +
       '</article>';
   }
 

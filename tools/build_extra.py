@@ -655,6 +655,14 @@ def write_css():
   background: rgba(0, 217, 255, .06); border-left: 3px solid #00d9ff; border-radius: 0 10px 10px 0; }
 .tac-card .box--gold { background: linear-gradient(90deg, rgba(200,170,110,.12), rgba(0,217,255,.04)); border-left-color: #c8aa6e; color: #e0d8c8; }
 .tac-card ul { margin: 4px 0 0; padding-left: 18px; }
+.tac-video { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.tac-video a { display: inline-flex; align-items: center; gap: 5px; padding: 6px 12px; font-size: 12px; font-weight: 700;
+  color: #9ddff0; text-decoration: none; border: 1px solid rgba(98,170,190,.35); border-radius: 999px;
+  background: linear-gradient(180deg, rgba(16,25,34,.92), rgba(9,14,20,.92));
+  transition: border-color .18s ease, box-shadow .18s ease, color .18s ease, transform .18s ease; }
+.tac-video a:hover { color: #fff; border-color: #00d9ff; transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(0,217,255,.45), 0 10px 22px -14px rgba(0,217,255,.8); }
+.tac-video a span { font-size: 11px; }
 
 /* ---- 彈窗 ---- */
 .ex-modal { position: fixed; inset: 0; z-index: 130; display: none; place-items: center; padding: 20px; background: rgba(0,0,0,.8); backdrop-filter: blur(6px); }
@@ -848,6 +856,12 @@ def write_js():
       (tips ? '<div class="box"><b>Riot 官方提示：</b><ul>' + tips + '</ul></div>' : '') +
       (enemy ? '<div class="box"><b>對手會怎麼打你：</b><ul>' + enemy + '</ul></div>' : '') +
       ((weak || strong) ? '<div class="box"><b>站內整理對局：</b>' + (weak ? '較怕：' + esc(weak) + '　' : '') + (strong ? '較好打：' + esc(strong) : '') + '</div>' : '') +
+      '<div class="box tac-video"><b>影片參考：</b>' +
+        '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' ' + (c.title || '') + ' 攻略') + '" target="_blank" rel="noopener">▶ 攻略影片</a>' +
+        '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' Champion Spotlight') + '" target="_blank" rel="noopener">▶ 官方 Spotlight</a>' +
+        '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' ' + (c.role || '') + ' guide') + '" target="_blank" rel="noopener">▶ 英文 Guide</a>' +
+        '<a href="https://www.youtube.com/@leagueoflegends" target="_blank" rel="noopener">▶ 官方頻道</a>' +
+      '</div>' +
       '</article>';
   }
 
