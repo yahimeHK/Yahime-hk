@@ -240,3 +240,29 @@
       lab.insertBefore(i, lab.firstChild);
     }
   })();
+
+
+/* ================= nav-chip-polish：分類列晶片質感提升 ================= */
+(function () {
+  var st = document.createElement('style');
+  st.textContent = [
+    /* 目前頁面：金屬金漸層 + 內描邊 + 柔和外光 */
+    '.subnav__inner a.is-current{position:relative;color:#ffe6a8;text-shadow:0 1px 0 rgba(0,0,0,.55);',
+    'border:1.5px solid rgba(214,184,120,.85);',
+    'background:linear-gradient(180deg,#332915 0%,#1f180d 55%,#16110a 100%);',
+    'box-shadow:inset 0 1px 0 rgba(255,231,170,.35),inset 0 0 0 1px rgba(200,170,110,.22),',
+    '0 0 0 1px rgba(0,0,0,.55),0 6px 18px -10px rgba(200,170,110,.9),0 0 22px -8px rgba(214,184,120,.55)}',
+    /* 頂部光澤 */
+    '.subnav__inner a.is-current::after{content:"";position:absolute;left:1px;right:1px;top:1px;height:38%;',
+    'border-radius:999px;pointer-events:none;',
+    'background:linear-gradient(180deg,rgba(255,231,170,.22),rgba(255,231,170,0))}',
+    '.subnav__inner a.is-current i{filter:drop-shadow(0 1px 2px rgba(0,0,0,.6))}',
+    /* 其他晶片：輕微立體感 */
+    '.subnav__inner a{box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 2px 8px -6px rgba(0,0,0,.9)}',
+    '.subnav__inner a:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 0 0 1px rgba(0,217,255,.45),0 10px 26px -14px rgba(0,217,255,.8)}',
+    '.subnav__inner a:hover i{filter:drop-shadow(0 0 6px rgba(0,217,255,.55))}',
+    /* 目前頁面金色光澤在手機也保留但收斂 */
+    '@media (max-width:430px){.subnav__inner a.is-current{box-shadow:inset 0 1px 0 rgba(255,231,170,.3),inset 0 0 0 1px rgba(200,170,110,.2),0 0 0 1px rgba(0,0,0,.5)}}'
+  ].join('');
+  document.head.appendChild(st);
+})();
