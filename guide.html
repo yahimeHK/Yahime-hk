@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LOL 攻略站 V6.0 - 裝備與符文數據庫</title>
+    <title>LOL 攻略站 V6.0 - 攻略</title>
     <link rel="stylesheet" href="style.css?v=edc69e60b9">
     <link rel="stylesheet" href="items.css?v=e5dfd4398b">
 </head>
 <body class="bg-items">
+    <!-- 合併頁：英雄攻略 ＋ 裝備攻略（由 tools/build_guide_merge.py 產生） -->
     <header class="topbar">
         <div class="brand">SUMMONER'S <span>GUIDE</span><b>V6.0</b></div>
         <nav>
@@ -19,7 +20,61 @@
         <button class="icon-btn" id="themeBtn">☀️</button>
     </header>
 
-    <main class="items-wrap">
+    <main class="champ-wrap">
+        <section class="champ-hero">
+            <small>CHAMPION DATABASE &middot; PATCH 16.20.1</small>
+            <h1>英雄資料庫 <em>完整攻略卡</em></h1>
+            <p>173 位英雄，每位都有角色頭像、技能圖示與簡介、位置、建議符文（含符文說明）、核心裝備與戰術解析。
+               內容與圖片自動取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），並已下載到本機，離線也能看。</p>
+            <div class="champ-hero__pills">
+                <span>173 位英雄</span>
+                <span>5 條路線</span>
+                <span>被動＋Q/W/E/R 技能</span>
+                <span>符文／裝備／戰術解析</span>
+            </div>
+        </section>
+
+        <div class="champ-toolbar">
+            <div class="role-filters" id="champRoleFilters">
+                <button type="button" class="tab active" data-role="全部">全部 <b>173</b></button>
+                <button type="button" class="tab" data-role="上路">上路 <b data-count="上路">0</b></button>
+                <button type="button" class="tab" data-role="打野">打野 <b data-count="打野">0</b></button>
+                <button type="button" class="tab" data-role="中路">中路 <b data-count="中路">0</b></button>
+                <button type="button" class="tab" data-role="下路">下路 <b data-count="下路">0</b></button>
+                <button type="button" class="tab" data-role="輔助">輔助 <b data-count="輔助">0</b></button>
+            </div>
+            <div class="champ-selects">
+                <select id="dbClass" aria-label="依職業篩選">
+                    <option value="all">全部職業</option>
+                    <option value="刺客">刺客</option>
+                    <option value="鬥士">鬥士</option>
+                    <option value="法師">法師</option>
+                    <option value="射手">射手</option>
+                    <option value="輔助">輔助</option>
+                    <option value="坦克">坦克</option>
+                </select>
+                <select id="dbDiff" aria-label="依難度篩選">
+                    <option value="all">全部難度</option>
+                    <option value="簡單">簡單</option>
+                    <option value="中等">中等</option>
+                    <option value="困難">困難</option>
+                </select>
+                <input type="search" id="dbSearch" placeholder="搜尋英雄名稱、稱號或技能…" aria-label="搜尋英雄">
+                <button type="button" class="small-btn" id="dbClear">清除篩選</button>
+            </div>
+        </div>
+
+        <p class="champ-count" id="dbCount">載入中…</p>
+        <div class="champ-grid" id="dbGrid"></div>
+        <p class="champ-empty" id="dbEmpty" hidden>沒有符合條件的英雄，換個條件試試。</p>
+
+        <div class="notice">
+            📌 <b>資料說明：</b> 英雄、技能、符文與裝備資料及圖片皆取自 Riot 官方 Data Dragon <b>16.20.1</b>（zh_TW），
+            圖片已下載到 <b>assets/lol/</b>，開網站不需要連外。位置對照沿用站內既有設定；
+            符文與核心裝備為依職業／位置整理的建議方向，實戰請依對局與對手調整。
+        </div>
+    </main>
+<main class="items-wrap">
         <section class="items-hero">
             <small>BUILD LAB &middot; PATCH 16.20.1</small>
             <h1>符文 ＆ 核心裝備 <em>數據庫</em></h1>
@@ -1939,7 +1994,8 @@
     </footer>
 
     <script src="script.js?v=223fd8d6fd"></script>
-    <script src="nav.js?v=f731d6db22" defer></script>`n    <script src="fx.js?v=ac2fd662e5" defer></script>`n    <script src="i18n.js?v=507c7afb1f" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
+    <script src="nav.js?v=f731d6db22" defer></script>`n    <script src="fx.js?v=ac2fd662e5" defer></script>`n    <script src="i18n.js?v=507c7afb1f" defer></script>`n    <script src="champions-db.js?v=3009f3a66f" defer></script>
+    <script src="state.js?v=51487b7398" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cards = Array.prototype.slice.call(document.querySelectorAll('#buildCards .db-card'));
