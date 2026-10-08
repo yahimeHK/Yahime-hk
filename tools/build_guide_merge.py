@@ -63,6 +63,11 @@ if 'champions-db.js' not in guide:
 guide = guide.replace('<body class="bg-items">',
                       '<body class="bg-items">\n    <!-- 合併頁：英雄攻略 ＋ 裝備攻略（由 tools/build_guide_merge.py 產生） -->', 1)
 
+# 英雄卡的樣式表（champions.html 使用；合併頁若漏載，卡片會沒有樣式、頭像浮在文字上）
+if 'champions-db.css' not in guide:
+    guide = guide.replace('</head>', '    <link rel="stylesheet" href="champions-db.css">\n</head>', 1)
+    print('  已加入 champions-db.css')
+
 write('guide.html', guide)
 print('  已寫入 guide.html（%.1f KB）' % (len(guide.encode('utf-8')) / 1024))
 
