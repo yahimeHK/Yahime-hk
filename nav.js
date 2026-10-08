@@ -198,3 +198,16 @@
   ].join('');
   document.head.appendChild(st);
 })();
+
+/* ================= 分類列圖片縮圖樣式 ================= */
+(function () {
+  var st = document.createElement('style');
+  st.textContent = [
+    '.subnav__inner img.nav-ico{width:20px;height:20px;flex:0 0 auto;object-fit:cover;border-radius:6px;',
+    'border:1px solid rgba(98,170,190,.5);background:#0a1016;display:block}',
+    '.subnav__inner a:hover img.nav-ico{border-color:#00d9ff;box-shadow:0 0 10px -2px rgba(0,217,255,.8)}',
+    '.subnav__inner a.is-current img.nav-ico{border-color:rgba(200,170,110,.85);box-shadow:0 0 10px -2px rgba(200,170,110,.9)}',
+    '@media (max-width:430px){.subnav__inner img.nav-ico{width:18px;height:18px;border-radius:5px}}'
+  ].join('');
+  document.head.appendChild(st);
+})();
