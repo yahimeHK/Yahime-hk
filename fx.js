@@ -94,8 +94,8 @@
     /* 6.1 吋手機（約 390–430px）專用：按鍵與框架縮到合適尺寸 */
     '@media (max-width:430px){',
     '.topbar{padding:8px 10px!important;gap:6px;flex-wrap:nowrap}',
-    '.brand{font-size:12.5px;letter-spacing:.5px;white-space:nowrap}',
-    '.brand b{font-size:9px}',
+    '.brand{font-size:11px!important;letter-spacing:0;font-weight:600;white-space:nowrap}',
+    '.brand b{font-size:8px;padding:1px 3px;font-weight:700}',
     '.topbar nav{gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}',
     '.topbar nav a{font-size:13px;padding:7px 6px;white-space:nowrap}',
     '.icon-btn,.topbar .icon-btn{width:34px;height:34px;min-width:34px;font-size:14px}',
@@ -119,7 +119,7 @@
     /* 超小螢幕（320–400px）收緊頂欄，避免水平溢出 */
     '@media (max-width:400px){',
     '.topbar{padding-left:10px!important;padding-right:10px!important;gap:6px}',
-    '.brand{font-size:12px}',
+    '.brand{font-size:10.2px!important;letter-spacing:0}',
     '.brand b{font-size:9px;padding:1px 4px}',
     '.topbar .icon-btn,.icon-btn{width:32px;height:32px;font-size:13px}',
     '.topbar nav{gap:6px}',

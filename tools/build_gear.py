@@ -99,7 +99,7 @@ HTML = '''<!DOCTYPE html>
 
     <script src="script.js?v=223fd8d6fd"></script>
     <script src="nav.js?v=d4ca84ce42" defer></script>
-    <script src="fx.js?v=beba14d08e" defer></script>
+    <script src="fx.js?v=1754a5f26d" defer></script>
     <script src="i18n.js?v=dfd29133cb" defer></script>
     <script src="state.js?v=51487b7398" defer></script>
     <script src="guides.js?v=fdd3fd7c9c" defer></script>
