@@ -91,6 +91,31 @@
     ':is(.db-heading,.heading)::before{content:"";display:block;width:46px;height:2px;margin-bottom:10px;',
     'border-radius:2px;background:linear-gradient(90deg,#c8aa6e,rgba(200,170,110,0))}',
 
+    /* 6.1 吋手機（約 390–430px）專用：按鍵與框架縮到合適尺寸 */
+    '@media (max-width:430px){',
+    '.topbar{padding:8px 10px!important;gap:6px;flex-wrap:nowrap}',
+    '.brand{font-size:12.5px;letter-spacing:.5px;white-space:nowrap}',
+    '.brand b{font-size:9px}',
+    '.topbar nav{gap:4px;overflow-x:auto;-webkit-overflow-scrolling:touch}',
+    '.topbar nav a{font-size:13px;padding:7px 6px;white-space:nowrap}',
+    '.icon-btn,.topbar .icon-btn{width:34px;height:34px;min-width:34px;font-size:14px}',
+    '.topbar .icon-btn svg{width:16px;height:16px}',
+    '.subnav{padding:0 6px}',
+    '.subnav a{font-size:12.5px;padding:7px 8px;gap:4px}',
+    '.subnav a i{font-size:13px}',
+    /* 大標題縮小，避免像電腦版被放大 */
+    '.hero h1,.ex-hero h1,.items-hero h1,.gb-hero h1,.champ-hero h1,.shop-hero h1{font-size:clamp(24px,7.6vw,32px)!important;line-height:1.22}',
+    '.hero h1 em,.ex-hero h1 em,.gb-hero h1 em{font-size:inherit}',
+    '.hero p,.ex-hero p,.items-hero p,.gb-hero p{font-size:13.5px;line-height:1.75}',
+    '.hero small,.ex-hero small,.gb-hero small{font-size:10px;letter-spacing:1.6px}',
+    /* 區塊與卡片的內距、框架外環縮小，避免擠壓 */
+    ':is(.section,.ex-hero,.items-hero,.gb-hero,.champ-hero,.notice,.video-section){padding:18px!important}',
+    ':is(.section,.ex-hero,.items-hero,.gb-hero,.champ-hero,.notice,.video-section){outline-offset:2px}',
+    ':is(.hero-pills,.champ-hero__pills,.items-hero__pills,.ex-hero__pills,.gb-hero__pills){gap:6px}',
+    ':is(.hero-pills,.champ-hero__pills,.items-hero__pills,.ex-hero__pills,.gb-hero__pills) span{font-size:11.5px;padding:5px 9px}',
+    'input[type="search"],input[type="text"],select{font-size:14px}',
+    '}',
+
     /* 超小螢幕（320–400px）收緊頂欄，避免水平溢出 */
     '@media (max-width:400px){',
     '.topbar{padding-left:10px!important;padding-right:10px!important;gap:6px}',

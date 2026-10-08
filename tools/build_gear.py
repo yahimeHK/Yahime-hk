@@ -26,7 +26,7 @@ HTML = '''<!DOCTYPE html>
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 裝備合成系統</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=6.0.3">
     <link rel="stylesheet" href="guides.css?v=6.0.2">
 </head>
 <body class="bg-items">
@@ -98,10 +98,10 @@ HTML = '''<!DOCTYPE html>
     </footer>
 
     <script src="script.js"></script>
-    <script src="nav.js" defer></script>
-    <script src="fx.js" defer></script>
-    <script src="i18n.js" defer></script>
-    <script src="state.js" defer></script>
+    <script src="nav.js?v=6.0.3" defer></script>
+    <script src="fx.js?v=6.0.3" defer></script>
+    <script src="i18n.js?v=6.0.3" defer></script>
+    <script src="state.js?v=6.0.3" defer></script>
     <script src="guides.js?v=6.0.2" defer></script>
 </body>
 </html>

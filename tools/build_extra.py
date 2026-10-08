@@ -418,7 +418,7 @@ def write_pages(base):
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - __TITLE__</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=6.0.3">
     <link rel="stylesheet" href="extra.css">
 </head>
 <body class="bg-champions">
@@ -477,10 +477,10 @@ def write_pages(base):
     </footer>
 
     <script src="ui.js"></script>
-    <script src="nav.js" defer></script>
-    <script src="fx.js" defer></script>
-    <script src="i18n.js" defer></script>
-    <script src="state.js" defer></script>
+    <script src="nav.js?v=6.0.3" defer></script>
+    <script src="fx.js?v=6.0.3" defer></script>
+    <script src="i18n.js?v=6.0.3" defer></script>
+    <script src="state.js?v=6.0.3" defer></script>
     <script src="extra.js" defer></script>
 </body>
 </html>
