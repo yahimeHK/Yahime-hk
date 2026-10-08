@@ -141,3 +141,28 @@
   ].join('');
   document.head.appendChild(st);
 })();
+
+/* ================= 把頂欄圖示鈕集中到最右側容器 ================= */
+(function () {
+  var ICON_SEL = '.icon-btn, #fxBtn, #langBtn, #themeBtn, #navBtn';
+  function group() {
+    var tb = document.querySelector('.topbar');
+    if (!tb) return;
+    var right = tb.querySelector('.topbar__right');
+    if (!right) {
+      right = document.createElement('div');
+      right.className = 'topbar__right';
+      tb.appendChild(right);
+      var st = document.createElement('style');
+      st.textContent = '.topbar{display:flex;align-items:center;flex-wrap:nowrap}'
+        + '.topbar__right{margin-left:auto;display:flex;align-items:center;gap:8px;flex:0 0 auto}';
+      document.head.appendChild(st);
+    }
+    Array.prototype.slice.call(tb.querySelectorAll(ICON_SEL)).forEach(function (el) {
+      if (el.parentNode !== right) right.appendChild(el);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', group);
+  else group();
+  [200, 600, 1500, 3000].forEach(function (ms) { setTimeout(group, ms); });
+})();
