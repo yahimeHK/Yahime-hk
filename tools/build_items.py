@@ -254,11 +254,15 @@ def main():
                               os.path.join('rune', re.sub(r'[^A-Za-z0-9_.-]', '_', path)))
 
         item_html = []
+        _seen_items = set()          # 同名去重：item_ids 可能同時列到舊版與現行同名的道具（例：布甲 1028／1029）
         for iid in item_ids:
             it = items.get(str(iid))
             if not it:
                 problems.append('道具不存在：%s / %s' % (key, iid))
                 continue
+            if it.get('name') in _seen_items:
+                continue             # 同名只保留第一次出現的那一筆
+            _seen_items.add(it.get('name'))
             icon = save_image('https://ddragon.leagueoflegends.com/cdn/%s/img/item/%s.png' % (VER, iid),
                               os.path.join('item', '%s.png' % iid))
             item_html.append((icon, it['name']))
