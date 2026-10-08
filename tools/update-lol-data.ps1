@@ -58,7 +58,7 @@ try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch { }
 $tools = Join-Path $RepoPath 'tools'
 Write-Log ('開始更新 LOL 資料（Python: {0}）' -f $python)
 
-foreach ($script in 'build_champions.py', 'build_items.py', 'build_extra.py', 'build_i18n.py') {
+foreach ($script in 'build_champions.py', 'build_items.py', 'build_extra.py', 'build_i18n.py', 'build_gear.py') {
   $path = Join-Path $tools $script
   if (-not (Test-Path -LiteralPath $path)) { Write-Log ('跳過：找不到 {0}' -f $path); continue }
   $out = & $python $path 2>&1
@@ -68,3 +68,6 @@ foreach ($script in 'build_champions.py', 'build_items.py', 'build_extra.py', 'b
 }
 
 Write-Log '更新完成，變更會在幾分鐘內由「自動推送」工作提交並發布。'
+
+# 最後一步：依檔案內容自動更新版號（快取破壞），避免使用者看到舊版
+& $py (Join-Path $tools 'bust_cache.py') $site

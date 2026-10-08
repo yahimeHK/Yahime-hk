@@ -418,8 +418,8 @@ def write_pages(base):
     <meta name="color-scheme" content="dark light">
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - __TITLE__</title>
-    <link rel="stylesheet" href="style.css?v=6.1.0">
-    <link rel="stylesheet" href="extra.css">
+    <link rel="stylesheet" href="style.css?v=edc69e60b9">
+    <link rel="stylesheet" href="extra.css?v=430316ac4b">
 </head>
 <body class="bg-champions">
     <header class="topbar">
@@ -476,12 +476,12 @@ def write_pages(base):
         <div>本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。</div>
     </footer>
 
-    <script src="ui.js"></script>
-    <script src="nav.js?v=6.1.0" defer></script>
-    <script src="fx.js?v=6.1.0" defer></script>
-    <script src="i18n.js?v=6.1.0" defer></script>
-    <script src="state.js?v=6.1.0" defer></script>
-    <script src="extra.js" defer></script>
+    <script src="ui.js?v=d39d73f5a8"></script>
+    <script src="nav.js?v=e15ca57726" defer></script>
+    <script src="fx.js?v=beba14d08e" defer></script>
+    <script src="i18n.js?v=dfd29133cb" defer></script>
+    <script src="state.js?v=51487b7398" defer></script>
+    <script src="extra.js?v=06bd163729" defer></script>
 </body>
 </html>
 '''.replace('__TITLE__', title).replace('__KICKER__', kicker).replace('__MODE__', mode).replace('__VER__', VER)
@@ -659,7 +659,7 @@ def write_css():
 }
 @media (hover: none) { .skin-card:hover { transform: none; } }
 '''
-    with open(os.path.join(SITE, 'extra.css'), 'w', encoding='utf-8', newline='\n') as fh:
+    with open(os.path.join(SITE, 'extra.css?v=430316ac4b'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(css)
     print('  已寫入 extra.css')
 
@@ -1029,7 +1029,7 @@ def write_js():
   });
 })();
 '''
-    with open(os.path.join(SITE, 'extra.js'), 'w', encoding='utf-8', newline='\n') as fh:
+    with open(os.path.join(SITE, 'extra.js?v=06bd163729'), 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(js)
     print('  已寫入 extra.js')
 
@@ -1038,7 +1038,7 @@ def write_nav():
     """分類導覽列（nav.js）已經改成手動維護：樣式內嵌在 nav.js 裡，
     避免瀏覽器快取舊的 style.css 時導覽列變成沒有間距的純文字。
     這裡只確認檔案存在，不覆蓋它。"""
-    nav = os.path.join(SITE, 'nav.js')
+    nav = os.path.join(SITE, 'nav.js?v=e15ca57726')
     if not os.path.exists(nav):
         print('   ! 找不到 nav.js（分類導覽列），請確認檔案存在', file=sys.stderr)
     else:

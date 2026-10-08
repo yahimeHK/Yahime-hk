@@ -270,13 +270,13 @@ def main():
     rec(PASS if not bad else FAIL, "css", "player.css %d 條規則，未作用域的選擇器: %s"
         % (total, "無" if not bad else ", ".join(bad[:8])))
 
-    for f in ["style.css", "player.css"]:
+    for f in ["style.css?v=edc69e60b9", "player.css"]:
         t = open(os.path.join(site, f), encoding="utf-8").read()
         rec(PASS if t.count("{") == t.count("}") else FAIL, "css", "%s 大括號平衡 (%d/%d)"
             % (f, t.count("{"), t.count("}")))
 
     if node:
-        for f in ["script.js", "player.js"]:
+        for f in ["script.js?v=223fd8d6fd", "player.js"]:
             r = subprocess.run([node, "--check", os.path.join(site, f)],
                                capture_output=True, text=True)
             rec(PASS if r.returncode == 0 else FAIL, "js", "node --check %s%s"

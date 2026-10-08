@@ -312,8 +312,8 @@ def write_html(cards):
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LOL 攻略站 V6.0 - 裝備與符文數據庫</title>
-    <link rel="stylesheet" href="style.css?v=6.1.0">
-    <link rel="stylesheet" href="items.css">
+    <link rel="stylesheet" href="style.css?v=edc69e60b9">
+    <link rel="stylesheet" href="items.css?v=e5dfd4398b">
 </head>
 <body class="bg-items">
     <header class="topbar">
@@ -496,8 +496,8 @@ def write_html(cards):
         <div>本站為靜態攻略資料庫，未串接 Riot API，不提供即時戰績或牌位查詢。</div>
     </footer>
 
-    <script src="script.js"></script>
-    <script src="nav.js?v=6.1.0" defer></script>`n    <script src="fx.js?v=6.1.0" defer></script>`n    <script src="i18n.js?v=6.1.0" defer></script>`n    <script src="state.js?v=6.1.0" defer></script>
+    <script src="script.js?v=223fd8d6fd"></script>
+    <script src="nav.js?v=e15ca57726" defer></script>`n    <script src="fx.js?v=beba14d08e" defer></script>`n    <script src="i18n.js?v=dfd29133cb" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cards = Array.prototype.slice.call(document.querySelectorAll('#buildCards .db-card'));
@@ -885,7 +885,7 @@ def write_css():
 }
 @media (hover: none) { .ac-card:hover { transform: none; } }
 '''
-    out = os.path.join(SITE, 'items.css')
+    out = os.path.join(SITE, 'items.css?v=e5dfd4398b')
     with open(out, 'w', encoding='utf-8', newline='\n') as fh:
         fh.write(css)
     print('  已寫入 items.css (%d bytes)' % os.path.getsize(out))
