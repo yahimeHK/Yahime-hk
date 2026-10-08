@@ -145,8 +145,8 @@ CARD_JS = '''<script>
       var host = document.getElementById('champSection');
       if (!host) return;
       fetch('assets/lol/champions.json').then(function (r) { return r.json(); }).then(function (d) {
-        var byKey = {};
-        (d.champions || []).forEach(function (c) { byKey[c.key] = c; });
+        var byKey = {}, byName = {};
+        (d.champions || []).forEach(function (c) { byKey[c.key] = c; byName[c.name] = c; });
         var n = 0;
         Array.prototype.forEach.call(host.querySelectorAll('.db-champ'), function (card) {
           if (card.querySelector('.card-build')) return;
@@ -155,7 +155,8 @@ CARD_JS = '''<script>
           var file = (im.getAttribute('src') || '').split('/').pop().split('?')[0].replace('.jpg', '');
           var c = byKey[file];
           if (!c) { var b = card.querySelector('b'); c = b ? byName[(b.textContent || '').trim()] : null; }
-          if (!c) return;
+          if (!c) return;          if (!c) { var _nb = card.querySelector('b'); c = _nb ? byName[(_nb.textContent || '').trim()] : null; }
+          
           var r = c.rune || {}, its = c.items || [];
           var html = '<div class="card-build">';
           if (r.keystone) {
@@ -208,7 +209,8 @@ CARD_JS2 = """<style>
           var file = (im.getAttribute('src') || '').split('/').pop().split('?')[0].replace('.jpg', '');
           var c = byKey[file];
           if (!c) { var b = card.querySelector('b'); c = b ? byName[(b.textContent || '').trim()] : null; }
-          if (!c) return;
+          if (!c) return;          if (!c) { var _nb = card.querySelector('b'); c = _nb ? byName[(_nb.textContent || '').trim()] : null; }
+          
           var r = c.rune || {}, its = c.items || [];
           var spells = (BY_ROLE[c.role] || ['Flash', 'Ignite']);
           var html = '<div class="card-build">';
@@ -232,7 +234,7 @@ CARD_JS2 = """<style>
       }
       fetch('assets/lol/champions.json').then(function (r) { return r.json(); }).then(function (d) {
         byKey = {};
-        (d.champions || []).forEach(function (c) { byKey[c.key] = c; });
+        (d.champions || []).forEach(function (c) { byKey[c.key] = c; byName[c.name] = c; });
         enrich();
       })['catch'](function () {});
     })();
