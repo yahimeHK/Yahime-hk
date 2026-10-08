@@ -3,7 +3,7 @@
 產生七個分類分頁（可重複執行、跟著 Riot 官方資料更新）：
 
   skins.html     角色造型（每位英雄的造型縮圖，已排除炫彩，最多 6 個）
-  gallery.html   圖片（官方讀取圖牆 + 四張頁面桌布）
+  gallery.html   美術圖（官方讀取圖牆 + 四張頁面桌布）
   abilities.html 技能圖片及簡介（全英雄被動與 Q/W/E/R）
   maps.html      地圖（召喚峽谷／嚎哭深淵等，含地圖重點）
   runes.html     符文 ＋ 符文簡介（五條符文樹全部符文與官方說明）
@@ -399,7 +399,7 @@ def write_json(name, data):
 
 PAGES = [
     ('skins.html', '角色造型', 'SKINS GALLERY', 'skins'),
-    ('gallery.html', '圖片', 'ART GALLERY', 'gallery'),
+    ('gallery.html', '美術圖', 'ART GALLERY', 'gallery'),
     ('abilities.html', '技能圖片及簡介', 'ABILITIES', 'abilities'),
     ('maps.html', '地圖', 'MAPS', 'maps'),
     ('runes.html', '符文', 'RUNES', 'runes'),
