@@ -211,3 +211,17 @@
   ].join('');
   document.head.appendChild(st);
 })();
+
+  // 「分類資料庫」標籤加上圖示，與其他分類一致
+  (function () {
+    var sub = document.querySelector('.subnav');
+    if (!sub) return;
+    var lab = sub.querySelector('.subnav__label, .subnav__inner > span, .subnav__inner > b');
+    if (lab && !lab.querySelector('i')) {
+      var i = document.createElement('i');
+      i.setAttribute('aria-hidden', 'true');
+      i.textContent = '📚';
+      i.style.cssText = 'font-style:normal;margin-right:5px';
+      lab.insertBefore(i, lab.firstChild);
+    }
+  })();
