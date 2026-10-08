@@ -103,6 +103,8 @@ HTML = '''<!DOCTYPE html>
     <script src="i18n.js?v=dfd29133cb" defer></script>
     <script src="state.js?v=51487b7398" defer></script>
     <script src="guides.js?v=fdd3fd7c9c" defer></script>
+    <!-- 讓更新立即生效：HTML 網路優先 -->
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js?v=a5eb7979fc').catch(function(){});});}</script>
 </body>
 </html>
 '''

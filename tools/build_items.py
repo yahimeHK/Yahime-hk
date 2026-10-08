@@ -641,6 +641,8 @@ def write_html(cards):
         else build();
     })();
     </script>
+    <!-- 讓更新立即生效：HTML 網路優先 -->
+    <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js?v=a5eb7979fc').catch(function(){});});}</script>
 </body>
 </html>
 ''')
