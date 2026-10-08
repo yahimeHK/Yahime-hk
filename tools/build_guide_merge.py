@@ -154,6 +154,7 @@ CARD_JS = '''<script>
           if (!im) return;
           var file = (im.getAttribute('src') || '').split('/').pop().split('?')[0].replace('.jpg', '');
           var c = byKey[file];
+          if (!c) { var b = card.querySelector('b'); c = b ? byName[(b.textContent || '').trim()] : null; }
           if (!c) return;
           var r = c.rune || {}, its = c.items || [];
           var html = '<div class="card-build">';
@@ -177,6 +178,69 @@ CARD_JS = '''<script>
 if 'card-build' not in guide:
     guide = guide.replace('</body>', HIDE_CSS + '\n    ' + CARD_JS + '\n</body>', 1)
     print('  已加入統一網格（隱藏重複區塊 ＋ 卡片顯示基石符文與核心裝備）')
+
+# ---------------------------------------------------------------- 卡片擴充（修正時序）＋ 召喚師技能
+CARD_JS2 = """<style>
+    .card-build .cb-spells { display: inline-flex; gap: 4px; }
+    .card-build .cb-spells img { width: 26px; height: 26px; border-radius: 6px;
+      border: 1px solid rgba(98,170,190,.45); background: #0a1016; }
+    .card-build .cb-spells img:hover { border-color: #00d9ff; }
+    @media (max-width:430px) { .card-build .cb-spells img { width: 22px; height: 22px; } }
+    </style>
+    <script>
+    (function () {
+      var host = document.getElementById('champSection');
+      if (!host) return;
+      var SPELL = { 'Flash': '閃現', 'Smite': '重擊', 'Teleport': '傳送', 'Ignite': '點燃',
+                    'Heal': '治癒', 'Exhaust': '虛弱', 'Barrier': '光盾', 'Cleanse': '淨化', 'Ghost': '鬼步' };
+      var BY_ROLE = { '上路': ['Flash', 'Teleport'], '中路': ['Flash', 'Ignite'], '打野': ['Flash', 'Smite'],
+                      '下路': ['Flash', 'Heal'], '輔助': ['Flash', 'Ignite'] };
+      var byKey = null, tries = 0;
+      function enrich() {
+        var cards = host.querySelectorAll('.db-champ');
+        if (!cards.length) { if (tries++ < 25) setTimeout(enrich, 400); return; }
+        if (!byKey) { if (tries++ < 25) setTimeout(enrich, 400); return; }
+        var n = 0;
+        Array.prototype.forEach.call(cards, function (card) {
+          if (card.querySelector('.card-build')) return;
+          var im = card.querySelector('img');
+          if (!im) return;
+          var file = (im.getAttribute('src') || '').split('/').pop().split('?')[0].replace('.jpg', '');
+          var c = byKey[file];
+          if (!c) { var b = card.querySelector('b'); c = b ? byName[(b.textContent || '').trim()] : null; }
+          if (!c) return;
+          var r = c.rune || {}, its = c.items || [];
+          var spells = (BY_ROLE[c.role] || ['Flash', 'Ignite']);
+          var html = '<div class="card-build">';
+          if (its.length) {
+            html += '<span class="cb-items">' + its.map(function (it) {
+              return '<img src="' + it.i + '" alt="' + it.n + '" title="' + it.n + ' · ' + it.g + ' 金幣">';
+            }).join('') + '</span>';
+          }
+          if (r.keystone) {
+            html += '<span class="cb-rune" title="' + (r.desc || '') + '">' +
+              (r.icon ? '<img src="' + r.icon + '" alt="">' : '') + r.keystone + '</span>';
+          }
+          html += '<span class="cb-spells">' + spells.map(function (sp) {
+            return '<img src="assets/lol/spell/' + sp + '.png" alt="' + (SPELL[sp] || sp) + '" title="' +
+              (SPELL[sp] || sp) + '（站內依定位建議）">';
+          }).join('') + '</span>';
+          html += '</div>';
+          card.insertAdjacentHTML('beforeend', html);
+          n++;
+        });
+      }
+      fetch('assets/lol/champions.json').then(function (r) { return r.json(); }).then(function (d) {
+        byKey = {};
+        (d.champions || []).forEach(function (c) { byKey[c.key] = c; });
+        enrich();
+      })['catch'](function () {});
+    })();
+    </script>"""
+
+if 'cb-spells' not in guide:
+    guide = guide.replace('</body>', CARD_JS2 + '\n</body>', 1)
+    print('  已加入卡片擴充（重試機制）＋ 召喚師技能')
 
 write('guide.html', guide)
 print('  已寫入 guide.html（%.1f KB）' % (len(guide.encode('utf-8')) / 1024))
