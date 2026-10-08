@@ -219,15 +219,6 @@ def main():
 
     champs = json.loads(ddragon('%s/data/zh_TW/championFull.json' % VER, 'champFull_%s.json' % VER))['data']
     items = json.loads(ddragon('%s/data/zh_TW/item.json' % VER, 'item_%s.json' % VER))['data']
-    items = {k: v for k, v in items.items()
-            if (v.get('gold') or {}).get('purchasable') and (v.get('gold') or {}).get('total')
-            and (v.get('maps') or {}).get('11')}   # 方案 B：只留召喚峽谷現行裝備
-    items_keep = {}
-    for _k, _v in items.items():
-        _n = _v.get('name')
-        if _n not in items_keep or len(_k) < len(items_keep[_n]):
-            items_keep[_n] = _k
-    items = {k: v for k, v in items.items() if items_keep.get(v.get('name')) == k}
     trees = json.loads(ddragon('%s/data/zh_TW/runesReforged.json' % VER, 'runes_%s.json' % VER))
     en = json.loads(ddragon('%s/data/en_US/champion.json' % VER, 'champEn_%s.json' % VER))['data']
 
