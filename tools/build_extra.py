@@ -353,7 +353,7 @@ def main():
     _keep = {}
     for _iid, _it in items.items():
         _g = _it.get('gold') or {}
-        if not _g.get('purchasable') or not _g.get('total') or not (_it.get('maps') or {}).get('11'):
+        if not _g.get('purchasable') or not _g.get('total') or not ((_it.get('maps') or {}).get('11') or (_it.get('maps') or {}).get('12')):
             continue
         _n = _it['name']
         if _n not in _keep or len(_iid) < len(_keep[_n]):
