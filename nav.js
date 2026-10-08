@@ -118,7 +118,7 @@
     items.forEach(function (it) {
       var h = it.href.toLowerCase();
       if (h === 'champions.html' || h === 'items.html') {
-        if (!added) { out.push({ href: 'guide.html', label: '攻略', icon: '\uD83D\uDCD6' }); added = true; }
+        if (!added) { out.push({ href: 'guide.html', label: '英雄攻略', icon: '\uD83D\uDCD6' }); added = true; }
         return;
       }
       out.push(it);
