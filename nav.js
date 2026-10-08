@@ -106,26 +106,12 @@
 
   // 3) 重建分類列（保留「分類資料庫」標題），主選單置前
     // 依指定順序排列（1 英雄攻略 2 裝備攻略 3 裝備合成 4 符文 5 核心裝備 6 戰術解析 7 地圖 8 角色造型 9 美術圖）
-  var ORDER = ['guide.html','champions.html','items.html','guides.html','runes.html','gear.html','tactics.html','maps.html','skins.html','gallery.html'];
+  var ORDER = ['champions.html','items.html','guides.html','runes.html','gear.html','tactics.html','maps.html','skins.html','gallery.html'];
   items.sort(function (x, y) {
     var ix = ORDER.indexOf(x.href.toLowerCase()), iy = ORDER.indexOf(y.href.toLowerCase());
     if (ix < 0) ix = 99; if (iy < 0) iy = 99;
     return ix - iy;
   });
-  // 合併：英雄攻略 + 裝備攻略 → 單一「📖 攻略」
-  (function () {
-    var out = [], added = false;
-    items.forEach(function (it) {
-      var h = it.href.toLowerCase();
-      if (h === 'champions.html' || h === 'items.html') {
-        if (!added) { out.push({ href: 'guide.html', label: '攻略', icon: '\uD83D\uDCD6' }); added = true; }
-        return;
-      }
-      out.push(it);
-    });
-    items = out;
-  })();
-
   Array.prototype.forEach.call(sub.querySelectorAll('a'), function (a) { a.parentNode.removeChild(a); });
   sub.insertAdjacentHTML('beforeend', items.map(function (it) {
     var cur = it.href.toLowerCase() === here ? ' class="is-current"' : '';
