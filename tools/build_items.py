@@ -497,7 +497,7 @@ def write_html(cards):
     </footer>
 
     <script src="script.js?v=223fd8d6fd"></script>
-    <script src="nav.js?v=e15ca57726" defer></script>`n    <script src="fx.js?v=beba14d08e" defer></script>`n    <script src="i18n.js?v=dfd29133cb" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
+    <script src="nav.js?v=d4ca84ce42" defer></script>`n    <script src="fx.js?v=beba14d08e" defer></script>`n    <script src="i18n.js?v=dfd29133cb" defer></script>`n    <script src="state.js?v=51487b7398" defer></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var cards = Array.prototype.slice.call(document.querySelectorAll('#buildCards .db-card'));
