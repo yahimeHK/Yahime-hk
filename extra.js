@@ -153,9 +153,6 @@
       '<div class="tac-card__head"><img src="' + esc(c.avatar) + '" alt="' + esc(c.name) + '" loading="lazy">' +
       '<div><b>' + esc(c.name) + '</b><small>' + esc(c.title) + ' · ' + esc(c.role) + '</small></div></div>' +
       '<div class="box box--gold">' + esc(t.style || '') + '</div>' +
-      (t.role ? '<div class="box">' + esc(t.role) + '</div>' : '') +
-      (tips ? '<div class="box"><b>Riot 官方提示：</b><ul>' + tips + '</ul></div>' : '') +
-      (enemy ? '<div class="box"><b>對手會怎麼打你：</b><ul>' + enemy + '</ul></div>' : '') +
       ((weak || strong) ? '<div class="box"><b>站內整理對局：</b>' + (weak ? '較怕：' + esc(weak) + '　' : '') + (strong ? '較好打：' + esc(strong) : '') + '</div>' : '') +
       '<div class="box tac-video"><b>影片參考：</b>' +
         '<a href="https://www.youtube.com/results?search_query=' + encodeURIComponent(c.name + ' ' + (c.title || '') + ' 攻略') + '" target="_blank" rel="noopener">▶ 攻略影片</a>' +
