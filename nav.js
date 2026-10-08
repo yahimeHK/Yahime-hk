@@ -75,88 +75,45 @@
 })();
 
 
-/* ================= 主導覽下拉選單（比照 Riot 官網分類選單） ================= */
+/* ================= 主選單整併進「分類資料庫」那一列 ================= */
 (function () {
   var nav = document.querySelector('.topbar nav');
-  if (!nav) return;
-  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
-  if (links.length < 2) return;
+  var sub = document.querySelector('.subnav__inner') || document.querySelector('.subnav');
+  if (!nav || !sub) return;
 
   var here = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  var cur = null;
-  links.forEach(function (a) { if ((a.getAttribute('href') || '').toLowerCase() === here) cur = a; });
-  if (!cur) cur = links[0];
+  var items = [];
+  function push(href, label, icon) {
+    if (!href) return;
+    for (var k = 0; k < items.length; k++) { if (items[k].href.toLowerCase() === href.toLowerCase()) return; }
+    items.push({ href: href, label: label, icon: icon });
+  }
 
-  var label = (cur.textContent || '').replace(/\s+/g, ' ').trim();
-  nav.classList.add('navdd');
-  nav.setAttribute('aria-label', '主選單');
-  nav.innerHTML = '';
-
-  var btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'navdd__btn';
-  btn.setAttribute('aria-haspopup', 'true');
-  btn.setAttribute('aria-expanded', 'false');
-  btn.innerHTML = '<span class="navdd__label"></span><i class="navdd__caret" aria-hidden="true">▾</i>';
-  btn.querySelector('.navdd__label').textContent = label;
-
-  var panel = document.createElement('div');
-  panel.className = 'navdd__panel';
-  panel.setAttribute('role', 'menu');
-  links.forEach(function (a) {
-    var b = document.createElement('a');
-    b.href = a.getAttribute('href');
-    b.textContent = (a.textContent || '').trim();
-    b.setAttribute('role', 'menuitem');
-    if (a === cur) { b.className = 'is-current'; b.setAttribute('aria-current', 'page'); }
-    panel.appendChild(b);
+  // 1) 原本頂欄的四項
+  Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+    push(a.getAttribute('href'), (a.textContent || '').replace(/\s+/g, ' ').trim(), '');
+  });
+  // 2) 原本分類資料庫的各項（含圖示）
+  Array.prototype.forEach.call(sub.querySelectorAll('a'), function (a) {
+    var el = a.querySelector('i');
+    var icon = el ? (el.textContent || '').trim() : '';
+    var label = (a.textContent || '').replace(/\s+/g, ' ').trim();
+    if (icon && label.indexOf(icon) === 0) label = label.slice(icon.length).trim();
+    push(a.getAttribute('href'), label, icon);
   });
 
-  nav.appendChild(btn);
-  nav.appendChild(panel);
+  // 3) 重建分類列（保留「分類資料庫」標題），主選單置前
+  Array.prototype.forEach.call(sub.querySelectorAll('a'), function (a) { a.parentNode.removeChild(a); });
+  sub.insertAdjacentHTML('beforeend', items.map(function (it) {
+    var cur = it.href.toLowerCase() === here ? ' class="is-current"' : '';
+    var icon = it.icon ? '<i aria-hidden="true">' + it.icon + '</i>' : '';
+    return '<a href="' + it.href + '"' + cur + '>' + icon + it.label + '</a>';
+  }).join(''));
 
-  function close() {
-    nav.classList.remove('is-open');
-    btn.setAttribute('aria-expanded', 'false');
-  }
-  function open() {
-    nav.classList.add('is-open');
-    btn.setAttribute('aria-expanded', 'true');
-  }
-  btn.addEventListener('click', function (e) {
-    e.stopPropagation();
-    if (nav.classList.contains('is-open')) close(); else open();
-  });
-  document.addEventListener('click', function (e) { if (!nav.contains(e.target)) close(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-  panel.addEventListener('click', function () { setTimeout(close, 60); });
-
-  var st = document.createElement('style');
-  st.textContent = [
-    '.topbar nav.navdd{position:relative;display:flex;align-items:center;gap:0;overflow:visible}',
-    '.navdd__btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;font:inherit;font-size:14px;font-weight:800;',
-    'color:#e8f4f8;background:linear-gradient(180deg,rgba(20,34,44,.95),rgba(11,17,23,.95));',
-    'border:1px solid rgba(98,170,190,.4);border-radius:10px;cursor:pointer;transition:border-color .18s ease,color .18s ease}',
-    '.navdd__btn:hover{border-color:#00d9ff;color:#fff}',
-    '.navdd__caret{font-style:normal;font-size:10px;color:#c8aa6e;transition:transform .2s ease}',
-    'nav.is-open .navdd__caret{transform:rotate(180deg)}',
-    '.navdd__panel{display:none;position:absolute;top:calc(100% + 10px);right:0;min-width:196px;padding:8px;z-index:120;',
-    'background:linear-gradient(180deg,#111c24,#0a1016);border:1px solid rgba(98,170,190,.4);border-radius:12px;',
-    'box-shadow:0 26px 60px -30px rgba(0,0,0,1),0 0 0 1px rgba(0,0,0,.5);',
-    'opacity:0;transform:translateY(-6px);transition:opacity .18s ease,transform .18s ease}',
-    'nav.is-open .navdd__panel{display:block !important;visibility:visible !important;opacity:1 !important;transform:translateY(0)}',
-    '.navdd__panel a{display:block;padding:11px 14px;font-size:14px;font-weight:600;color:#c9d6dd;text-decoration:none;border-radius:8px}',
-    '.navdd__panel a:hover{color:#fff;background:rgba(0,217,255,.12)}',
-    '.navdd__panel a.is-current{color:#00d9ff;background:rgba(0,217,255,.08)}',
-    '.navdd__panel a.is-current::after{content:"●";float:right;font-size:8px;color:#c8aa6e;line-height:20px}',
-    '@media (max-width:430px){.navdd__btn{padding:8px 11px;font-size:13px}.navdd__panel{min-width:176px}}',
-    '@media (prefers-reduced-motion:reduce){.navdd__panel,.navdd__caret{transition:none}}'
-  ].join('');
-  document.head.appendChild(st);
-
-  window.LOLNav = { open: open, close: close };
+  // 4) 頂欄選單已整併，隱藏避免重複
+  nav.style.display = 'none';
+  nav.setAttribute('aria-hidden', 'true');
 })();
-
 
 /* ================= 品牌字做成「回到首頁」按鈕 ================= */
 (function () {
