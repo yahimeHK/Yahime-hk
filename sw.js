@@ -3,10 +3,16 @@
    - 頁面（HTML）：網路優先 → 永遠拿最新，離線才用快取
    - 有 ?v= 版號的資源：內容雜湊保證內容不變 → 快取優先（開站更快）
    注意：不主動干預其他請求，避免造成新的快取問題。 */
-const CACHE = 'lol-guide-v1';
+const CACHE = 'lol-guide-v2';
 
 self.addEventListener('install', () => self.skipWaiting());
-self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+      .then(() => self.clients.claim())
+  );
+});
 
 self.addEventListener('fetch', (event) => {
   const req = event.request;
@@ -23,6 +29,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(req, { cache: 'no-cache' })
         .then((res) => {
+          if (!res || !res.ok) return res;
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
           return res;
@@ -36,6 +43,7 @@ self.addEventListener('fetch', (event) => {
     // 有版號的資源：先快取，沒有才連網（並存起來）
     event.respondWith(
       caches.match(req).then((hit) => hit || fetch(req).then((res) => {
+        if (!res || !res.ok) return res;
         const copy = res.clone();
         caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
         return res;
