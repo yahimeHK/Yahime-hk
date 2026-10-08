@@ -477,7 +477,7 @@ def write_pages(base):
     </footer>
 
     <script src="ui.js?v=d39d73f5a8"></script>
-    <script src="nav.js?v=6b471edace" defer></script>
+    <script src="nav.js?v=d667269d21" defer></script>
     <script src="fx.js?v=1754a5f26d" defer></script>
     <script src="i18n.js?v=dfd29133cb" defer></script>
     <script src="state.js?v=51487b7398" defer></script>
@@ -1038,11 +1038,16 @@ def write_nav():
     """分類導覽列（nav.js）已經改成手動維護：樣式內嵌在 nav.js 裡，
     避免瀏覽器快取舊的 style.css 時導覽列變成沒有間距的純文字。
     這裡只確認檔案存在，不覆蓋它。"""
-    nav = os.path.join(SITE, 'nav.js?v=6b471edace')
+    nav = os.path.join(SITE, 'nav.js?v=d667269d21')
     if not os.path.exists(nav):
         print('   ! 找不到 nav.js（分類導覽列），請確認檔案存在', file=sys.stderr)
     else:
         print('  nav.js 存在（樣式內嵌，不覆蓋）')
 
 if __name__ == '__main__':
-    sys.exit(main())
+    # 「技能圖片」頁已下線（內容由英雄攻略涵蓋）
+    _rc = main()
+    _dead = os.path.join(SITE, 'abilities.html')
+    if os.path.exists(_dead):   # abilities.html 已下線
+        os.remove(_dead)
+    sys.exit(_rc)

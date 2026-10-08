@@ -11,7 +11,7 @@
   var PAGES = [
     ['skins.html', '角色造型', '🎨'],
     ['gallery.html', '圖片', '🖼️'],
-    ['abilities.html', '技能圖片', '⚡'],
+    ['champions.html', '英雄攻略', '🎯'],
     ['maps.html', '地圖', '🗺️'],
     ['runes.html', '符文', '🔯'],
     ['gear.html', '核心裝備', '🛡️'],
