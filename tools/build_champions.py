@@ -20,6 +20,12 @@ import urllib.parse
 import urllib.request
 
 # 網站根目錄：優先用環境變數，其次自動判斷（產生器放 tools/ 時，上一層就是網站根目錄）
+def esc(text):
+    """HTML 逸出（頁尾與標題會用到）。"""
+    return (str(text if text is not None else '')
+            .replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+            .replace('"', '&quot;').replace("'", '&#39;'))
+
 _HERE = os.path.dirname(os.path.abspath(__file__))
 SITE = os.environ.get('LOL_SITE') or (_HERE if os.path.exists(os.path.join(_HERE, 'index.html')) else os.path.dirname(_HERE))
 ASSETS = os.path.join(SITE, 'assets', 'lol')
