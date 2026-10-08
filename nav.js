@@ -91,6 +91,7 @@
 
   // 1) 原本頂欄的四項
   Array.prototype.forEach.call(nav.querySelectorAll('a'), function (a) {
+    if ((a.getAttribute('href') || '').toLowerCase() === 'index.html') return;   // 首頁已由品牌按鈕提供
     push(a.getAttribute('href'), (a.textContent || '').replace(/\s+/g, ' ').trim(), '');
   });
   // 2) 原本分類資料庫的各項（含圖示）
