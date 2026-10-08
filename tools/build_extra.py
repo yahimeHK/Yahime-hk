@@ -366,8 +366,8 @@ def main():
         gold = it.get('gold') or {}
         if not gold.get('purchasable') or not gold.get('total'):
             continue
-        if not ((it.get('maps') or {}).get('11') or (it.get('maps') or {}).get('12')):
-            continue   # 方案 A：保留召喚峽谷＋ARAM 現行道具（只做同名去重）
+        if not (it.get('maps') or {}).get('11'):
+            continue   # 方案 B：只保留召喚峽谷現行裝備
         icon = save_image('https://ddragon.leagueoflegends.com/cdn/%s/img/item/%s.png' % (VER, iid),
                           os.path.join('gear', '%s.png' % iid))
         if not icon:
