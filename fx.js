@@ -80,6 +80,7 @@
     '.notice{display:none !important}',   /* 依需求隱藏「📌 資料說明」區塊；要恢復請刪掉這一行 */
     /* 頁首、分類導覽列、頁尾：一致的分隔線 */
     '.topbar{border-bottom:1px solid rgba(98,170,190,.20)}',
+    '.topbar{display:flex;align-items:center;flex-wrap:nowrap}.topbar .brand,.topbar .brand--link{margin-right:auto}',
     '.subnav{border-bottom:1px solid rgba(98,170,190,.18)}',
     'footer{border-top:1px solid rgba(98,170,190,.16)}',
 
