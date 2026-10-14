@@ -354,3 +354,22 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+
+/* ================= art-card-grid-fix：美術圖改用等高網格（原本多欄排版在手機參差不齊） ================= */
+(function () {
+  var st = document.createElement('style');
+  st.textContent = [
+    /* 找出「內含 art-card 的欄式容器」改成等高網格（:has 支援現代瀏覽器） */
+    ':has(> .art-card){column-count:auto!important;column-width:auto!important;columns:auto!important;',
+    'display:grid!important;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))!important;',
+    'gap:12px!important;align-items:start}',
+    '.art-card{break-inside:auto!important;page-break-inside:auto!important;margin:0!important;display:flex!important;',
+    'flex-direction:column;height:100%}',
+    '.art-card img{aspect-ratio:3/4;object-fit:cover;width:100%}',
+    '.art-card span{margin-top:auto}',
+    '@media (max-width:700px){:has(> .art-card){grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}}',
+    '@media (max-width:380px){:has(> .art-card){gap:8px!important}}'
+  ].join('');
+  document.head.appendChild(st);
+})();
