@@ -373,3 +373,32 @@
   ].join('');
   document.head.appendChild(st);
 })();
+
+/* ================= art-grid-fixed：用 JS 加 class 修正美術圖排列（不依賴 :has()，手機也支援） ================= */
+(function () {
+  function fix() {
+    var card = document.querySelector('.art-card');
+    if (!card || !card.parentElement) return;
+    var box = card.parentElement;
+    if (box.classList.contains('art-grid-fixed')) return;
+    box.classList.add('art-grid-fixed');
+    var st = document.createElement('style');
+    st.textContent = [
+      '.art-grid-fixed{column-count:auto!important;column-width:auto!important;columns:auto!important;',
+      'display:grid!important;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))!important;',
+      'gap:12px!important;align-items:start}',
+      '.art-grid-fixed .art-card{margin:0!important;break-inside:auto!important;page-break-inside:auto!important;',
+      'display:flex!important;flex-direction:column;height:100%}',
+      '.art-grid-fixed .art-card img{aspect-ratio:3/4!important;object-fit:cover!important;width:100%;display:block}',
+      '.art-grid-fixed .art-card span{margin-top:auto}',
+      '@media (max-width:700px){.art-grid-fixed{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}}',
+      '@media (max-width:380px){.art-grid-fixed{gap:8px!important}}'
+    ].join('');
+    document.head.appendChild(st);
+  }
+  function boot() {
+    fix();
+    [300, 900, 2000, 3500].forEach(function (ms) { setTimeout(fix, ms); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
+})();
