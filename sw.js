@@ -1,11 +1,13 @@
 /* LOL 攻略站 Service Worker
-   目的：讓「更新後卻看到舊版」不再發生。
-   - 頁面（HTML）：網路優先 → 永遠拿最新，離線才用快取
-   - 有 ?v= 版號的資源：內容雜湊保證內容不變 → 快取優先（開站更快）
-   注意：不主動干預其他請求，避免造成新的快取問題。 */
-const CACHE = 'lol-guide-v2';
+   模式：保留快取機制，但「不自動更新」。
+   - 頁面（HTML）：快取優先 → 固定使用你載入的版本，不會自己抓新版
+   - 有 ?v= 版號的資源：快取優先（內容雜湊保證不變）
+   - 只有當這個 SW 的 CACHE 版本被主動提升時，才會清舊快取並換成新版
+   - 絕不快取失敗的回應（res.ok 檢查） */
+const CACHE = 'lol-guide-v3';
 
 self.addEventListener('install', () => self.skipWaiting());
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
@@ -19,35 +21,28 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET') return;
   let url;
   try { url = new URL(req.url); } catch (e) { return; }
-  if (url.origin !== self.location.origin) return;          // 外部資源不介入
+  if (url.origin !== self.location.origin) return;
 
-  const accept = req.headers.get('accept') || '';
-  const isDocument = req.mode === 'navigate' || accept.indexOf('text/html') >= 0;
+  const isDocument = req.mode === 'navigate' || (req.headers.get('accept') || '').indexOf('text/html') >= 0;
 
-  if (isDocument) {
-    // HTML：網路優先（必要時略過 HTTP 快取），成功就順手更新離線副本
-    event.respondWith(
-      fetch(req, { cache: 'no-cache' })
-        .then((res) => {
-          if (!res || !res.ok) return res;
+  function fromCacheFirst(fallbackToIndex) {
+    return caches.match(req).then((hit) => {
+      if (hit) return hit;                                    // 有快取就用，不連網（＝不自動更新）
+      return fetch(req).then((res) => {
+        if (res && res.ok) {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-          return res;
-        })
-        .catch(() => caches.match(req).then((hit) => hit || caches.match('index.html')))
-    );
-    return;
+        }
+        return res;
+      }).catch(() => fallbackToIndex ? caches.match('index.html') : undefined);
+    });
   }
 
+  if (isDocument) {
+    event.respondWith(fromCacheFirst(true));
+    return;
+  }
   if (url.searchParams.has('v')) {
-    // 有版號的資源：先快取，沒有才連網（並存起來）
-    event.respondWith(
-      caches.match(req).then((hit) => hit || fetch(req).then((res) => {
-        if (!res || !res.ok) return res;
-        const copy = res.clone();
-        caches.open(CACHE).then((c) => c.put(req, copy)).catch(() => {});
-        return res;
-      }))
-    );
+    event.respondWith(fromCacheFirst(false));
   }
 });
