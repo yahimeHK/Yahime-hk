@@ -62,6 +62,14 @@ HTML = '''<!DOCTYPE html>
                         <input type="number" id="bdGold" min="0" step="50" value="3000" inputmode="numeric">
                         <span>金幣</span>
                     </label>
+                    <span class="bd-quick">
+                        <button type="button" data-gold="-500">−500</button>
+                        <button type="button" data-gold="+500">＋500</button>
+                        <button type="button" data-gold="1000">1000</button>
+                        <button type="button" data-gold="3000">3000</button>
+                        <button type="button" data-gold="5000">5000</button>
+                        <button type="button" data-gold="0" title="歸零">✕</button>
+                    </span>
                     <input type="search" id="bdSearch" placeholder="搜尋裝備名稱或類型" autocomplete="off">
                 </div>
                 <p class="bd-count" id="bdCount">載入中…</p>
@@ -110,6 +118,14 @@ CSS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
   background: #0e1720; border: 1px solid #2b3a45; border-radius: 8px; text-align: right; }
 #bdSearch { flex: 1 1 200px; padding: 11px 14px; color: #e8e4d9; background: #080e14;
   border: 1px solid #2b3a45; border-radius: 10px; }
+
+.bd-quick { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.bd-quick button { padding: 8px 12px; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer;
+  color: #cfe7f0; background: linear-gradient(180deg,#16232d,#0e1720); border: 1px solid #2b3a45;
+  border-radius: 999px; transition: border-color .16s ease, color .16s ease, transform .16s ease; }
+.bd-quick button:hover { color: #fff; border-color: #00d9ff; transform: translateY(-1px); }
+.bd-quick button:active { transform: translateY(0); }
+@media (max-width: 560px) { .bd-quick { width: 100%; } .bd-quick button { flex: 1 1 auto; padding: 8px 6px; font-size: 12.5px; } }
 .bd-count { margin: 4px 0 12px; font-size: 12.5px; color: #8e9aa4; }
 .bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(216px, 1fr)); gap: 10px; }
 .bd-item { display: flex; gap: 10px; align-items: center; padding: 10px; text-align: left; font: inherit;
@@ -201,10 +217,46 @@ JS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
   function num(v) { var n = parseInt(v, 10); return isNaN(n) || n < 0 ? 0 : n; }
 
 
+
+  /* ---------------- 金幣輸入：快捷、常用金額、記住上次 ---------------- */
+  function goldSet(v) {
+    var el = $('bdGold');
+    if (!el) return;
+    el.value = String(Math.max(0, v));
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  function goldQuick() {
+    var wrap = document.querySelector('.bd-quick');
+    if (wrap) {
+      wrap.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('[data-gold]') : null;
+        if (!b) return;
+        var op = b.getAttribute('data-gold');
+        var cur = parseInt($('bdGold').value, 10) || 0;
+        var val;
+        if (op.charAt(0) === '+') val = cur + (parseInt(op.slice(1), 10) || 0);
+        else if (op.charAt(0) === '-') val = cur - (parseInt(op.slice(1), 10) || 0);
+        else val = parseInt(op, 10) || 0;
+        goldSet(val);
+        sfx('ok');
+      });
+    }
+    var inp = $('bdGold');
+    if (!inp) return;
+    try {
+      var saved = localStorage.getItem('bdGold');
+      if (saved !== null && saved !== '') goldSet(parseInt(saved, 10) || 0);
+    } catch (e) {}
+    function remember() { try { localStorage.setItem('bdGold', inp.value); } catch (e) {} }
+    inp.addEventListener('change', remember);
+    inp.addEventListener('blur', remember);
+  }
+
   /* ---------------- 音效（WebAudio，無需音檔；預設關閉） ---------------- */
   var soundOn = false;
   try { soundOn = localStorage.getItem('bdSound') === '1'; } catch (e) {}
   var ac = null;
+  function sfx(kind) { beep(kind); }
   function beep(kind) {
     if (!soundOn) return;
     try {
@@ -368,7 +420,7 @@ JS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!$('bdGrid')) return;
-    renderGrid(); renderCart(); soundBtn();
+    renderGrid(); renderCart(); soundBtn(); goldQuick();
     $('bdSearch').addEventListener('input', renderGrid);
     $('bdGold').addEventListener('input', renderCart);
     $('bdGrid').addEventListener('click', function (e) {

@@ -11,10 +11,46 @@
   function num(v) { var n = parseInt(v, 10); return isNaN(n) || n < 0 ? 0 : n; }
 
 
+
+  /* ---------------- 金幣輸入：快捷、常用金額、記住上次 ---------------- */
+  function goldSet(v) {
+    var el = $('bdGold');
+    if (!el) return;
+    el.value = String(Math.max(0, v));
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+  function goldQuick() {
+    var wrap = document.querySelector('.bd-quick');
+    if (wrap) {
+      wrap.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('[data-gold]') : null;
+        if (!b) return;
+        var op = b.getAttribute('data-gold');
+        var cur = parseInt($('bdGold').value, 10) || 0;
+        var val;
+        if (op.charAt(0) === '+') val = cur + (parseInt(op.slice(1), 10) || 0);
+        else if (op.charAt(0) === '-') val = cur - (parseInt(op.slice(1), 10) || 0);
+        else val = parseInt(op, 10) || 0;
+        goldSet(val);
+        sfx('ok');
+      });
+    }
+    var inp = $('bdGold');
+    if (!inp) return;
+    try {
+      var saved = localStorage.getItem('bdGold');
+      if (saved !== null && saved !== '') goldSet(parseInt(saved, 10) || 0);
+    } catch (e) {}
+    function remember() { try { localStorage.setItem('bdGold', inp.value); } catch (e) {} }
+    inp.addEventListener('change', remember);
+    inp.addEventListener('blur', remember);
+  }
+
   /* ---------------- 音效（WebAudio，無需音檔；預設關閉） ---------------- */
   var soundOn = false;
   try { soundOn = localStorage.getItem('bdSound') === '1'; } catch (e) {}
   var ac = null;
+  function sfx(kind) { beep(kind); }
   function beep(kind) {
     if (!soundOn) return;
     try {
@@ -178,7 +214,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!$('bdGrid')) return;
-    renderGrid(); renderCart(); soundBtn();
+    renderGrid(); renderCart(); soundBtn(); goldQuick();
     $('bdSearch').addEventListener('input', renderGrid);
     $('bdGold').addEventListener('input', renderCart);
     $('bdGrid').addEventListener('click', function (e) {

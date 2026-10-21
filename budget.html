@@ -7,7 +7,7 @@
     <meta name="theme-color" content="#05080d">
     <title>LOL 攻略站 V6.0 - 裝備預算計算器</title>
     <link rel="stylesheet" href="style.css?v=edc69e60b9">
-    <link rel="stylesheet" href="budget.css?v=9237ba7b25">
+    <link rel="stylesheet" href="budget.css?v=d1af5417ea">
 </head>
 <body class="bg-items">
     <header class="topbar">
@@ -43,6 +43,14 @@
                         <input type="number" id="bdGold" min="0" step="50" value="3000" inputmode="numeric">
                         <span>金幣</span>
                     </label>
+                    <span class="bd-quick">
+                        <button type="button" data-gold="-500">−500</button>
+                        <button type="button" data-gold="+500">＋500</button>
+                        <button type="button" data-gold="1000">1000</button>
+                        <button type="button" data-gold="3000">3000</button>
+                        <button type="button" data-gold="5000">5000</button>
+                        <button type="button" data-gold="0" title="歸零">✕</button>
+                    </span>
                     <input type="search" id="bdSearch" placeholder="搜尋裝備名稱或類型" autocomplete="off">
                 </div>
                 <p class="bd-count" id="bdCount">載入中…</p>
@@ -77,6 +85,6 @@
     <script src="fx.js?v=2407dc9ef0" defer></script>
     <script src="i18n.js?v=58a68c6e5d" defer></script>
     <script src="state.js?v=51487b7398" defer></script>
-    <script src="budget.js?v=32507dd275" defer></script>
+    <script src="budget.js?v=326aca6008" defer></script>
 </body>
 </html>
