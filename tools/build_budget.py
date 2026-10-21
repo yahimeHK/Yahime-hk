@@ -74,6 +74,7 @@ HTML = '''<!DOCTYPE html>
                 <div class="bd-total">
                     <div><span>總額</span><b id="bdSpent">0</b></div>
                     <div><span>剩餘</span><b id="bdLeft">0</b></div>
+                    <div><span>裝備數量</span><b id="bdQty">0 件</b></div>
                 </div>
                 <p class="bd-reply" id="bdReply">輸入金幣後開始挑選裝備。</p>
                 <button type="button" class="bd-clear" id="bdClear">清空</button>
@@ -135,7 +136,8 @@ CSS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
 .bd-row .qty span { min-width: 18px; text-align: center; font-weight: 800; color: #fff; }
 .bd-row .del { color: #8e9aa4; background: none; border: 0; cursor: pointer; font-size: 14px; }
 .bd-total { display: flex; gap: 14px; margin: 14px 0 8px; }
-.bd-total div { flex: 1; padding: 10px; text-align: center; background: #0a1016; border: 1px solid #253540; border-radius: 10px; }
+.bd-total { flex-wrap: wrap; }
+.bd-total div { flex: 1 1 30%; min-width: 92px; padding: 10px; text-align: center; background: #0a1016; border: 1px solid #253540; border-radius: 10px; }
 .bd-total span { display: block; font-size: 11.5px; color: #8e9aa4; margin-bottom: 4px; }
 .bd-total b { font-size: 18px; color: #c8aa6e; }
 .bd-reply { margin: 0 0 12px; padding: 10px 12px; font-size: 12.5px; line-height: 1.6; border-radius: 10px;
@@ -179,6 +181,7 @@ JS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
     var comps = t.rows.filter(function (r) { return r.it.f && r.it.f.length; });
     if (comps.length) msgs.push('合成來源：' + comps.map(function (r) { return r.it.n + '（' + r.it.f.join('＋') + '）'; }).join('；'));
     if (t.slots >= 3 && t.slots <= 6) msgs.push('★ 已成形核心裝（' + t.slots + ' 件），可以直接參團。');
+    if (t.slots > 0) msgs.push('共 ' + t.slots + ' 件裝備。');
     el.className = 'bd-reply' + (cls ? ' ' + cls : '');
     el.innerHTML = msgs.join('<br>');
   }
@@ -188,6 +191,7 @@ JS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
     $('bdSlots').textContent = t.slots + '／6 格';
     $('bdSpent').textContent = t.spent;
     $('bdLeft').textContent = t.left;
+    if ($('bdQty')) $('bdQty').textContent = t.slots + ' 件';
     $('bdList').innerHTML = t.rows.map(function (r) {
       return '<div class="bd-row"><img src="' + esc(r.it.i) + '" alt=""><span class="nm" title="' + esc(r.it.n) +
         ' · ' + r.it.g + ' 金幣">' + esc(r.it.n) + '</span>' +

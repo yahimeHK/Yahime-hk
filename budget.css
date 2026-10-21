@@ -33,7 +33,8 @@
 .bd-row .qty span { min-width: 18px; text-align: center; font-weight: 800; color: #fff; }
 .bd-row .del { color: #8e9aa4; background: none; border: 0; cursor: pointer; font-size: 14px; }
 .bd-total { display: flex; gap: 14px; margin: 14px 0 8px; }
-.bd-total div { flex: 1; padding: 10px; text-align: center; background: #0a1016; border: 1px solid #253540; border-radius: 10px; }
+.bd-total { flex-wrap: wrap; }
+.bd-total div { flex: 1 1 30%; min-width: 92px; padding: 10px; text-align: center; background: #0a1016; border: 1px solid #253540; border-radius: 10px; }
 .bd-total span { display: block; font-size: 11.5px; color: #8e9aa4; margin-bottom: 4px; }
 .bd-total b { font-size: 18px; color: #c8aa6e; }
 .bd-reply { margin: 0 0 12px; padding: 10px 12px; font-size: 12.5px; line-height: 1.6; border-radius: 10px;

@@ -29,6 +29,7 @@
     var comps = t.rows.filter(function (r) { return r.it.f && r.it.f.length; });
     if (comps.length) msgs.push('合成來源：' + comps.map(function (r) { return r.it.n + '（' + r.it.f.join('＋') + '）'; }).join('；'));
     if (t.slots >= 3 && t.slots <= 6) msgs.push('★ 已成形核心裝（' + t.slots + ' 件），可以直接參團。');
+    if (t.slots > 0) msgs.push('共 ' + t.slots + ' 件裝備。');
     el.className = 'bd-reply' + (cls ? ' ' + cls : '');
     el.innerHTML = msgs.join('<br>');
   }
@@ -38,6 +39,7 @@
     $('bdSlots').textContent = t.slots + '／6 格';
     $('bdSpent').textContent = t.spent;
     $('bdLeft').textContent = t.left;
+    if ($('bdQty')) $('bdQty').textContent = t.slots + ' 件';
     $('bdList').innerHTML = t.rows.map(function (r) {
       return '<div class="bd-row"><img src="' + esc(r.it.i) + '" alt=""><span class="nm" title="' + esc(r.it.n) +
         ' · ' + r.it.g + ' 金幣">' + esc(r.it.n) + '</span>' +
