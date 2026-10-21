@@ -21,17 +21,43 @@
 
   function reply(t) {
     var el = $('bdReply');
-    if (!t.rows.length) { el.className = 'bd-reply'; el.textContent = '輸入金幣後開始挑選裝備。'; return; }
-    var msgs = [], cls = '';
-    if (t.slots > 6) { msgs.push('⚠ 裝備欄只有 6 格，你已選 ' + t.slots + ' 件，請減少數量。'); cls = 'warn'; }
-    if (t.left < 0) { msgs.push('✗ 金幣不足，還差 ' + (-t.left) + ' 金幣。'); cls = 'warn'; }
-    else if (t.left >= 0 && t.slots <= 6) { msgs.push('✓ 可以買！買完還會剩 ' + t.left + ' 金幣。'); cls = 'ok'; }
+    if (!el) return;
+    if (!t.rows.length) {
+      el.className = 'bd-reply idle';
+      el.innerHTML = '<span class="ico">🛒</span><span class="body">' +
+        '<div class="main">開始挑選裝備</div>' +
+        '<div class="sub">輸入你有多少金幣，再點左邊的裝備加入清單。</div></span>';
+      return;
+    }
+    var cls = 'ok', ico = '✓', main = '', num = '', sub = [];
+    var pct = Math.max(0, Math.min(100, t.budget > 0 ? (t.spent / t.budget * 100) : 100));
+
+    if (t.slots > 6) {
+      cls = 'warn'; ico = '⚠';
+      main = '裝備欄超過 6 格';
+      num = t.slots + ' 件';
+      sub.push('已選 ' + t.slots + ' 件，請減少數量（上限 6 件）。');
+    } else if (t.left < 0) {
+      cls = 'warn'; ico = '✗';
+      main = '金幣不足';
+      num = '還差 ' + (-t.left);
+      sub.push('買這 ' + t.slots + ' 件裝備還差 ' + (-t.left) + ' 金幣。');
+    } else {
+      main = '可以買！';
+      num = '剩 ' + t.left;
+      sub.push('總額 ' + t.spent + ' 金幣 · 共 ' + t.slots + ' 件裝備' +
+               (t.slots <= 6 ? '（' + t.slots + '／6 格）' : ''));
+    }
     var comps = t.rows.filter(function (r) { return r.it.f && r.it.f.length; });
-    if (comps.length) msgs.push('合成來源：' + comps.map(function (r) { return r.it.n + '（' + r.it.f.join('＋') + '）'; }).join('；'));
-    if (t.slots >= 3 && t.slots <= 6) msgs.push('★ 已成形核心裝（' + t.slots + ' 件），可以直接參團。');
-    if (t.slots > 0) msgs.push('共 ' + t.slots + ' 件裝備。');
-    el.className = 'bd-reply' + (cls ? ' ' + cls : '');
-    el.innerHTML = msgs.join('<br>');
+    if (comps.length) sub.push('合成來源：' + comps.map(function (r) {
+      return r.it.n + '（' + r.it.f.join('＋') + '）'; }).join('；'));
+    if (t.slots >= 3 && t.slots <= 6) sub.push('★ 已成形核心裝，可以直接參團。');
+
+    el.className = 'bd-reply ' + cls;
+    el.innerHTML = '<span class="ico">' + ico + '</span>' +
+      '<span class="body"><div class="main">' + esc(main) + '　<span class="num">' + esc(num) + '</span></div>' +
+      '<div class="sub">' + sub.map(esc).join('<br>') + '</div>' +
+      '<div class="bd-bar"><span style="width:' + pct.toFixed(1) + '%"></span></div></span>';
   }
 
   function renderCart() {

@@ -76,7 +76,7 @@ HTML = '''<!DOCTYPE html>
                     <div><span>剩餘</span><b id="bdLeft">0</b></div>
                     <div><span>裝備數量</span><b id="bdQty">0 件</b></div>
                 </div>
-                <p class="bd-reply" id="bdReply">輸入金幣後開始挑選裝備。</p>
+                <div class="bd-reply idle" id="bdReply"></div>
                 <button type="button" class="bd-clear" id="bdClear">清空</button>
             </aside>
         </div>
@@ -140,10 +140,33 @@ CSS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
 .bd-total div { flex: 1 1 30%; min-width: 92px; padding: 10px; text-align: center; background: #0a1016; border: 1px solid #253540; border-radius: 10px; }
 .bd-total span { display: block; font-size: 11.5px; color: #8e9aa4; margin-bottom: 4px; }
 .bd-total b { font-size: 18px; color: #c8aa6e; }
-.bd-reply { margin: 0 0 12px; padding: 10px 12px; font-size: 12.5px; line-height: 1.6; border-radius: 10px;
-  background: rgba(0,217,255,.07); border-left: 3px solid #00d9ff; color: #cfe7f0; }
-.bd-reply.ok { background: rgba(80,200,120,.09); border-left-color: #4ade80; color: #c8f5d5; }
-.bd-reply.warn { background: rgba(220,80,80,.10); border-left-color: #f87171; color: #ffd0d0; }
+/* 回應：做大做明顯 */
+.bd-reply { margin: 0 0 12px; padding: 16px; border-radius: 14px; border-left: 6px solid #00d9ff;
+  background: rgba(0,217,255,.08); color: #dff3fb; font-size: 14px; line-height: 1.65;
+  display: flex; gap: 14px; align-items: center; }
+.bd-reply .ico { flex: 0 0 auto; width: 46px; height: 46px; display: grid; place-items: center;
+  font-size: 26px; border-radius: 50%; background: rgba(0,217,255,.14); }
+.bd-reply .body { flex: 1 1 auto; min-width: 0; }
+.bd-reply .main { font-size: 17px; font-weight: 900; letter-spacing: .3px; }
+.bd-reply .sub { font-size: 12.5px; font-weight: 600; opacity: .85; margin-top: 4px; }
+.bd-reply .num { font-size: 26px; font-weight: 900; line-height: 1; }
+.bd-reply.ok { border-left-color: #4ade80; background: linear-gradient(180deg,rgba(74,222,128,.16),rgba(74,222,128,.06));
+  color: #d6ffe4; box-shadow: 0 0 24px -10px rgba(74,222,128,.9); animation: bdPop .35s ease; }
+.bd-reply.ok .ico { background: rgba(74,222,128,.22); }
+.bd-reply.warn { border-left-color: #f87171; background: linear-gradient(180deg,rgba(248,113,113,.18),rgba(248,113,113,.06));
+  color: #ffdede; box-shadow: 0 0 24px -10px rgba(248,113,113,.9); animation: bdShake .4s ease; }
+.bd-reply.warn .ico { background: rgba(248,113,113,.24); }
+.bd-reply.idle { border-left-color: #62707a; background: rgba(98,112,122,.10); color: #b9c4cb; }
+.bd-reply.idle .ico { background: rgba(98,112,122,.18); }
+.bd-bar { height: 10px; margin-top: 10px; background: #0a1016; border: 1px solid #253540;
+  border-radius: 999px; overflow: hidden; }
+.bd-bar span { display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg,#4ade80,#00d9ff); transition: width .25s ease; }
+.bd-reply.warn .bd-bar span { background: linear-gradient(90deg,#f87171,#fb923c); }
+@keyframes bdPop { 0% { transform: scale(.97); } 60% { transform: scale(1.01); } 100% { transform: scale(1); } }
+@keyframes bdShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); } 75% { transform: translateX(-2px); } }
+@media (prefers-reduced-motion: reduce) { .bd-reply.ok, .bd-reply.warn { animation: none; } }
 .bd-clear { width: 100%; padding: 9px; font-size: 13px; color: #9da9b2; background: #111d26;
   border: 1px solid #2b3a45; border-radius: 9px; cursor: pointer; }
 @media (max-width: 900px) { .bd-layout { grid-template-columns: 1fr; } .bd-cart { position: static; } }
@@ -173,17 +196,43 @@ JS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
 
   function reply(t) {
     var el = $('bdReply');
-    if (!t.rows.length) { el.className = 'bd-reply'; el.textContent = '輸入金幣後開始挑選裝備。'; return; }
-    var msgs = [], cls = '';
-    if (t.slots > 6) { msgs.push('⚠ 裝備欄只有 6 格，你已選 ' + t.slots + ' 件，請減少數量。'); cls = 'warn'; }
-    if (t.left < 0) { msgs.push('✗ 金幣不足，還差 ' + (-t.left) + ' 金幣。'); cls = 'warn'; }
-    else if (t.left >= 0 && t.slots <= 6) { msgs.push('✓ 可以買！買完還會剩 ' + t.left + ' 金幣。'); cls = 'ok'; }
+    if (!el) return;
+    if (!t.rows.length) {
+      el.className = 'bd-reply idle';
+      el.innerHTML = '<span class="ico">🛒</span><span class="body">' +
+        '<div class="main">開始挑選裝備</div>' +
+        '<div class="sub">輸入你有多少金幣，再點左邊的裝備加入清單。</div></span>';
+      return;
+    }
+    var cls = 'ok', ico = '✓', main = '', num = '', sub = [];
+    var pct = Math.max(0, Math.min(100, t.budget > 0 ? (t.spent / t.budget * 100) : 100));
+
+    if (t.slots > 6) {
+      cls = 'warn'; ico = '⚠';
+      main = '裝備欄超過 6 格';
+      num = t.slots + ' 件';
+      sub.push('已選 ' + t.slots + ' 件，請減少數量（上限 6 件）。');
+    } else if (t.left < 0) {
+      cls = 'warn'; ico = '✗';
+      main = '金幣不足';
+      num = '還差 ' + (-t.left);
+      sub.push('買這 ' + t.slots + ' 件裝備還差 ' + (-t.left) + ' 金幣。');
+    } else {
+      main = '可以買！';
+      num = '剩 ' + t.left;
+      sub.push('總額 ' + t.spent + ' 金幣 · 共 ' + t.slots + ' 件裝備' +
+               (t.slots <= 6 ? '（' + t.slots + '／6 格）' : ''));
+    }
     var comps = t.rows.filter(function (r) { return r.it.f && r.it.f.length; });
-    if (comps.length) msgs.push('合成來源：' + comps.map(function (r) { return r.it.n + '（' + r.it.f.join('＋') + '）'; }).join('；'));
-    if (t.slots >= 3 && t.slots <= 6) msgs.push('★ 已成形核心裝（' + t.slots + ' 件），可以直接參團。');
-    if (t.slots > 0) msgs.push('共 ' + t.slots + ' 件裝備。');
-    el.className = 'bd-reply' + (cls ? ' ' + cls : '');
-    el.innerHTML = msgs.join('<br>');
+    if (comps.length) sub.push('合成來源：' + comps.map(function (r) {
+      return r.it.n + '（' + r.it.f.join('＋') + '）'; }).join('；'));
+    if (t.slots >= 3 && t.slots <= 6) sub.push('★ 已成形核心裝，可以直接參團。');
+
+    el.className = 'bd-reply ' + cls;
+    el.innerHTML = '<span class="ico">' + ico + '</span>' +
+      '<span class="body"><div class="main">' + esc(main) + '　<span class="num">' + esc(num) + '</span></div>' +
+      '<div class="sub">' + sub.map(esc).join('<br>') + '</div>' +
+      '<div class="bd-bar"><span style="width:' + pct.toFixed(1) + '%"></span></div></span>';
   }
 
   function renderCart() {
