@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="color-scheme" content="dark light">
+    <meta name="theme-color" content="#05080d">
+    <title>LOL 攻略站 V6.0 - 裝備預算計算器</title>
+    <link rel="stylesheet" href="style.css?v=edc69e60b9">
+    <link rel="stylesheet" href="budget.css?v=05e18cbd13">
+</head>
+<body class="bg-items">
+    <header class="topbar">
+        <div class="brand">SUMMONER'S <span>GUIDE</span><b>V6.0</b></div>
+        <nav>
+            <a href="index.html">首頁</a>
+            <a href="guide.html">英雄攻略</a>
+            <a href="guides.html">裝備合成</a>
+            <a href="budget.html" style="color:#00d9ff;font-weight:800">裝備預算</a>
+        </nav>
+        <button class="icon-btn" id="themeBtn">☀️</button>
+    </header>
+
+    <main class="items-wrap">
+        <section class="items-hero">
+            <small>BUILD BUDGET &middot; PATCH 16.20.1</small>
+            <h1>裝備預算 <em>計算器</em></h1>
+            <p>輸入你現在的金幣、挑選想買的裝備與數量，立即算出總額、剩餘金幣與 6 格使用量，
+               並依情況告訴你可不可以買、還差多少、或是否已成形核心裝。</p>
+            <div class="items-hero__pills">
+                <span>220 件裝備</span>
+                <span>即時計算</span>
+                <span>數量 1–6</span>
+                <span>純前端、離線可用</span>
+            </div>
+        </section>
+
+        <div class="bd-layout">
+            <section class="bd-pick">
+                <div class="bd-toolbar">
+                    <label class="bd-budget">
+                        <span>我現在有</span>
+                        <input type="number" id="bdGold" min="0" step="50" value="3000" inputmode="numeric">
+                        <span>金幣</span>
+                    </label>
+                    <input type="search" id="bdSearch" placeholder="搜尋裝備名稱或類型" autocomplete="off">
+                </div>
+                <p class="bd-count" id="bdCount">載入中…</p>
+                <div class="bd-grid" id="bdGrid"></div>
+            </section>
+
+            <aside class="bd-cart">
+                <h2>已選裝備 <em id="bdSlots">0／6 格</em></h2>
+                <div id="bdList" class="bd-list"></div>
+                <div class="bd-total">
+                    <div><span>總額</span><b id="bdSpent">0</b></div>
+                    <div><span>剩餘</span><b id="bdLeft">0</b></div>
+                </div>
+                <p class="bd-reply" id="bdReply">輸入金幣後開始挑選裝備。</p>
+                <button type="button" class="bd-clear" id="bdClear">清空</button>
+            </aside>
+        </div>
+
+        <div class="notice">
+            📌 <b>說明：</b> 本頁為<b>遊戲內金幣</b>的買裝試算工具，純瀏覽器端計算，不涉及任何真實交易。
+            裝備資料取自 Riot 官方 Data Dragon <b>16.20.1</b>（已下載到本機）。
+        </div>
+    </main>
+
+    <footer>
+        <div>&copy; 2026 LOL 攻略站。LOL 攻略站是在 Riot Games 的「法律通則」方針下利用該公司擁有的資產所製作。Riot Games 不為此專案提供背書或贊助。</div>
+        <div>資料基於 Patch 16.20.1（Riot 官方 Data Dragon）· 僅供遊戲參考 · 非官方粉絲網站</div>
+    </footer>
+
+    <script src="nav.js?v=197d732dbc" defer></script>
+    <script src="fx.js?v=2407dc9ef0" defer></script>
+    <script src="i18n.js?v=6a0ca1184e" defer></script>
+    <script src="state.js?v=51487b7398" defer></script>
+    <script src="budget.js?v=7ec8d7d79d" defer></script>
+</body>
+</html>

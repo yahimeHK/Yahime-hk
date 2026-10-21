@@ -106,7 +106,7 @@
 
   // 3) 重建分類列（保留「分類資料庫」標題），主選單置前
     // 依指定順序排列（1 英雄攻略 2 裝備攻略 3 裝備合成 4 符文 5 核心裝備 6 戰術解析 7 地圖 8 角色造型 9 美術圖）
-  var ORDER = ['guide.html','champions.html','items.html','guides.html','runes.html','gear.html','tactics.html','maps.html','skins.html','gallery.html'];
+  var ORDER = ['guide.html','champions.html','items.html','guides.html','budget.html','runes.html','gear.html','tactics.html','maps.html','skins.html','gallery.html'];
   items.sort(function (x, y) {
     var ix = ORDER.indexOf(x.href.toLowerCase()), iy = ORDER.indexOf(y.href.toLowerCase());
     if (ix < 0) ix = 99; if (iy < 0) iy = 99;
