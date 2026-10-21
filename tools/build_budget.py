@@ -71,6 +71,13 @@ HTML = '''<!DOCTYPE html>
                         <button type="button" data-gold="0" title="歸零">✕</button>
                     </span>
                     <input type="search" id="bdSearch" placeholder="搜尋裝備名稱或類型" autocomplete="off">
+                    <select id="bdType" aria-label="依類型篩選"></select>
+                    <select id="bdSort" aria-label="排序">
+                        <option value="price-asc">價格：低到高</option>
+                        <option value="price-desc">價格：高到低</option>
+                        <option value="name">名稱</option>
+                    </select>
+                    <label class="bd-afford"><input type="checkbox" id="bdAfford"> 只顯示買得起</label>
                 </div>
                 <p class="bd-count" id="bdCount">載入中…</p>
                 <div class="bd-grid" id="bdGrid"></div>
@@ -126,6 +133,17 @@ CSS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
 .bd-quick button:hover { color: #fff; border-color: #00d9ff; transform: translateY(-1px); }
 .bd-quick button:active { transform: translateY(0); }
 @media (max-width: 560px) { .bd-quick { width: 100%; } .bd-quick button { flex: 1 1 auto; padding: 8px 6px; font-size: 12.5px; } }
+
+.bd-toolbar select { padding: 11px 12px; color: #e8e4d9; background: #080e14; border: 1px solid #2b3a45; border-radius: 10px; }
+.bd-afford { display: inline-flex; align-items: center; gap: 6px; padding: 9px 12px; font-size: 12.5px; font-weight: 700;
+  color: #c9d6dd; background: #080e14; border: 1px solid #2b3a45; border-radius: 10px; cursor: pointer; user-select: none; }
+.bd-afford input { accent-color: #00d9ff; width: 15px; height: 15px; }
+.bd-afford:has(input:checked) { color: #9dffbf; border-color: rgba(74,222,128,.6); }
+.bd-item { position: relative; }
+.bd-item .have { position: absolute; top: 6px; right: 6px; min-width: 20px; height: 20px; padding: 0 5px;
+  display: grid; place-items: center; font-size: 11px; font-weight: 900; color: #071016;
+  background: linear-gradient(180deg,#d8bd80,#c8aa6e); border-radius: 999px; }
+.bd-item.in-cart { border-color: rgba(200,170,110,.7); box-shadow: inset 0 0 0 1px rgba(200,170,110,.28); }
 .bd-count { margin: 4px 0 12px; font-size: 12.5px; color: #8e9aa4; }
 .bd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(216px, 1fr)); gap: 10px; }
 .bd-item { display: flex; gap: 10px; align-items: center; padding: 10px; text-align: left; font: inherit;
@@ -399,30 +417,70 @@ JS = '''/* 裝備預算計算器（由 tools/build_budget.py 產生） */
     reply(t);
   }
 
+  function currentTotals() {
+    var spent = 0;
+    Object.keys(cart).forEach(function (id) { if (byId[id]) spent += byId[id].g * cart[id]; });
+    return { spent: spent, left: num($('bdGold').value) - spent };
+  }
+
   function renderGrid() {
     var q = ($('bdSearch').value || '').toLowerCase().trim();
+    var type = $('bdType') ? $('bdType').value : 'all';
+    var sort = $('bdSort') ? $('bdSort').value : 'price-asc';
+    var affordOnly = $('bdAfford') && $('bdAfford').checked;
+    var left = currentTotals().left;
+
     var list = ITEMS.filter(function (it) {
-      return !q || (it.n + ' ' + it.en + ' ' + it.t.join(' ') + ' ' + it.d).toLowerCase().indexOf(q) >= 0;
-    }).sort(function (a, b) { return a.g - b.g; });
-    $('bdCount').textContent = '顯示 ' + list.length + ' 件裝備（共 ' + ITEMS.length + ' 件）' + (q ? '（關鍵字：' + q + '）' : '');
+      var okQ = !q || (it.n + ' ' + it.en + ' ' + it.t.join(' ') + ' ' + it.d).toLowerCase().indexOf(q) >= 0;
+      var okT = type === 'all' || (it.t || []).indexOf(type) >= 0;
+      var okA = !affordOnly || (it.g <= left && (cart[it.id] || 0) < 6);
+      return okQ && okT && okA;
+    });
+    if (sort === 'price-desc') list = list.slice().sort(function (a, b) { return b.g - a.g; });
+    else if (sort === 'name') list = list.slice().sort(function (a, b) { return a.n.localeCompare(b.n); });
+    else list = list.slice().sort(function (a, b) { return a.g - b.g; });
+
+    var info = '顯示 ' + list.length + ' 件裝備（共 ' + ITEMS.length + ' 件）';
+    if (type !== 'all') info += '｜類型：' + type;
+    if (affordOnly) info += '｜只顯示買得起（剩 ' + left + '）';
+    if (q) info += '｜關鍵字：' + q;
+    $('bdCount').textContent = info;
+
     $('bdGrid').innerHTML = list.map(function (it) {
-      return '<button type="button" class="bd-item" data-add="' + it.id + '"><img src="' + esc(it.i) +
-        '" alt="" loading="lazy"><span><b>' + esc(it.n) + '</b><span class="g">' + it.g +
+      var have = cart[it.id] || 0;
+      return '<button type="button" class="bd-item' + (have ? ' in-cart' : '') + '" data-add="' + it.id + '">' +
+        (have ? '<span class="have">' + have + '</span>' : '') +
+        '<img src="' + esc(it.i) + '" alt="" loading="lazy">' +
+        '<span><b>' + esc(it.n) + '</b><span class="g">' + it.g +
         ' 金幣</span><small>' + esc((it.t || []).join('、')) + '</small></span></button>';
     }).join('');
+  }
+
+  function initFilters() {
+    var sel = $('bdType');
+    if (sel) {
+      var types = {};
+      ITEMS.forEach(function (it) { (it.t || []).forEach(function (t) { types[t] = (types[t] || 0) + 1; }); });
+      var keys = Object.keys(types).sort(function (a, b) { return types[b] - types[a]; });
+      sel.innerHTML = '<option value="all">全部類型（' + keys.length + '）</option>' +
+        keys.map(function (k) { return '<option value="' + esc(k) + '">' + esc(k) + '（' + types[k] + '）</option>'; }).join('');
+      sel.addEventListener('change', renderGrid);
+    }
+    if ($('bdSort')) $('bdSort').addEventListener('change', renderGrid);
+    if ($('bdAfford')) $('bdAfford').addEventListener('change', renderGrid);
   }
 
   function add(id) {
     if (!byId[id]) return;
     cart[id] = Math.min(6, (cart[id] || 0) + 1);
-    renderCart();
+    renderGrid(); renderCart();
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!$('bdGrid')) return;
-    renderGrid(); renderCart(); soundBtn(); goldQuick();
+    initFilters(); renderGrid(); renderCart(); soundBtn(); goldQuick();
     $('bdSearch').addEventListener('input', renderGrid);
-    $('bdGold').addEventListener('input', renderCart);
+    $('bdGold').addEventListener('input', function () { renderGrid(); renderCart(); });
     $('bdGrid').addEventListener('click', function (e) {
       var b = e.target.closest ? e.target.closest('[data-add]') : null;
       if (b) add(b.getAttribute('data-add'));
