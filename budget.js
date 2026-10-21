@@ -10,6 +10,71 @@
     return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function num(v) { var n = parseInt(v, 10); return isNaN(n) || n < 0 ? 0 : n; }
 
+
+  /* ---------------- 音效（WebAudio，無需音檔；預設關閉） ---------------- */
+  var soundOn = false;
+  try { soundOn = localStorage.getItem('bdSound') === '1'; } catch (e) {}
+  var ac = null;
+  function beep(kind) {
+    if (!soundOn) return;
+    try {
+      ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      var t0 = ac.currentTime;
+      var tones = kind === 'ok' ? [[660, 0], [880, 0.09]] : [[220, 0], [180, 0.12]];
+      tones.forEach(function (tt) {
+        var o = ac.createOscillator(), g = ac.createGain();
+        o.type = kind === 'ok' ? 'sine' : 'square';
+        o.frequency.value = tt[0];
+        g.gain.setValueAtTime(0.0001, t0 + tt[1]);
+        g.gain.exponentialRampToValueAtTime(kind === 'ok' ? 0.12 : 0.09, t0 + tt[1] + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t0 + tt[1] + 0.14);
+        o.connect(g); g.connect(ac.destination);
+        o.start(t0 + tt[1]); o.stop(t0 + tt[1] + 0.16);
+      });
+    } catch (e) {}
+  }
+  function soundBtn() {
+    var h2 = document.querySelector('.bd-cart h2');
+    if (!h2 || document.getElementById('bdSound')) return;
+    var b = document.createElement('button');
+    b.id = 'bdSound'; b.type = 'button';
+    b.className = 'bd-sound' + (soundOn ? ' on' : '');
+    b.textContent = soundOn ? '🔊 音效開' : '🔇 音效關';
+    b.title = '點擊切換音效（預設關閉）';
+    b.addEventListener('click', function () {
+      soundOn = !soundOn;
+      try { localStorage.setItem('bdSound', soundOn ? '1' : '0'); } catch (e) {}
+      b.className = 'bd-sound' + (soundOn ? ' on' : '');
+      b.textContent = soundOn ? '🔊 音效開' : '🔇 音效關';
+      if (soundOn) beep('ok');
+    });
+    h2.appendChild(b);
+  }
+
+  /* ---------------- 替代建議：先買哪些、哪些先不要買 ---------------- */
+  function suggest(t) {
+    if (t.left >= 0) return '';
+    var rows = t.rows.map(function (r) { return { n: r.it.n, unit: r.it.g, q: r.qty, total: r.it.g * r.qty }; })
+      .sort(function (a, b) { return a.unit - b.unit; });
+    var keep = [], drop = [], sum = 0;
+    rows.forEach(function (r) {
+      if (sum + r.unit <= t.budget) { keep.push(r); sum += r.unit; }
+      else { drop.push(r); }
+    });
+    var html = '<div class="bd-suggest"><b>替代建議</b><br>';
+    if (keep.length) {
+      html += '<span class="keep">✓ 先買這些（共 ' + keep.length + ' 件，' + sum + ' 金幣）：</span>' +
+        keep.map(function (r) { return r.n + '（' + r.unit + '）'; }).join('、') + '<br>';
+    } else {
+      html += '<span class="drop">✗ 目前金幣買不到任何一件，建議先賺金幣或多打幾波兵。</span><br>';
+    }
+    if (drop.length) {
+      html += '<span class="drop">✗ 先不要買：</span>' +
+        drop.map(function (r) { return r.n + '（' + r.unit + '，缺 ' + Math.max(0, r.unit - (t.budget - sum)) + '）'; }).join('、');
+    }
+    return html + '</div>';
+  }
+
   function cartRows() { return Object.keys(cart).map(function (id) { return { it: byId[id], qty: cart[id] }; })
     .filter(function (r) { return r.it && r.qty > 0; }); }
 
@@ -19,9 +84,13 @@
     return { rows: rows, spent: spent, slots: slots, budget: num($('bdGold').value), left: num($('bdGold').value) - spent };
   }
 
+  var lastCls = '';
+
   function reply(t) {
     var el = $('bdReply');
     if (!el) return;
+    var oldSug = el.parentNode.querySelector('.bd-suggest');
+    if (oldSug) oldSug.remove();
     if (!t.rows.length) {
       el.className = 'bd-reply idle';
       el.innerHTML = '<span class="ico">🛒</span><span class="body">' +
@@ -58,6 +127,18 @@
       '<span class="body"><div class="main">' + esc(main) + '　<span class="num">' + esc(num) + '</span></div>' +
       '<div class="sub">' + sub.map(esc).join('<br>') + '</div>' +
       '<div class="bd-bar"><span style="width:' + pct.toFixed(1) + '%"></span></div></span>';
+
+    /* 購物車邊框光暈：可買＝綠、不足＝紅 */
+    var cartBox = document.querySelector('.bd-cart');
+    if (cartBox) {
+      cartBox.classList.toggle('is-ok', cls === 'ok');
+      cartBox.classList.toggle('is-warn', cls === 'warn');
+    }
+    /* 音效（預設關閉） */
+    if (cls !== lastCls) { beep(cls === 'ok' ? 'ok' : 'err'); lastCls = cls; }
+    /* 金幣不足 → 替代建議 */
+    var sug = suggest(t);
+    if (sug) el.insertAdjacentHTML('afterend', sug);
   }
 
   function renderCart() {
@@ -97,7 +178,7 @@
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!$('bdGrid')) return;
-    renderGrid(); renderCart();
+    renderGrid(); renderCart(); soundBtn();
     $('bdSearch').addEventListener('input', renderGrid);
     $('bdGold').addEventListener('input', renderCart);
     $('bdGrid').addEventListener('click', function (e) {
