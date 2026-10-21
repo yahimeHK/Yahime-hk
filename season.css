@@ -1,0 +1,43 @@
+/* 賽季進度計算器（由 tools/build_season.py 產生） */
+.sn-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; margin-top: 20px; align-items: start; }
+.sn-form { display: grid; gap: 12px; padding: 18px; background: linear-gradient(180deg,#101922,#0b1117);
+  border: 1px solid #253540; border-radius: 16px; }
+.sn-field label { display: block; margin-bottom: 6px; font-size: 12.5px; color: #9da9b2; }
+.sn-field input { width: 100%; padding: 11px 13px; font-size: 16px; font-weight: 800; color: #ffd98a;
+  background: #0a1016; border: 1px solid #2b3a45; border-radius: 10px; text-align: center; }
+.sn-field input:focus { outline: none; border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0,217,255,.12); }
+.sn-result { padding: 16px; background: linear-gradient(180deg,#101922,#0b1117);
+  border: 1px solid #253540; border-radius: 16px; position: sticky; top: 120px; }
+
+/* 回應（與裝備預算一致的顯眼樣式） */
+.bd-reply { margin: 0 0 12px; padding: 16px; border-radius: 14px; border-left: 6px solid #00d9ff;
+  background: rgba(0,217,255,.08); color: #dff3fb; font-size: 14px; line-height: 1.65;
+  display: flex; gap: 14px; align-items: center; }
+.bd-reply .ico { flex: 0 0 auto; width: 46px; height: 46px; display: grid; place-items: center;
+  font-size: 26px; border-radius: 50%; background: rgba(0,217,255,.14); }
+.bd-reply .body { flex: 1 1 auto; min-width: 0; }
+.bd-reply .main { font-size: 17px; font-weight: 900; }
+.bd-reply .sub { font-size: 12.5px; font-weight: 600; opacity: .85; margin-top: 4px; }
+.bd-reply .num { font-size: 26px; font-weight: 900; line-height: 1; }
+.bd-reply.ok { border-left-color: #4ade80; background: linear-gradient(180deg,rgba(74,222,128,.16),rgba(74,222,128,.06));
+  color: #d6ffe4; box-shadow: 0 0 24px -10px rgba(74,222,128,.9); animation: snPop .35s ease; }
+.bd-reply.ok .ico { background: rgba(74,222,128,.22); }
+.bd-reply.warn { border-left-color: #f87171; background: linear-gradient(180deg,rgba(248,113,113,.18),rgba(248,113,113,.06));
+  color: #ffdede; box-shadow: 0 0 24px -10px rgba(248,113,113,.9); animation: snShake .4s ease; }
+.bd-reply.warn .ico { background: rgba(248,113,113,.24); }
+.bd-reply.idle { border-left-color: #62707a; background: rgba(98,112,122,.10); color: #b9c4cb; }
+.bd-reply.idle .ico { background: rgba(98,112,122,.18); }
+.bd-bar { height: 10px; margin-top: 10px; background: #0a1016; border: 1px solid #253540; border-radius: 999px; overflow: hidden; }
+.bd-bar span { display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg,#4ade80,#00d9ff); transition: width .25s ease; }
+.bd-reply.warn .bd-bar span { background: linear-gradient(90deg,#f87171,#fb923c); }
+@keyframes snPop { 0% { transform: scale(.97); } 60% { transform: scale(1.01); } 100% { transform: scale(1); } }
+@keyframes snShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 50% { transform: translateX(4px); } 75% { transform: translateX(-2px); } }
+.sn-stats { display: flex; flex-wrap: wrap; gap: 10px; }
+.sn-stats div { flex: 1 1 30%; min-width: 92px; padding: 12px; text-align: center;
+  background: #0a1016; border: 1px solid #253540; border-radius: 10px; }
+.sn-stats span { display: block; font-size: 11.5px; color: #8e9aa4; margin-bottom: 5px; }
+.sn-stats b { font-size: 21px; color: #c8aa6e; }
+.sn-note { margin: 12px 0 0; font-size: 11.5px; line-height: 1.6; color: #6f7c86; }
+@media (max-width: 900px) { .sn-layout { grid-template-columns: 1fr; } .sn-result { position: static; } }
+@media (prefers-reduced-motion: reduce) { .bd-reply.ok, .bd-reply.warn { animation: none; } }
