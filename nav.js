@@ -266,3 +266,12 @@
   ].join('');
   document.head.appendChild(st);
 })();
+/* ================= 自動載入本機使用者檔案（profile.js） ================= */
+(function () {
+  if (window.__luLoaded) return;
+  window.__luLoaded = true;
+  var s = document.createElement('script');
+  s.src = 'profile.js';
+  s.defer = true;
+  document.head.appendChild(s);
+})();
